@@ -1,5 +1,7 @@
 package gui;
 
+import login.LoginMember;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,8 +10,9 @@ public class MainFrame extends JFrame {
 
 	Head head = new Head(this);
 	Body body = new Body(this);
-
 	MainFrame() {
+
+		LoginMember.setLoginMember(null);
 
 		setDesign();
 

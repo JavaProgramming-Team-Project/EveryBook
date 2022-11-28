@@ -131,6 +131,7 @@ public class BodyItem extends JPanel {
 		text_review.setFont(Fonts.f6);
 		text_review.setBorder(new LineBorder(Colors.gray_b));
 		text_review.setForeground(Colors.gray);
+		text_review.setLineWrap(true);
 
 		btn_write = new JLabel("작성");
 		btn_write.setSize(100,35);
