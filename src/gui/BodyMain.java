@@ -1,5 +1,7 @@
 package gui;
 
+import entity.Book;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -12,7 +14,6 @@ public class BodyMain extends JPanel {
     AdPanel ad[] = new AdPanel[5];
     BodyMain(Body body) {
         this.body = body;
-
         setDesign();
         addIcon();
         addBanner();
@@ -41,9 +42,9 @@ public class BodyMain extends JPanel {
     }
 
     void addBanner() {
-        ImageIcon img_src = Tools.resizeImage(new ImageIcon("src/img/banner.png"), 1280,300);
+        ImageIcon img_src = Tools.resizeImage(new ImageIcon("src/img/banner.png"), 1296,300);
         JLabel banner = new JLabel(img_src);
-        banner.setPreferredSize(new Dimension(1280,300));
+        banner.setPreferredSize(new Dimension(1296,300));
         add(banner);
     }
     void addAd() {
@@ -56,7 +57,7 @@ public class BodyMain extends JPanel {
 
 class AdPanel extends JPanel {
     AdPanel() {
-        setPreferredSize(new Dimension(300, 200));
+        setPreferredSize(new Dimension(150, 150));
         setBorder(new LineBorder(Colors.gray_b));
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         setBackground(Color.white);
