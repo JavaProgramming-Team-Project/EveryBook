@@ -19,7 +19,7 @@ public class BodyMain extends JPanel {
         addAd();
     }
     void setDesign() {
-        setPreferredSize(new Dimension(1080, 650));
+        setPreferredSize(new Dimension(1296, 650));
         //setBorder(new LineBorder(Colors.gray_b));
         setLayout(new FlowLayout(FlowLayout.CENTER, 30, 10));
         setBackground(Color.white);
@@ -41,14 +41,15 @@ public class BodyMain extends JPanel {
     }
 
     void addBanner() {
-        ImageIcon img_src = Tools.resizeImage(new ImageIcon("src/img/banner.png"), 1080,253);
+        ImageIcon img_src = Tools.resizeImage(new ImageIcon("src/img/banner.png"), 1280,300);
         JLabel banner = new JLabel(img_src);
-        banner.setPreferredSize(new Dimension(1080,253));
+        banner.setPreferredSize(new Dimension(1280,300));
         add(banner);
     }
     void addAd() {
         for (int i = 0; i < ad.length; i++) {
-            
+            ad[i] = new AdPanel();
+            add(ad[i]);
         }
     }
 }
