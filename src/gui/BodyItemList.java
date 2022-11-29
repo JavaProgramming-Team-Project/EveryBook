@@ -26,8 +26,7 @@ public class BodyItemList extends JPanel {
 	JLabel btn_page[] = new JLabel[5];
 
 	BodyItemList(Body body, int category, int page) {
-
-		System.out.println(LoginMember.getLoginMember().getMemberName());
+		
 		this.body = body;
 		this.category = category;
 		this.page = page;
