@@ -74,6 +74,7 @@ public class BodyItemList extends JPanel {
 		
 		itemList = ItemApi.itemListByCategory(str_category[category]);
 		itemPanel = new ItemPanel[itemList.size()];
+
 		JPanel items = new JPanel();
 		items.setPreferredSize(new Dimension(820,750));
 		items.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));

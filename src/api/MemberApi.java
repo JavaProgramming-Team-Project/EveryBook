@@ -115,6 +115,7 @@ public class MemberApi {
             throw new RuntimeException(e);
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "존재하지 않는 회원입니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+            throw new IllegalArgumentException(e);
         }
     }
 }
