@@ -47,7 +47,9 @@ public class BodyMain extends JPanel {
         add(banner);
     }
     void addAd() {
-
+        for (int i = 0; i < ad.length; i++) {
+            
+        }
     }
 }
 
