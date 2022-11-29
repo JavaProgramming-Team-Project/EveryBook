@@ -1,9 +1,14 @@
 package gui;
 
+import api.BookApi;
+import login.LoginMember;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BodyMyPage extends JPanel {
 	Body body;
@@ -12,6 +17,7 @@ public class BodyMyPage extends JPanel {
 	Book book[];
 
 	BodyMyPage(Body body, int member_key) {
+		System.out.println(LoginMember.getLoginMember().getMemberName());
 		this.body = body;
 		this.member_key = member_key;
 		book = new Book[5];
@@ -33,10 +39,10 @@ public class BodyMyPage extends JPanel {
 	}
 
 	void addProfile() {
-		String member_id = "jaypark9490";
-		String member_name = "박재정";
-		String member_phone = "010-3456-4567";
-		String member_age = "21";
+		String member_id = LoginMember.getLoginMember().getMemberId();
+		String member_name = LoginMember.getLoginMember().getMemberName();
+		String member_phone = LoginMember.getLoginMember().getMemberPhone();
+		String member_age = String.valueOf(LoginMember.getLoginMember().getMemberAge());
 
 		JPanel Profile = new JPanel();
 		Profile.setPreferredSize(new Dimension(520,300));
@@ -51,7 +57,7 @@ public class BodyMyPage extends JPanel {
 
 		JLabel profile = new JLabel("회원정보");
 		profile.setPreferredSize(new Dimension(440,42));
-		profile.setFont(Fonts.f1);
+		profile.setFont(Fonts.f7);
 		profile.setForeground(Colors.gray);
 		profile.setVerticalAlignment(JLabel.BOTTOM);
 		Profile.add(profile);
@@ -126,6 +132,9 @@ public class BodyMyPage extends JPanel {
 	}
 
 	void addIcon() {
+		List<entity.Book> bookList = new ArrayList<>();
+		bookList = BookApi.bookList(LoginMember.getLoginMember().getMemberKey());
+
 		JPanel Icon = new JPanel();
 		Icon.setPreferredSize(new Dimension(520,300));
 		Icon.setBorder(new LineBorder(Colors.gray_b));
@@ -146,7 +155,7 @@ public class BodyMyPage extends JPanel {
 		icon_point.setLocation(260+40,70);
 		Icon.add(icon_point);
 
-		JLabel book = new JLabel("<html><center>예약<br>5개");
+		JLabel book = new JLabel("<html><center>예약<br>"+bookList.size()+"개");
 		book.setSize(90,90);
 		book.setLocation(170-40, 150);
 		book.setFont(Fonts.f2);
@@ -179,7 +188,7 @@ public class BodyMyPage extends JPanel {
 
 		JLabel booklist = new JLabel("예약내역");
 		booklist.setPreferredSize(new Dimension(960,44));
-		booklist.setFont(Fonts.f1);
+		booklist.setFont(Fonts.f7);
 		booklist.setForeground(Colors.gray);
 		booklist.setVerticalAlignment(JLabel.BOTTOM);
 		list.add(booklist);
