@@ -26,8 +26,7 @@ public class BodyItemList extends JPanel {
 	JLabel btn_page[] = new JLabel[5];
 
 	BodyItemList(Body body, int category, int page) {
-
-		System.out.println(LoginMember.getLoginMember().getMemberName());
+		
 		this.body = body;
 		this.category = category;
 		this.page = page;
@@ -74,6 +73,7 @@ public class BodyItemList extends JPanel {
 		
 		itemList = ItemApi.itemListByCategory(str_category[category]);
 		itemPanel = new ItemPanel[itemList.size()];
+
 		JPanel items = new JPanel();
 		items.setPreferredSize(new Dimension(820,750));
 		items.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));

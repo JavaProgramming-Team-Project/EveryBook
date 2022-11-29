@@ -47,7 +47,7 @@ public class BodyItem extends JPanel {
 		item = ItemApi.findItemByKey(item_key);
 		item_picture = "https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do";
 		item_name = item.getItemName();
-//		item_star =
+		item_star = (int) item.getAvgRating();
 		item_price = item.getItemPrice();
 		item_body = item.getItemBody();
 		item_address = item.getItemAddress();

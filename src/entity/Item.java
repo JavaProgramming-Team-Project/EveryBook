@@ -10,9 +10,10 @@ public class Item {
     private String itemCategory;
     private String itemPhone;
     private String itemImage;
+    private double avgRating;
 
     public Item(Long itemKey, String itemName, String itemBody, int itemPrice
-            , String itemAddress, String itemCategory, String itemPhone, String itemImage) {
+            , String itemAddress, String itemCategory, String itemPhone, String itemImage, double avgRating) {
         this.itemKey = itemKey;
         this.itemName = itemName;
         this.itemBody = itemBody;
@@ -21,6 +22,7 @@ public class Item {
         this.itemCategory = itemCategory;
         this.itemPhone = itemPhone;
         this.itemImage = itemImage;
+        this.avgRating = avgRating;
     }
 
     public Item(){}
@@ -55,6 +57,10 @@ public class Item {
 
     public String getItemImage() {
         return itemImage;
+    }
+
+    public double getAvgRating() {
+        return avgRating;
     }
 
     public void setItemKey(Long itemKey) {

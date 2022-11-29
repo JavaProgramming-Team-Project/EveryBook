@@ -9,12 +9,14 @@ public class BodyMain extends JPanel {
 
     Body body;
     JLabel btn_category[] = new JLabel[9];
+    AdPanel ad[] = new AdPanel[5];
     BodyMain(Body body) {
         this.body = body;
 
         setDesign();
         addIcon();
         addBanner();
+        addAd();
     }
     void setDesign() {
         setPreferredSize(new Dimension(1080, 650));
@@ -43,5 +45,17 @@ public class BodyMain extends JPanel {
         JLabel banner = new JLabel(img_src);
         banner.setPreferredSize(new Dimension(1080,253));
         add(banner);
+    }
+    void addAd() {
+
+    }
+}
+
+class AdPanel extends JPanel {
+    AdPanel() {
+        setPreferredSize(new Dimension(300, 200));
+        setBorder(new LineBorder(Colors.gray_b));
+        setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        setBackground(Color.white);
     }
 }

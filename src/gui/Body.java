@@ -23,7 +23,7 @@ public class Body extends JPanel {
 	void setDesign() {
 
 
-		setSize(1080,650);
+		setSize(1296,650);
 		setLocation(100,70);
 		setLayout(new FlowLayout(FlowLayout.CENTER,0,10));
 		setBackground(Color.white);
