@@ -19,9 +19,9 @@ public class BodySearch extends JPanel {
     JLabel btn_search; // 검색 버튼
 
     JScrollPane scroll;
-    ItemPanel itemPanel[];
+    ItemPanel_search itemPanel[];
 
-    BodySearch(Body body, String searchWord){
+    BodySearch(Body body, String searchWord) {
         this.body = body;
 
         setDesign();
@@ -31,15 +31,15 @@ public class BodySearch extends JPanel {
         addItemList(searchWord);
     }
 
-    void setDesign(){
-        setPreferredSize(new Dimension(1080,650));
-        setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
+    void setDesign() {
+        setPreferredSize(new Dimension(1080, 650));
+        setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         setBackground(Color.white);
     }
 
-    void addSearch(){
+    void addSearch() {
         JPanel SearchPanel = new JPanel();
-        SearchPanel.setPreferredSize(new Dimension(520,100));
+        SearchPanel.setPreferredSize(new Dimension(520, 100));
         //SearchPanel.setSize(490,92);
         //SearchPanel.setLocation(580,440);
         //SearchPanel.setBorder(new LineBorder(Colors.gray_b));
@@ -47,15 +47,15 @@ public class BodySearch extends JPanel {
         SearchPanel.setBackground(Color.white);
 
         text_search = new JTextField();
-        text_search.setSize(360,50);
-        text_search.setLocation(10,10);
+        text_search.setSize(360, 50);
+        text_search.setLocation(10, 10);
         text_search.setFont(Fonts.f6);
         text_search.setBorder(new LineBorder(Colors.gray_b));
         text_search.setForeground(Colors.gray);
 
         btn_search = new JLabel("검색");
-        btn_search.setSize(100,50);
-        btn_search.setLocation(380,10);
+        btn_search.setSize(100, 50);
+        btn_search.setLocation(380, 10);
         btn_search.setHorizontalAlignment(JLabel.CENTER);
         btn_search.setFont(Fonts.f5);
         btn_search.setForeground(Color.white);
@@ -75,19 +75,18 @@ public class BodySearch extends JPanel {
     }
 
     void addItemList(String searchWord) {
-        if(!(searchWord == null)){
-            System.out.println(searchWord);
+        if (!(searchWord == null)) {
             itemList = ItemApi.findItemByName(searchWord);
-            itemPanel = new ItemPanel[itemList.size()];
+            itemPanel = new ItemPanel_search[itemList.size()];
 
             JPanel items = new JPanel();
-            items.setPreferredSize(new Dimension(820,750));
-            items.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
+            items.setPreferredSize(new Dimension(820, 750));
+            items.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
             items.setBackground(Color.white);
 
             JPanel list = new JPanel();
-            list.setPreferredSize(new Dimension(1080,750));
-            list.setLayout(new FlowLayout(FlowLayout.CENTER,10,0));
+            list.setPreferredSize(new Dimension(1080, 750));
+            list.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
             list.setBackground(Color.white);
             list.add(items);
 
@@ -100,20 +99,25 @@ public class BodySearch extends JPanel {
                 ItemListDto tmp = itemList.get(i);
                 System.out.println(tmp.getItemName());
 
-                itemPanel[i] = new ItemPanel(tmp);
+                itemPanel[i] = new ItemPanel_search(tmp);
                 items.add(itemPanel[i]);
                 itemPanel[i].addMouseListener(new MouseAdapter() {
                     public void mousePressed(MouseEvent e) {
                         body.showItem(tmp.getItemKey());
                     }
                 });
+                if( i>=9 && i%2!=0 ) {
+                    int height_extend = 150;
+                    items.setSize(items.getWidth(),items.getHeight() + height_extend);
+                    list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height + height_extend));
+                }
             }
-
+            
             add(scroll);
         }
     }
 
-    class ItemPanel extends JPanel {
+    class ItemPanel_search extends JPanel {
 
         int item_star = 3;
         String item_picture;
@@ -125,41 +129,42 @@ public class BodySearch extends JPanel {
         JLabel star;
         JLabel price;
 
-        ItemPanel(ItemListDto itemListDto) {
+        ItemPanel_search(ItemListDto itemListDto) {
 
             item_picture = "https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do";
             item_name = itemListDto.getItemName();
             item_price = Tools.priceConvert(itemListDto.getItemPrice());
             item_star = (int) itemListDto.getAvgRating();
 
-            setPreferredSize(new Dimension(400,140));
+            setPreferredSize(new Dimension(400, 140));
             setBorder(new LineBorder(Colors.gray_b));
             setLayout(null);
             setBackground(Color.white);
 
             try {
                 picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 160, 120));
-            } catch (Exception e) { }
+            } catch (Exception e) {
+            }
             picture.setSize(160, 120);
-            picture.setLocation(10,10);
+            picture.setLocation(10, 10);
             picture.setBackground(Colors.blue);
             picture.setOpaque(true);
 
             name = new JLabel("<html>" + item_name);
             name.setSize(200, 45);
-            name.setLocation(180,10);
+            name.setLocation(180, 10);
             name.setFont(Fonts.f5);
             name.setForeground(Colors.gray);
             name.setVerticalAlignment(JLabel.TOP);
 
-            ImageIcon img_star = Tools.resizeImage(new ImageIcon("src/img/star_" + item_star + ".png"), 125,20);
+            ImageIcon img_star = Tools.resizeImage(new ImageIcon("src/img/star_" + item_star + ".png"), 125, 20);
             star = new JLabel(img_star);
-            star.setSize(125,20);
-            star.setLocation(265,80);
+            star.setSize(125, 20);
+            star.setLocation(265, 80);
 
             price = new JLabel(item_price);
-            price.setSize(125,20);
-            price.setLocation(260,105);
+            price.setSize(125, 20);
+            price.setLocation(260, 105);
             price.setFont(Fonts.f4);
             price.setForeground(Colors.red);
             price.setHorizontalAlignment(JLabel.RIGHT);
