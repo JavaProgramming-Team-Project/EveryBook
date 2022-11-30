@@ -6,13 +6,15 @@ public class ReviewListDto {
     private int reviewStar;
     private String reviewDate;
     private String memberName;
+    private Long memberKey;
 
-    public ReviewListDto(Long reviewKey, String reviewBody, int reviewStar, String reviewDate, String memberName) {
+    public ReviewListDto(Long reviewKey, String reviewBody, int reviewStar, String reviewDate, String memberName, Long memberKey) {
         this.reviewKey = reviewKey;
         this.reviewBody = reviewBody;
         this.reviewStar = reviewStar;
         this.reviewDate = reviewDate;
         this.memberName = memberName;
+        this.memberKey = memberKey;
     }
 
     public ReviewListDto() {}
@@ -35,5 +37,9 @@ public class ReviewListDto {
 
     public String getMemberName() {
         return memberName;
+    }
+
+    public Long getMemberKey() {
+        return memberKey;
     }
 }
