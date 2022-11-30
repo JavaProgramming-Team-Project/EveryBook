@@ -228,7 +228,7 @@ class BookPanel extends JPanel {
 	BookPanel(Body body, Book book) {
 		this.body = body;
 		book_key = book.getBookKey();
-		item_date = book.getBookDate();
+		item_date = book.getItemDate();
 		item = ItemApi.findItemByKey(book.getItemKey());
 		item_price = String.valueOf(item.getItemPrice());
 		item_name = item.getItemName();
