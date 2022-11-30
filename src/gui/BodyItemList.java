@@ -124,7 +124,7 @@ class ItemPanel extends JPanel {
 
 	ItemPanel(ItemListDto itemListDto) {
 
-		item_picture = "https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do";
+		item_picture = itemListDto.getItemImage();
 		item_name = itemListDto.getItemName();
 		item_price = Tools.priceConvert(itemListDto.getItemPrice());
 		item_star = (int) itemListDto.getAvgRating();
