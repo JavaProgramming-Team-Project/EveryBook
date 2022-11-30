@@ -49,7 +49,7 @@ public class BodyItem extends JPanel {
 		this.item_key = item_key;
 
 		item = ItemApi.findItemByKey(item_key);
-		item_picture = "https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do";
+		item_picture = item.getItemImage();
 		item_name = item.getItemName();
 		item_star = (int) item.getAvgRating();
 		item_price = item.getItemPrice();
@@ -113,12 +113,24 @@ public class BodyItem extends JPanel {
 
 		for (int i = 0; i < reviewList.size(); i++) {
 
-			reviewPanel[i] = new ReviewPanel(reviewList.get(reviewList.size()-i-1));
+			reviewPanel[i] = new ReviewPanel(reviewList.get(reviewList.size()-i-1),body,item_key);
 			list.add(reviewPanel[i]);
 			if(i>=4) list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height+102));
 		}
 
 		add(scroll);
+
+		if(reviewList.size() == 0) { // 리뷰가 없을경우
+			list.setBorder(new LineBorder(Colors.gray_b));
+
+			JLabel noReview = new JLabel("리뷰가 아직 없습니다.");
+			noReview.setPreferredSize(new Dimension(490,420));
+			noReview.setFont(Fonts.f8);
+			noReview.setForeground(Colors.gray);
+			noReview.setHorizontalAlignment(JLabel.CENTER);
+
+			list.add(noReview);
+		}
 	}
 
 	void addWriteReview() {
@@ -136,6 +148,12 @@ public class BodyItem extends JPanel {
 		text_review.setBorder(new LineBorder(Colors.gray_b));
 		text_review.setForeground(Colors.gray);
 		text_review.setLineWrap(true);
+		text_review.setText("리뷰를 작성해주세요.");
+		text_review.addFocusListener(new FocusAdapter() {
+			public void focusGained(FocusEvent e) {
+				if(text_review.getText().equals("리뷰를 작성해주세요.")) text_review.setText("");
+			}
+		});
 
 		btn_write = new JLabel("작성");
 		btn_write.setSize(100,35);
@@ -283,7 +301,7 @@ class ReviewPanel extends JPanel {
 	JLabel body;
 	JLabel btn_delete;
 
-	ReviewPanel(ReviewListDto review) {
+	ReviewPanel(ReviewListDto review, Body gui_body, long item_key) {
 
 		review_name = String.valueOf(review.getMemberName());
 		review_star = review.getReviewStar();
@@ -317,10 +335,14 @@ class ReviewPanel extends JPanel {
 		btn_delete.setBackground(Colors.blue);
 		btn_delete.setOpaque(true);
 		btn_delete.setVisible(false);
-		if(review.getMemberName() == LoginMember.getLoginMember().getMemberName()) btn_delete.setVisible(true);
+		if(review.getMemberKey().equals(LoginMember.getLoginMember().getMemberKey())) btn_delete.setVisible(true);
 		btn_delete.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				//리뷰 삭제 이벤트
+				if (JOptionPane.showOptionDialog(null, "댓글을 삭제하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+					ReviewApi.deleteReview(review.getReviewKey());
+					JOptionPane.showMessageDialog(null, "댓글을 삭제했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
+					gui_body.showItem(item_key);
+				}
 			}
 		});
 		add(btn_delete);

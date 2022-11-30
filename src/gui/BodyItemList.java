@@ -124,7 +124,7 @@ class ItemPanel extends JPanel {
 
 	ItemPanel(ItemListDto itemListDto) {
 
-		item_picture = "https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do";
+		item_picture = itemListDto.getItemImage();
 		item_name = itemListDto.getItemName();
 		item_price = Tools.priceConvert(itemListDto.getItemPrice());
 		item_star = (int) itemListDto.getAvgRating();
@@ -136,7 +136,12 @@ class ItemPanel extends JPanel {
 
 		try {
 			picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 160, 120));
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			System.out.println(item_name + " : 이미지 로드 실패");
+			try {
+				picture = new JLabel(Tools.resizeImage(Tools.urlImage("https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do"), 160, 120));
+			} catch (Exception ee) { }
+		}
 		picture.setSize(160, 120);
 		picture.setLocation(10,10);
 

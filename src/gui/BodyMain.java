@@ -86,7 +86,7 @@ class AdPanel extends JPanel {
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
         setBackground(Color.white);
 
-        item_picture = "https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do";
+        item_picture = item.getItemImage();
         item_name = item.getItemName();
 
         try {
