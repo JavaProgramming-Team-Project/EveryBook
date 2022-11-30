@@ -9,7 +9,7 @@ public class Head extends JPanel {
 
 	JLabel logo;
 	JPanel menu;
-	String str_menu[] = {"메인", "카테고리", "마이페이지", "로그아웃"};
+	String str_menu[] = {"검색","메인", "카테고리", "마이페이지", "로그아웃"};
 	JLabel btn_menu[] = new JLabel[str_menu.length];
 
 	Head(MainFrame mf) {
@@ -56,19 +56,22 @@ public class Head extends JPanel {
 			btn_menu[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
 					switch(index) {
-						case 0: // 메인
+						case 0: // 검색
+							mf.body.showSearch(null);
+							break;
+						case 1: // 메인
 							mf.body.showMain();
 							break;
-						case 1: // 카테고리
+						case 2: // 카테고리
 							mf.body.showItemList(0, 1);
 							break;
-						case 2: // 마이페이지
+						case 3: // 마이페이지
 							mf.body.showMyPage(1);
 							break;
-						case 3: // 로그아웃
+						case 4: // 로그아웃
 							System.exit(0);
 							break;
-						case 4: // 뒤로가기
+						case 5: // 뒤로가기
 							mf.body.showBack();
 							break;
 

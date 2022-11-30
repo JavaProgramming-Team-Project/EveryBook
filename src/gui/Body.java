@@ -99,6 +99,12 @@ public class Body extends JPanel {
 		repaint();
 	}
 
-
-
+	public void showSearch(String searchWord){
+		previous_page = current_page;
+		current_page = new BodySearch(this,searchWord);
+		removeAll();
+		add(current_page);
+		revalidate();
+		repaint();
+	}
 }
