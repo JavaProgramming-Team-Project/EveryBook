@@ -11,7 +11,7 @@ public class Item {
     private String itemPhone;
     private String itemImage;
     private double avgRating;
-    private String itemImage;
+    private String itemImage1;
 
     public Item(Long itemKey, String itemName, String itemBody, int itemPrice, String itemAddress, String itemCategory, String itemPhone, String itemImage, double avgRating, String itemImage1) {
         this.itemKey = itemKey;
@@ -23,7 +23,7 @@ public class Item {
         this.itemPhone = itemPhone;
         this.itemImage = itemImage;
         this.avgRating = avgRating;
-        this.itemImage = itemImage1;
+        this.itemImage1 = itemImage1;
     }
 
     public Item(){}
