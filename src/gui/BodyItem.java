@@ -1,7 +1,9 @@
 package gui;
 
+import api.BookApi;
 import api.ItemApi;
 import api.ReviewApi;
+import entity.Book;
 import entity.Item;
 import entity.Review;
 import login.LoginMember;
@@ -111,7 +113,7 @@ public class BodyItem extends JPanel {
 
 			reviewPanel[i] = new ReviewPanel(reviewList.get(reviewList.size()-i-1));
 			list.add(reviewPanel[i]);
-			if(i>3) list.setPreferredSize(new Dimension(list.getWidth(),list.getPreferredSize().height+112));
+			if(i>=4) list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height+112));
 		}
 
 		add(scroll);
@@ -145,7 +147,7 @@ public class BodyItem extends JPanel {
 
 		btn_write.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				entity.Review review = new entity.Review(0L, LoginMember.getLoginMember().getMemberKey()
+				Review review = new Review(0L, LoginMember.getLoginMember().getMemberKey()
 						, item_key, Integer.parseInt(combo_star.getSelectedItem().toString()), text_review.getText(), LocalDate.now().toString());
 				ReviewApi.write(review);
 				body.showItem(item_key);
@@ -209,14 +211,14 @@ public class BodyItem extends JPanel {
 
 	void addBook() {
 
-		JPanel Book = new JPanel();
-		Book.setSize(490,90);
-		Book.setLocation(580,540);
+		JPanel BookPanel = new JPanel();
+		BookPanel.setSize(490,90);
+		BookPanel.setLocation(580,540);
 		//Book.setPreferredSize(new Dimension(490,190));
-		Book.setBorder(new LineBorder(Colors.gray_b));
-		Book.setLayout(null);
-		Book.setBackground(Color.white);
-		add(Book);
+		BookPanel.setBorder(new LineBorder(Colors.gray_b));
+		BookPanel.setLayout(null);
+		BookPanel.setBackground(Color.white);
+		add(BookPanel);
 
 		combo_date = new JComboBox();
 		combo_date.setSize(150,25);
@@ -227,7 +229,7 @@ public class BodyItem extends JPanel {
 			date.add(date.DATE, i);
 			combo_date.addItem(sdf.format(date.getTime()));
 		}
-		Book.add(combo_date);
+		BookPanel.add(combo_date);
 
 		price = new JLabel(Tools.priceConvert(item_price));
 		price.setSize(150,20);
@@ -235,7 +237,7 @@ public class BodyItem extends JPanel {
 		price.setFont(Fonts.f4);
 		price.setForeground(Colors.red);
 		price.setHorizontalAlignment(JLabel.CENTER);
-		Book.add(price);
+		BookPanel.add(price);
 
 		btn_book = new JLabel("예약하기");
 		btn_book.setSize(150,40);
@@ -245,7 +247,17 @@ public class BodyItem extends JPanel {
 		btn_book.setForeground(Color.white);
 		btn_book.setBackground(Colors.red);
 		btn_book.setOpaque(true);
-		Book.add(btn_book);
+		btn_book.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (JOptionPane.showOptionDialog(null, combo_date.getSelectedItem() + "\r\n 해당 날짜에 예약 하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+					Book book = new Book(0L, LoginMember.getLoginMember().getMemberKey(), item_key,LocalDate.now().toString(),combo_date.getSelectedItem().toString());
+					BookApi.booking(book);
+					JOptionPane.showMessageDialog(null, "예약을 성공했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
+					body.showMyPage(LoginMember.getLoginMember().getMemberKey());
+				}
+			}
+		});
+		BookPanel.add(btn_book);
 	}
 
 }
