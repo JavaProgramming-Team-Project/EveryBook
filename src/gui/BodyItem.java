@@ -3,6 +3,7 @@ package gui;
 import api.BookApi;
 import api.ItemApi;
 import api.ReviewApi;
+import dto.ReviewListDto;
 import entity.Book;
 import entity.Item;
 import entity.Review;
@@ -20,7 +21,7 @@ import java.util.List;
 public class BodyItem extends JPanel {
 	Body body;
 	long member_key = LoginMember.getLoginMember().getMemberKey();
-	List<Review> reviewList;
+	List<ReviewListDto> reviewList;
 	Item item;
 	long item_key;
 	int item_price;
@@ -282,9 +283,9 @@ class ReviewPanel extends JPanel {
 	JLabel body;
 	JLabel btn_delete;
 
-	ReviewPanel(Review review) {
+	ReviewPanel(ReviewListDto review) {
 
-		review_name = String.valueOf(review.getReviewKey());
+		review_name = String.valueOf(review.getMemberName());
 		review_star = review.getReviewStar();
 		review_date = review.getReviewDate();
 		review_body = review.getReviewBody();
@@ -316,7 +317,7 @@ class ReviewPanel extends JPanel {
 		btn_delete.setBackground(Colors.blue);
 		btn_delete.setOpaque(true);
 		btn_delete.setVisible(false);
-		if(review.getMemberKey() == LoginMember.getLoginMember().getMemberKey()) btn_delete.setVisible(true);
+		if(review.getMemberName() == LoginMember.getLoginMember().getMemberName()) btn_delete.setVisible(true);
 		btn_delete.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				//리뷰 삭제 이벤트
