@@ -76,7 +76,6 @@ public class BodySearch extends JPanel {
 
     void addItemList(String searchWord) {
         if (!(searchWord == null)) {
-            System.out.println(searchWord);
             itemList = ItemApi.findItemByName(searchWord);
             itemPanel = new ItemPanel_search[itemList.size()];
 
