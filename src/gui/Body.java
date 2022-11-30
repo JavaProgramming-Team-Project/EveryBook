@@ -23,8 +23,8 @@ public class Body extends JPanel {
 	void setDesign() {
 
 
-		setSize(1080,650);
-		setLocation(100,70);
+		setSize(1296,650);
+		setLocation(0,70);
 		setLayout(new FlowLayout(FlowLayout.CENTER,0,10));
 		setBackground(Color.white);
 
@@ -71,9 +71,9 @@ public class Body extends JPanel {
 		revalidate();
 		repaint();
 	}
-	public void showItemList(int category, int page) {
+	public void showItemList(int category) {
 		previous_page = current_page;
-		current_page = new BodyItemList(this, category, page);
+		current_page = new BodyItemList(this, category);
 		removeAll();
 		add(current_page);
 		revalidate();
@@ -81,7 +81,6 @@ public class Body extends JPanel {
 	}
 
 	public void showItem(long item_key) {
-		System.out.println(item_key);
 		previous_page = current_page;
 		current_page = new BodyItem(this, item_key);
 		removeAll();
@@ -90,15 +89,21 @@ public class Body extends JPanel {
 		repaint();
 	}
 
-	public void showMyPage(int member_key) {
+	public void showMyPage() {
 		previous_page = current_page;
-		current_page = new BodyMyPage(this, member_key);
+		current_page = new BodyMyPage(this);
 		removeAll();
 		add(current_page);
 		revalidate();
 		repaint();
 	}
 
-
-
+	public void showSearch(String searchWord){
+		previous_page = current_page;
+		current_page = new BodySearch(this,searchWord);
+		removeAll();
+		add(current_page);
+		revalidate();
+		repaint();
+	}
 }

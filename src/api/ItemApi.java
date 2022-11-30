@@ -113,7 +113,7 @@ public class ItemApi {
         Item item;
 
         try {
-            String hostUrl = HOST + "/item/id/"+itemKey;
+            String hostUrl = HOST + "/item/" + itemKey;
             HttpURLConnection conn = null;
 
             URL url = new URL(hostUrl);
@@ -151,11 +151,11 @@ public class ItemApi {
      * 전체 item 리스트
      * @return 모든 item 리스트 반환
      */
-    public List<ItemListDto> itemList() {
+    public static List<ItemListDto> itemList() {
         List<ItemListDto> list;
 
         try {
-            String hostUrl = HOST + "item/list";
+            String hostUrl = HOST + "/item/list";
             HttpURLConnection conn = null;
 
             URL url = new URL(hostUrl);

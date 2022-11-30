@@ -1,28 +1,38 @@
 package gui;
 
+import api.BookApi;
+import api.ItemApi;
+import entity.Book;
+import entity.Item;
+import login.LoginMember;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BodyMyPage extends JPanel {
 	Body body;
 
-	int member_key;
-	Book book[];
+	long member_key = LoginMember.getLoginMember().getMemberKey();
+	BookPanel book[];
 
-	BodyMyPage(Body body, int member_key) {
+	BodyMyPage(Body body) {
+		System.out.println(LoginMember.getLoginMember().getMemberName());
+		List<entity.Book> bookList = new ArrayList<>();
+		bookList = BookApi.bookList(LoginMember.getLoginMember().getMemberKey());
 		this.body = body;
-		this.member_key = member_key;
-		book = new Book[5];
+		book = new BookPanel[5];
 
 		setDesign();
 
 		addProfile();
 
-		addIcon();
+		addIcon(bookList);
 
-		addBookList();
+		addBookList(bookList);
 	}
 
 	void setDesign() {
@@ -33,10 +43,10 @@ public class BodyMyPage extends JPanel {
 	}
 
 	void addProfile() {
-		String member_id = "jaypark9490";
-		String member_name = "박재정";
-		String member_phone = "010-3456-4567";
-		String member_age = "21";
+		String member_id = LoginMember.getLoginMember().getMemberId();
+		String member_name = LoginMember.getLoginMember().getMemberName();
+		String member_phone = LoginMember.getLoginMember().getMemberPhone();
+		String member_age = String.valueOf(LoginMember.getLoginMember().getMemberAge());
 
 		JPanel Profile = new JPanel();
 		Profile.setPreferredSize(new Dimension(520,300));
@@ -51,7 +61,7 @@ public class BodyMyPage extends JPanel {
 
 		JLabel profile = new JLabel("회원정보");
 		profile.setPreferredSize(new Dimension(440,42));
-		profile.setFont(Fonts.f1);
+		profile.setFont(Fonts.f7);
 		profile.setForeground(Colors.gray);
 		profile.setVerticalAlignment(JLabel.BOTTOM);
 		Profile.add(profile);
@@ -125,7 +135,8 @@ public class BodyMyPage extends JPanel {
 
 	}
 
-	void addIcon() {
+	void addIcon(List<entity.Book> bookList) {
+
 		JPanel Icon = new JPanel();
 		Icon.setPreferredSize(new Dimension(520,300));
 		Icon.setBorder(new LineBorder(Colors.gray_b));
@@ -146,7 +157,7 @@ public class BodyMyPage extends JPanel {
 		icon_point.setLocation(260+40,70);
 		Icon.add(icon_point);
 
-		JLabel book = new JLabel("<html><center>예약<br>5개");
+		JLabel book = new JLabel("<html><center>예약<br>"+bookList.size()+"개");
 		book.setSize(90,90);
 		book.setLocation(170-40, 150);
 		book.setFont(Fonts.f2);
@@ -165,7 +176,7 @@ public class BodyMyPage extends JPanel {
 
 	}
 
-	void addBookList() {
+	void addBookList(List<entity.Book> bookList) {
 		JPanel list = new JPanel();
 		list.setPreferredSize(new Dimension(1050,295));
 		list.setBorder(new LineBorder(Colors.gray_b));
@@ -179,64 +190,70 @@ public class BodyMyPage extends JPanel {
 
 		JLabel booklist = new JLabel("예약내역");
 		booklist.setPreferredSize(new Dimension(960,44));
-		booklist.setFont(Fonts.f1);
+		booklist.setFont(Fonts.f7);
 		booklist.setForeground(Colors.gray);
 		booklist.setVerticalAlignment(JLabel.BOTTOM);
 		list.add(booklist);
 
-		JLabel space = new JLabel();
+		JLabel space = new JLabel(); // 공백
 		space.setPreferredSize(new Dimension(1000,10));
 		list.add(space);
 
-		for (int i = 0; i < book.length; i++) {
-			int book_key = 221121001;
-			book[i] = new Book(body,book_key);
+		for (int i = 0; i < bookList.size(); i++) {
+			book[i] = new BookPanel(body, bookList.get(i));
 			list.add(book[i]);
 		}
 
 	}
 }
 
-class Book extends JPanel {
+class BookPanel extends JPanel {
 	Body body;
 
-	int book_key;
-	int member_key;
+	Item item;
+
+	long book_key = 222222;
+	long member_key;
 	String item_name = "롯데호텔 서울";
 	String item_date = "2022-11-23";
 	String item_price = Tools.priceConvert(236800);
 
 	JLabel key;
-	JLabel item;
+	JLabel item_Label;
 	JLabel date;
 	JLabel price;
 	JLabel btn_cancel;
 
-	Book(Body body, int book_key) {
+	BookPanel(Body body, Book book) {
 		this.body = body;
-		this.book_key = book_key;
+		book_key = book.getBookKey();
+		item_date = book.getItemDate();
+		item = ItemApi.findItemByKey(book.getItemKey());
+		item_price = String.valueOf(item.getItemPrice());
+		item_name = item.getItemName();
 
 		setPreferredSize(new Dimension(1000,30));
 		//setBorder(new LineBorder(Colors.gray_b));
 		setLayout(new FlowLayout(FlowLayout.CENTER,2,0));
 		setBackground(Color.white);
 
-		key = new JLabel(book_key+"");
+		key = new JLabel(book.getBookKey()+"");
 		key.setPreferredSize(new Dimension(100,30));
 		key.setFont(Fonts.f6);
 		key.setForeground(Colors.gray);
 		key.setBackground(Colors.sky);
 		key.setOpaque(true);
 		key.setHorizontalAlignment(JLabel.CENTER);
+		key.setBorder(new LineBorder(Colors.gray_b,2));
 
-		item = new JLabel(item_name);
-		item.setPreferredSize(new Dimension(250,30));
-		item.setFont(Fonts.f6);
-		item.setForeground(Colors.gray);
-		item.setBackground(Colors.sky);
-		item.setOpaque(true);
-		item.setHorizontalAlignment(JLabel.CENTER);
-
+		item_Label = new JLabel(item_name);
+		item_Label.setPreferredSize(new Dimension(250,30));
+		item_Label.setFont(Fonts.f6);
+		item_Label.setForeground(Colors.gray);
+		item_Label.setBackground(Colors.sky);
+		item_Label.setOpaque(true);
+		item_Label.setHorizontalAlignment(JLabel.CENTER);
+		item_Label.setBorder(new LineBorder(Colors.gray_b,2));
 
 		date = new JLabel(item_date);
 		date.setPreferredSize(new Dimension(250,30));
@@ -245,6 +262,7 @@ class Book extends JPanel {
 		date.setBackground(Colors.sky);
 		date.setOpaque(true);
 		date.setHorizontalAlignment(JLabel.CENTER);
+		date.setBorder(new LineBorder(Colors.gray_b,2));
 
 		price = new JLabel(item_price);
 		price.setPreferredSize(new Dimension(100,30));
@@ -253,8 +271,8 @@ class Book extends JPanel {
 		price.setBackground(Colors.sky);
 		price.setOpaque(true);
 		price.setHorizontalAlignment(JLabel.CENTER);
+		price.setBorder(new LineBorder(Colors.gray_b,2));
 
-		String btn[] = {"예", "아니오"};
 		btn_cancel = new JLabel("예약취소");
 		btn_cancel.setPreferredSize(new Dimension(100,30));
 		btn_cancel.setHorizontalAlignment(JLabel.CENTER);
@@ -264,15 +282,16 @@ class Book extends JPanel {
 		btn_cancel.setOpaque(true);
 		btn_cancel.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				if (JOptionPane.showOptionDialog(null, "해당 예약을 취소하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, btn, "아니오") == 0) {
-					body.showMyPage(member_key);
+				if (JOptionPane.showOptionDialog(null, "해당 예약을 취소하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+					BookApi.bookCancel(book.getBookKey());
+					body.showMyPage();
 					JOptionPane.showMessageDialog(null, "해당 예약을 취소했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
 
 		add(key);
-		add(item);
+		add(item_Label);
 		add(date);
 		add(price);
 		add(btn_cancel);

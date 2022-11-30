@@ -1,7 +1,9 @@
 package gui;
 
+import api.BookApi;
 import api.ItemApi;
 import api.ReviewApi;
+import entity.Book;
 import entity.Item;
 import entity.Review;
 import login.LoginMember;
@@ -17,6 +19,7 @@ import java.util.List;
 
 public class BodyItem extends JPanel {
 	Body body;
+	long member_key = LoginMember.getLoginMember().getMemberKey();
 	List<Review> reviewList;
 	Item item;
 	long item_key;
@@ -47,7 +50,7 @@ public class BodyItem extends JPanel {
 		item = ItemApi.findItemByKey(item_key);
 		item_picture = "https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do";
 		item_name = item.getItemName();
-//		item_star =
+		item_star = (int) item.getAvgRating();
 		item_price = item.getItemPrice();
 		item_body = item.getItemBody();
 		item_address = item.getItemAddress();
@@ -111,7 +114,7 @@ public class BodyItem extends JPanel {
 
 			reviewPanel[i] = new ReviewPanel(reviewList.get(reviewList.size()-i-1));
 			list.add(reviewPanel[i]);
-			if(i>3) list.setPreferredSize(new Dimension(list.getWidth(),list.getPreferredSize().height+112));
+			if(i>=4) list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height+102));
 		}
 
 		add(scroll);
@@ -145,10 +148,20 @@ public class BodyItem extends JPanel {
 
 		btn_write.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				entity.Review review = new entity.Review(0L, LoginMember.getLoginMember().getMemberKey()
-						, item_key, Integer.parseInt(combo_star.getSelectedItem().toString()), text_review.getText(), LocalDate.now().toString());
-				ReviewApi.write(review);
-				body.showItem(item_key);
+				List<Book> list = BookApi.bookList(member_key);
+
+				boolean isBooked = false;
+				for (int i = 0; i < list.size(); i++) if(list.get(i).getItemKey() == item_key) isBooked = true;
+
+				if(text_review.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "내용을 입력해 주세요.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+				} else if(!isBooked) {
+					JOptionPane.showMessageDialog(null, "예약 내역이 없습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+				} else if (JOptionPane.showOptionDialog(null, "리뷰를 작성하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+					Review review = new Review(0L, member_key, item_key, Integer.parseInt(combo_star.getSelectedItem().toString()), text_review.getText(), LocalDate.now().toString());
+					ReviewApi.write(review);
+					body.showItem(item_key);
+				}
 			}
 		});
 
@@ -157,9 +170,7 @@ public class BodyItem extends JPanel {
 		combo_star.setLocation(380,15);
 		combo_star.setFont(Fonts.f6);
 
-		for (int i = 1; i <= 5; i++) {
-			combo_star.addItem(i);
-		}
+		for (int i = 1; i <= 5; i++) combo_star.addItem(i);
 
 		Write.add(text_review);
 		Write.add(combo_star);
@@ -209,14 +220,14 @@ public class BodyItem extends JPanel {
 
 	void addBook() {
 
-		JPanel Book = new JPanel();
-		Book.setSize(490,90);
-		Book.setLocation(580,540);
+		JPanel BookPanel = new JPanel();
+		BookPanel.setSize(490,90);
+		BookPanel.setLocation(580,540);
 		//Book.setPreferredSize(new Dimension(490,190));
-		Book.setBorder(new LineBorder(Colors.gray_b));
-		Book.setLayout(null);
-		Book.setBackground(Color.white);
-		add(Book);
+		BookPanel.setBorder(new LineBorder(Colors.gray_b));
+		BookPanel.setLayout(null);
+		BookPanel.setBackground(Color.white);
+		add(BookPanel);
 
 		combo_date = new JComboBox();
 		combo_date.setSize(150,25);
@@ -227,7 +238,7 @@ public class BodyItem extends JPanel {
 			date.add(date.DATE, i);
 			combo_date.addItem(sdf.format(date.getTime()));
 		}
-		Book.add(combo_date);
+		BookPanel.add(combo_date);
 
 		price = new JLabel(Tools.priceConvert(item_price));
 		price.setSize(150,20);
@@ -235,7 +246,7 @@ public class BodyItem extends JPanel {
 		price.setFont(Fonts.f4);
 		price.setForeground(Colors.red);
 		price.setHorizontalAlignment(JLabel.CENTER);
-		Book.add(price);
+		BookPanel.add(price);
 
 		btn_book = new JLabel("예약하기");
 		btn_book.setSize(150,40);
@@ -245,9 +256,18 @@ public class BodyItem extends JPanel {
 		btn_book.setForeground(Color.white);
 		btn_book.setBackground(Colors.red);
 		btn_book.setOpaque(true);
-		Book.add(btn_book);
+		btn_book.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (JOptionPane.showOptionDialog(null, combo_date.getSelectedItem() + "\r\n해당 날짜에 상품을 예약하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+					Book book = new Book(0L, LoginMember.getLoginMember().getMemberKey(), item_key,LocalDate.now().toString(),combo_date.getSelectedItem().toString());
+					BookApi.booking(book);
+					JOptionPane.showMessageDialog(null, "상품을 예약했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
+					body.showMyPage();
+				}
+			}
+		});
+		BookPanel.add(btn_book);
 	}
-
 }
 
 class ReviewPanel extends JPanel {
@@ -260,6 +280,7 @@ class ReviewPanel extends JPanel {
 	JLabel star;
 	JLabel name;
 	JLabel body;
+	JLabel btn_delete;
 
 	ReviewPanel(Review review) {
 
@@ -277,12 +298,32 @@ class ReviewPanel extends JPanel {
 		star = new JLabel(img_star);
 		star.setSize(100,16);
 		star.setLocation(10,5);
+		add(star);
 
 		name = new JLabel(review_name + " " + review_date);
 		name.setSize(200, 20);
 		name.setLocation(10,25);
 		name.setFont(Fonts.f6);
 		name.setForeground(Colors.gray);
+		add(name);
+
+		btn_delete = new JLabel("삭제");
+		btn_delete.setSize(50, 20);
+		btn_delete.setLocation(430,10);
+		btn_delete.setFont(Fonts.f6);
+		btn_delete.setHorizontalAlignment(JLabel.CENTER);
+		btn_delete.setForeground(Color.white);
+		btn_delete.setBackground(Colors.blue);
+		btn_delete.setOpaque(true);
+		btn_delete.setVisible(false);
+		if(review.getMemberKey() == LoginMember.getLoginMember().getMemberKey()) btn_delete.setVisible(true);
+		btn_delete.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				//리뷰 삭제 이벤트
+			}
+		});
+		add(btn_delete);
+
 
 		body = new JLabel("<html>" + review_body);
 		body.setSize(450, 38);
@@ -290,9 +331,6 @@ class ReviewPanel extends JPanel {
 		body.setFont(Fonts.f6);
 		body.setForeground(Colors.gray);
 		body.setVerticalAlignment(JLabel.TOP);
-
-		add(star);
-		add(name);
 		add(body);
 	}
 }

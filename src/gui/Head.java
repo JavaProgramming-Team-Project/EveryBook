@@ -1,5 +1,7 @@
 package gui;
 
+import login.LoginMember;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,7 +11,7 @@ public class Head extends JPanel {
 
 	JLabel logo;
 	JPanel menu;
-	String str_menu[] = {"메인", "카테고리", "마이페이지", "로그아웃"};
+	String str_menu[] = {"검색", "카테고리", "마이페이지", "로그아웃"};
 	JLabel btn_menu[] = new JLabel[str_menu.length];
 
 	Head(MainFrame mf) {
@@ -34,7 +36,6 @@ public class Head extends JPanel {
 		logo.setLocation(100,20);
 		logo.setFont(Fonts.f1);
 		logo.setForeground(Color.white);
-
 		add(logo);
 	}
 
@@ -56,14 +57,14 @@ public class Head extends JPanel {
 			btn_menu[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
 					switch(index) {
-						case 0: // 메인
-							mf.body.showMain();
+						case 0: // 검색
+							mf.body.showSearch(null);
 							break;
 						case 1: // 카테고리
-							mf.body.showItemList(0, 1);
+							mf.body.showItemList(0);
 							break;
 						case 2: // 마이페이지
-							mf.body.showMyPage(1);
+							mf.body.showMyPage();
 							break;
 						case 3: // 로그아웃
 							System.exit(0);
