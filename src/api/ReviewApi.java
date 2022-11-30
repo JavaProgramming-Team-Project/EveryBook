@@ -2,6 +2,7 @@ package api;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dto.ReviewListDto;
 import entity.Review;
 import ip.Host;
 
@@ -17,13 +18,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class ReviewApi {
-
-    public static void main(String[] args) {
-        List<Review> list = reviewList(5L);
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getReviewBody());
-        }
-    }
 
     private final static String HOST = Host.getHost();
     private static ObjectMapper mapper = new ObjectMapper();
@@ -85,8 +79,8 @@ public class ReviewApi {
      * @param itemKey review 리스트를 불러올 item의 itemKey
      * @return List<Review> 형식
      */
-    public static List<Review> reviewList(Long itemKey) {
-        List<Review> list;
+    public static List<ReviewListDto> reviewList(Long itemKey) {
+        List<ReviewListDto> list;
 
         try {
             String hostUrl = HOST + "/review/item/"+itemKey;
@@ -122,5 +116,35 @@ public class ReviewApi {
         }
 
         return list;
+    }
+
+    public static void deleteReview(Long reviewKey) {
+        try {
+            String hostUrl = HOST + "/review/" + reviewKey;
+            HttpURLConnection conn = null;
+
+            URL url = new URL(hostUrl);
+            conn = (HttpURLConnection) url.openConnection();
+
+            conn.setRequestMethod("GET");
+            conn.setConnectTimeout(3000);
+            conn.setRequestProperty("Accept", "application/json; utf-8");
+
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 400) {
+                System.out.println("400 : 명령 실행 오류");
+            } else if (responseCode == 500) {
+                System.out.println("500 : 서버 에러");
+            } else {
+                System.out.println(responseCode + " : 응답 코드");
+            }
+
+        } catch (ProtocolException e) {
+            throw new RuntimeException(e);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
