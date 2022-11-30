@@ -33,7 +33,6 @@ public class BodyMain extends JPanel {
             int index = i+1;
             ImageIcon img_src = Tools.resizeImage(new ImageIcon("src/img/icon_" + index + ".png"), 83,123);
             btn_category[i] = new JLabel(img_src);
-            btn_category[i].setPreferredSize(new Dimension(83,123));
             btn_category[i].addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     body.showItemList(index);
@@ -46,11 +45,14 @@ public class BodyMain extends JPanel {
     void addBanner() {
         ImageIcon img_src = Tools.resizeImage(new ImageIcon("src/img/banner.png"), 1296,300);
         JLabel banner = new JLabel(img_src);
-        banner.setPreferredSize(new Dimension(1296,300));
         add(banner);
     }
     void addAd() {
         List<ItemListDto> list = ItemApi.itemList();
+
+        JPanel adPanel = new JPanel();
+        adPanel.setLayout(new FlowLayout(FlowLayout.CENTER,10, 0));
+        adPanel.setBackground(Color.white);
 
         int index[] = new int[ad.length];
         for(int i=0; i<index.length; i++) {
@@ -66,7 +68,8 @@ public class BodyMain extends JPanel {
                     body.showItem(item.getItemKey());
                 }
             });
-            add(ad[i]);
+            adPanel.add(ad[i]);
+            add(adPanel);
         }
 
     }
@@ -79,7 +82,7 @@ class AdPanel extends JPanel {
     JLabel name;
     AdPanel(ItemListDto item) {
         setPreferredSize(new Dimension(200, 200));
-        setBorder(new LineBorder(Colors.gray_b));
+        //setBorder(new LineBorder(Colors.gray_b));
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
         setBackground(Color.white);
 
@@ -87,7 +90,7 @@ class AdPanel extends JPanel {
         item_name = item.getItemName();
 
         try {
-            picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 200, 150));
+            picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 180, 135));
         } catch (Exception e) { }
 
         name = new JLabel(item_name);
