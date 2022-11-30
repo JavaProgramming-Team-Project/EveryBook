@@ -99,7 +99,7 @@ public class BodyItem extends JPanel {
 
 		reviewList = ReviewApi.reviewList(item_key);
 		reviewPanel = new ReviewPanel[reviewList.size()];
-				
+
 		JPanel list = new JPanel();
 		list.setPreferredSize(new Dimension(490,420));
 		list.setLayout(new FlowLayout(FlowLayout.LEFT,0,10));
