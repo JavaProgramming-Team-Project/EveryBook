@@ -21,7 +21,6 @@ public class BodyItemList extends JPanel {
 	ItemPanel itemPanel[];
 
 	List<ItemListDto> itemList;
-	JLabel btn_page[] = new JLabel[5];
 
 	BodyItemList(Body body, int category) {
 		
@@ -39,7 +38,7 @@ public class BodyItemList extends JPanel {
 	void setDesign() {
 
 		setPreferredSize(new Dimension(1080,650));
-		setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
+		setLayout(new FlowLayout(FlowLayout.CENTER,10,5));
 		setBackground(Color.white);
 
 	}
@@ -67,17 +66,20 @@ public class BodyItemList extends JPanel {
 
 	void addItemList() {
 		
-		itemList = ItemApi.itemListByCategory(str_category[category]);
+		if (category == 0) itemList = ItemApi.itemList();
+		else itemList = ItemApi.itemListByCategory(str_category[category]);
+
 		itemPanel = new ItemPanel[itemList.size()];
 
 		JPanel items = new JPanel();
-		items.setPreferredSize(new Dimension(820,728));
+		items.setSize(820,728);
+		items.setLocation(130,0);
 		items.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
 		items.setBackground(Color.white);
 
 		JPanel list = new JPanel();
 		list.setPreferredSize(new Dimension(1080,728));
-		list.setLayout(new FlowLayout(FlowLayout.CENTER,10,0));
+		list.setLayout(null);
 		list.setBackground(Color.white);
 		list.add(items);
 
@@ -99,8 +101,9 @@ public class BodyItemList extends JPanel {
 			});
 
 			if( i>=9 && i%2!=0 ) {
-				items.setPreferredSize(new Dimension(820,items.getPreferredSize().height+180));
-				list.setPreferredSize(new Dimension(1080,list.getPreferredSize().height+180));
+				int height_extend = 150;
+				items.setSize(items.getWidth(),items.getHeight() + height_extend);
+				list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height + height_extend));
 			}
 		}
 
