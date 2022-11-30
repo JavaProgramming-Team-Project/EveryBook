@@ -19,6 +19,7 @@ import java.util.List;
 
 public class BodyItem extends JPanel {
 	Body body;
+	long member_key = LoginMember.getLoginMember().getMemberKey();
 	List<Review> reviewList;
 	Item item;
 	long item_key;
@@ -147,10 +148,20 @@ public class BodyItem extends JPanel {
 
 		btn_write.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				Review review = new Review(0L, LoginMember.getLoginMember().getMemberKey()
-						, item_key, Integer.parseInt(combo_star.getSelectedItem().toString()), text_review.getText(), LocalDate.now().toString());
-				ReviewApi.write(review);
-				body.showItem(item_key);
+				List<Book> list = BookApi.bookList(member_key);
+
+				boolean isBooked = false;
+				for (int i = 0; i < list.size(); i++) if(list.get(i).getItemKey() == item_key) isBooked = true;
+
+				if(text_review.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "내용을 입력해 주세요.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+				} else if(!isBooked) {
+					JOptionPane.showMessageDialog(null, "예약 내역이 없습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+				} else if (JOptionPane.showOptionDialog(null, "리뷰를 작성하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+					Review review = new Review(0L, member_key, item_key, Integer.parseInt(combo_star.getSelectedItem().toString()), text_review.getText(), LocalDate.now().toString());
+					ReviewApi.write(review);
+					body.showItem(item_key);
+				}
 			}
 		});
 
@@ -159,9 +170,7 @@ public class BodyItem extends JPanel {
 		combo_star.setLocation(380,15);
 		combo_star.setFont(Fonts.f6);
 
-		for (int i = 1; i <= 5; i++) {
-			combo_star.addItem(i);
-		}
+		for (int i = 1; i <= 5; i++) combo_star.addItem(i);
 
 		Write.add(text_review);
 		Write.add(combo_star);
@@ -249,17 +258,16 @@ public class BodyItem extends JPanel {
 		btn_book.setOpaque(true);
 		btn_book.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				if (JOptionPane.showOptionDialog(null, combo_date.getSelectedItem() + "\r\n 해당 날짜에 예약 하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+				if (JOptionPane.showOptionDialog(null, combo_date.getSelectedItem() + "\r\n해당 날짜에 상품을 예약하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
 					Book book = new Book(0L, LoginMember.getLoginMember().getMemberKey(), item_key,LocalDate.now().toString(),combo_date.getSelectedItem().toString());
 					BookApi.booking(book);
-					JOptionPane.showMessageDialog(null, "예약을 성공했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "상품을 예약했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
 					body.showMyPage(LoginMember.getLoginMember().getMemberKey());
 				}
 			}
 		});
 		BookPanel.add(btn_book);
 	}
-
 }
 
 class ReviewPanel extends JPanel {
