@@ -55,17 +55,17 @@ public class BodyMain extends JPanel {
     void addAd() {
         List<ItemListDto> list = ItemApi.itemList();
 
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getItemName());
-        }
-
-        /*
-        int index[] = new int[5];
+        int index[] = new int[ad.length];
         for(int i=0; i<index.length; i++) {
             index[i] = (int)(Math.random() * list.size());
             for(int j=0; j<i; j++) if(index[i]==index[j]) i--;
         }
-         */
+
+        for (int i = 0; i < ad.length; i++) {
+            ad[i] = new AdPanel(list.get(index[i]));
+            add(ad[i]);
+        }
+
     }
 }
 
