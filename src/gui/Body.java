@@ -71,9 +71,9 @@ public class Body extends JPanel {
 		revalidate();
 		repaint();
 	}
-	public void showItemList(int category, int page) {
+	public void showItemList(int category) {
 		previous_page = current_page;
-		current_page = new BodyItemList(this, category, page);
+		current_page = new BodyItemList(this, category);
 		removeAll();
 		add(current_page);
 		revalidate();
@@ -90,7 +90,7 @@ public class Body extends JPanel {
 		repaint();
 	}
 
-	public void showMyPage(int member_key) {
+	public void showMyPage(long member_key) {
 		previous_page = current_page;
 		current_page = new BodyMyPage(this, member_key);
 		removeAll();

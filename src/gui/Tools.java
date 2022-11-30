@@ -10,6 +10,7 @@ import java.net.*;
 import java.text.DecimalFormat;
 
 class Tools {
+	static String btnYesOrNo[] = {"예", "아니오"};
 
 	static ImageIcon resizeImage(ImageIcon img, int width, int height) {
 		return new ImageIcon(img.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
