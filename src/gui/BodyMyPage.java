@@ -224,7 +224,7 @@ class BookPanel extends JPanel {
 	BookPanel(Body body, Book book) {
 		this.body = body;
 		book_key = book.getBookKey();
-		item_date = book.getItemDate();
+		item_date = book.getBookDate();
 
 		setPreferredSize(new Dimension(1000,30));
 		//setBorder(new LineBorder(Colors.gray_b));
