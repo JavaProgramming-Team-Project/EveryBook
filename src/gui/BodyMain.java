@@ -2,14 +2,11 @@ package gui;
 
 import api.ItemApi;
 import dto.ItemListDto;
-import entity.Book;
-import entity.Item;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BodyMain extends JPanel {
@@ -62,7 +59,13 @@ public class BodyMain extends JPanel {
         }
 
         for (int i = 0; i < ad.length; i++) {
-            ad[i] = new AdPanel(list.get(index[i]));
+            ItemListDto item = list.get(index[i]);
+            ad[i] = new AdPanel(item);
+            ad[i].addMouseListener(new MouseAdapter() {
+                public void mousePressed(MouseEvent e) {
+                    body.showItem(item.getItemKey());
+                }
+            });
             add(ad[i]);
         }
 
@@ -70,14 +73,30 @@ public class BodyMain extends JPanel {
 }
 
 class AdPanel extends JPanel {
+    String item_picture;
+    String item_name;
+    JLabel picture;
+    JLabel name;
     AdPanel(ItemListDto item) {
-        setPreferredSize(new Dimension(150, 150));
+        setPreferredSize(new Dimension(200, 200));
         setBorder(new LineBorder(Colors.gray_b));
-        setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
         setBackground(Color.white);
 
-        JLabel test = new JLabel(item.getItemName());
+        item_picture = "https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do";
+        item_name = item.getItemName();
 
-        add(test);
+        try {
+            picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 200, 150));
+        } catch (Exception e) { }
+
+        name = new JLabel(item_name);
+        name.setPreferredSize(new Dimension(200,20));
+        name.setFont(Fonts.f6);
+        name.setForeground(Colors.gray);
+        name.setHorizontalAlignment(JLabel.CENTER);
+
+        add(picture);
+        add(name);
     }
 }

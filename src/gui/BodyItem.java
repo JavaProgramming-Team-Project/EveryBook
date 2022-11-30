@@ -262,7 +262,7 @@ public class BodyItem extends JPanel {
 					Book book = new Book(0L, LoginMember.getLoginMember().getMemberKey(), item_key,LocalDate.now().toString(),combo_date.getSelectedItem().toString());
 					BookApi.booking(book);
 					JOptionPane.showMessageDialog(null, "상품을 예약했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
-					body.showMyPage(LoginMember.getLoginMember().getMemberKey());
+					body.showMyPage();
 				}
 			}
 		});
