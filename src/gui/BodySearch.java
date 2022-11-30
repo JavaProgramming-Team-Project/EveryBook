@@ -107,10 +107,12 @@ public class BodySearch extends JPanel {
                     }
                 });
                 if( i>=9 && i%2!=0 ) {
-                    items.setPreferredSize(new Dimension(820,items.getPreferredSize().height+180));
-                    list.setPreferredSize(new Dimension(1080,list.getPreferredSize().height+180));
+                    int height_extend = 150;
+                    items.setSize(items.getWidth(),items.getHeight() + height_extend);
+                    list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height + height_extend));
                 }
             }
+            
             add(scroll);
         }
     }
