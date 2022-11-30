@@ -1,11 +1,16 @@
 package gui;
 
+import api.ItemApi;
+import dto.ItemListDto;
 import entity.Book;
+import entity.Item;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BodyMain extends JPanel {
 
@@ -48,18 +53,31 @@ public class BodyMain extends JPanel {
         add(banner);
     }
     void addAd() {
-        for (int i = 0; i < ad.length; i++) {
-            ad[i] = new AdPanel();
-            add(ad[i]);
+        List<ItemListDto> list = ItemApi.itemList();
+
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i).getItemName());
         }
+
+        /*
+        int index[] = new int[5];
+        for(int i=0; i<index.length; i++) {
+            index[i] = (int)(Math.random() * list.size());
+            for(int j=0; j<i; j++) if(index[i]==index[j]) i--;
+        }
+         */
     }
 }
 
 class AdPanel extends JPanel {
-    AdPanel() {
+    AdPanel(ItemListDto item) {
         setPreferredSize(new Dimension(150, 150));
         setBorder(new LineBorder(Colors.gray_b));
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         setBackground(Color.white);
+
+        JLabel test = new JLabel(item.getItemName());
+
+        add(test);
     }
 }

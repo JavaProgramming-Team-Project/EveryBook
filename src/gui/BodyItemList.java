@@ -67,7 +67,9 @@ public class BodyItemList extends JPanel {
 
 	void addItemList() {
 		
-		itemList = ItemApi.itemListByCategory(str_category[category]);
+		if (category == 0) itemList = ItemApi.itemList();
+		else itemList = ItemApi.itemListByCategory(str_category[category]);
+
 		itemPanel = new ItemPanel[itemList.size()];
 
 		JPanel items = new JPanel();
