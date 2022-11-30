@@ -89,9 +89,9 @@ public class Body extends JPanel {
 		repaint();
 	}
 
-	public void showMyPage(long member_key) {
+	public void showMyPage() {
 		previous_page = current_page;
-		current_page = new BodyMyPage(this, member_key);
+		current_page = new BodyMyPage(this);
 		removeAll();
 		add(current_page);
 		revalidate();

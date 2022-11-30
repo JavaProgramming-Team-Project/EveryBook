@@ -64,7 +64,7 @@ public class Head extends JPanel {
 							mf.body.showItemList(0);
 							break;
 						case 2: // 마이페이지
-							mf.body.showMyPage(LoginMember.getLoginMember().getMemberKey());
+							mf.body.showMyPage();
 							break;
 						case 3: // 로그아웃
 							System.exit(0);

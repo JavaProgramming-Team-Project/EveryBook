@@ -89,13 +89,13 @@ public class BodyItemList extends JPanel {
 		scroll.setBorder(null);
 
 		for (int i = 0; i < itemList.size(); i++) {
-			ItemListDto tmp = itemList.get(i);
+			ItemListDto item = itemList.get(i);
 
-			itemPanel[i] = new ItemPanel(tmp);
+			itemPanel[i] = new ItemPanel(item);
 			items.add(itemPanel[i]);
 			itemPanel[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
-					body.showItem(tmp.getItemKey());
+					body.showItem(item.getItemKey());
 				}
 			});
 
@@ -139,8 +139,6 @@ class ItemPanel extends JPanel {
 		} catch (Exception e) { }
 		picture.setSize(160, 120);
 		picture.setLocation(10,10);
-		picture.setBackground(Colors.blue);
-		picture.setOpaque(true);
 
 		name = new JLabel("<html>" + item_name);
 		name.setSize(200, 45);

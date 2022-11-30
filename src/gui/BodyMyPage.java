@@ -16,15 +16,14 @@ import java.util.List;
 public class BodyMyPage extends JPanel {
 	Body body;
 
-	long member_key;
+	long member_key = LoginMember.getLoginMember().getMemberKey();
 	BookPanel book[];
 
-	BodyMyPage(Body body, long member_key) {
+	BodyMyPage(Body body) {
 		System.out.println(LoginMember.getLoginMember().getMemberName());
 		List<entity.Book> bookList = new ArrayList<>();
 		bookList = BookApi.bookList(LoginMember.getLoginMember().getMemberKey());
 		this.body = body;
-		this.member_key = member_key;
 		book = new BookPanel[5];
 
 		setDesign();
@@ -284,7 +283,7 @@ class BookPanel extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				if (JOptionPane.showOptionDialog(null, "해당 예약을 취소하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
 					BookApi.bookCancel(book.getBookKey());
-					body.showMyPage(member_key);
+					body.showMyPage();
 					JOptionPane.showMessageDialog(null, "해당 예약을 취소했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
