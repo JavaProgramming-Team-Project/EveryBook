@@ -136,7 +136,9 @@ class ItemPanel extends JPanel {
 
 		try {
 			picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 160, 120));
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			System.out.println(item_name + " : 이미지 로드 실패");
+		}
 		picture.setSize(160, 120);
 		picture.setLocation(10,10);
 
