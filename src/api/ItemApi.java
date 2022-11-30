@@ -155,7 +155,7 @@ public class ItemApi {
         List<ItemListDto> list;
 
         try {
-            String hostUrl = HOST + "item/list";
+            String hostUrl = HOST + "/item/list";
             HttpURLConnection conn = null;
 
             URL url = new URL(hostUrl);
