@@ -112,7 +112,7 @@ public class BodySearch extends JPanel {
                     list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height + height_extend));
                 }
             }
-            
+
             add(scroll);
         }
     }

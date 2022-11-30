@@ -231,6 +231,7 @@ class BookPanel extends JPanel {
 		item_date = book.getBookDate();
 		item = ItemApi.findItemByKey(book.getItemKey());
 		item_price = String.valueOf(item.getItemPrice());
+		item_name = item.getItemName();
 
 		setPreferredSize(new Dimension(1000,30));
 		//setBorder(new LineBorder(Colors.gray_b));
