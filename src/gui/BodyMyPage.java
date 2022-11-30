@@ -180,7 +180,7 @@ public class BodyMyPage extends JPanel {
 		JPanel list = new JPanel();
 		list.setPreferredSize(new Dimension(1050,295));
 		list.setBorder(new LineBorder(Colors.gray_b));
-		list.setLayout(new FlowLayout(FlowLayout.CENTER,10,2));
+		list.setLayout(new FlowLayout(FlowLayout.CENTER,10,1));
 		list.setBackground(Color.white);
 		add(list);
 
@@ -234,8 +234,10 @@ class BookPanel extends JPanel {
 
 		setPreferredSize(new Dimension(1000,30));
 		//setBorder(new LineBorder(Colors.gray_b));
-		setLayout(new FlowLayout(FlowLayout.CENTER,2,0));
+		setLayout(new FlowLayout(FlowLayout.CENTER,1,0));
 		setBackground(Color.white);
+
+		int border_line_size = 1;
 
 		key = new JLabel(book.getBookKey()+"");
 		key.setPreferredSize(new Dimension(100,30));
@@ -244,7 +246,7 @@ class BookPanel extends JPanel {
 		key.setBackground(Colors.sky);
 		key.setOpaque(true);
 		key.setHorizontalAlignment(JLabel.CENTER);
-		key.setBorder(new LineBorder(Colors.gray_b,2));
+		key.setBorder(new LineBorder(Colors.gray_b,border_line_size));
 
 		item_Label = new JLabel(item_name);
 		item_Label.setPreferredSize(new Dimension(250,30));
@@ -253,7 +255,7 @@ class BookPanel extends JPanel {
 		item_Label.setBackground(Colors.sky);
 		item_Label.setOpaque(true);
 		item_Label.setHorizontalAlignment(JLabel.CENTER);
-		item_Label.setBorder(new LineBorder(Colors.gray_b,2));
+		item_Label.setBorder(new LineBorder(Colors.gray_b,border_line_size));
 
 		date = new JLabel(item_date);
 		date.setPreferredSize(new Dimension(250,30));
@@ -262,7 +264,7 @@ class BookPanel extends JPanel {
 		date.setBackground(Colors.sky);
 		date.setOpaque(true);
 		date.setHorizontalAlignment(JLabel.CENTER);
-		date.setBorder(new LineBorder(Colors.gray_b,2));
+		date.setBorder(new LineBorder(Colors.gray_b,border_line_size));
 
 		price = new JLabel(item_price);
 		price.setPreferredSize(new Dimension(100,30));
@@ -271,7 +273,7 @@ class BookPanel extends JPanel {
 		price.setBackground(Colors.sky);
 		price.setOpaque(true);
 		price.setHorizontalAlignment(JLabel.CENTER);
-		price.setBorder(new LineBorder(Colors.gray_b,2));
+		price.setBorder(new LineBorder(Colors.gray_b,border_line_size));
 
 		btn_cancel = new JLabel("예약취소");
 		btn_cancel.setPreferredSize(new Dimension(100,30));
@@ -282,10 +284,10 @@ class BookPanel extends JPanel {
 		btn_cancel.setOpaque(true);
 		btn_cancel.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				if (JOptionPane.showOptionDialog(null, "해당 예약을 취소하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+				if (JOptionPane.showOptionDialog(null, item.getItemName() + "\r\n예약을 취소하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
 					BookApi.bookCancel(book.getBookKey());
 					body.showMyPage();
-					JOptionPane.showMessageDialog(null, "해당 예약을 취소했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "예약을 취소했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
