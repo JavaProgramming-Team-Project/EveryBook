@@ -90,7 +90,6 @@ public class BodyItemList extends JPanel {
 
 		for (int i = 0; i < itemList.size(); i++) {
 			ItemListDto tmp = itemList.get(i);
-			System.out.println(tmp.getItemName());
 
 			itemPanel[i] = new ItemPanel(tmp);
 			items.add(itemPanel[i]);

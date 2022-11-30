@@ -113,7 +113,7 @@ public class BodyItem extends JPanel {
 
 			reviewPanel[i] = new ReviewPanel(reviewList.get(reviewList.size()-i-1));
 			list.add(reviewPanel[i]);
-			if(i>=4) list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height+112));
+			if(i>=4) list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height+102));
 		}
 
 		add(scroll);
@@ -272,6 +272,7 @@ class ReviewPanel extends JPanel {
 	JLabel star;
 	JLabel name;
 	JLabel body;
+	JLabel btn_delete;
 
 	ReviewPanel(Review review) {
 
@@ -289,12 +290,32 @@ class ReviewPanel extends JPanel {
 		star = new JLabel(img_star);
 		star.setSize(100,16);
 		star.setLocation(10,5);
+		add(star);
 
 		name = new JLabel(review_name + " " + review_date);
 		name.setSize(200, 20);
 		name.setLocation(10,25);
 		name.setFont(Fonts.f6);
 		name.setForeground(Colors.gray);
+		add(name);
+
+		btn_delete = new JLabel("삭제");
+		btn_delete.setSize(50, 20);
+		btn_delete.setLocation(430,10);
+		btn_delete.setFont(Fonts.f6);
+		btn_delete.setHorizontalAlignment(JLabel.CENTER);
+		btn_delete.setForeground(Color.white);
+		btn_delete.setBackground(Colors.blue);
+		btn_delete.setOpaque(true);
+		btn_delete.setVisible(false);
+		if(review.getMemberKey() == LoginMember.getLoginMember().getMemberKey()) btn_delete.setVisible(true);
+		btn_delete.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				//리뷰 삭제 이벤트
+			}
+		});
+		add(btn_delete);
+
 
 		body = new JLabel("<html>" + review_body);
 		body.setSize(450, 38);
@@ -302,9 +323,6 @@ class ReviewPanel extends JPanel {
 		body.setFont(Fonts.f6);
 		body.setForeground(Colors.gray);
 		body.setVerticalAlignment(JLabel.TOP);
-
-		add(star);
-		add(name);
 		add(body);
 	}
 }
