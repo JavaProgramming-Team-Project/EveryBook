@@ -109,6 +109,11 @@ public class BodyLogin extends JPanel {
 		if(!text_id.getText().isEmpty() && !text_pw.getText().isEmpty()) {
 			LoginDto loginDto = new LoginDto(text_id.getText(),text_pw.getText());
 			MemberApi.login(loginDto);
+			body.mf.head.logo.addMouseListener(new MouseAdapter() {
+				public void mousePressed(MouseEvent e) {
+					body.showMain();
+				}
+			});
 			body.mf.head.menu.setVisible(true);
 			body.showMain();
 			body.previous_page = null;

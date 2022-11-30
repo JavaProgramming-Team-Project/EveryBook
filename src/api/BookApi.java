@@ -19,6 +19,9 @@ public class BookApi {
     private final static String HOST = Host.getHost();
     private static ObjectMapper mapper = new ObjectMapper();
 
+    public BookApi(Book book) {
+    }
+
     /** ---------------------------------------------------------------------------------------------------
      * 예약 추가
      * @param book 예약 정보 book

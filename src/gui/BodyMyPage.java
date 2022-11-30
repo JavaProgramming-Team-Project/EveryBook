@@ -1,6 +1,7 @@
 package gui;
 
 import api.BookApi;
+import entity.Book;
 import login.LoginMember;
 
 import javax.swing.*;
@@ -13,16 +14,16 @@ import java.util.List;
 public class BodyMyPage extends JPanel {
 	Body body;
 
-	int member_key;
-	Book book[];
+	long member_key;
+	BookPanel book[];
 
-	BodyMyPage(Body body, int member_key) {
+	BodyMyPage(Body body, long member_key) {
 		System.out.println(LoginMember.getLoginMember().getMemberName());
 		List<entity.Book> bookList = new ArrayList<>();
 		bookList = BookApi.bookList(LoginMember.getLoginMember().getMemberKey());
 		this.body = body;
 		this.member_key = member_key;
-		book = new Book[5];
+		book = new BookPanel[5];
 
 		setDesign();
 
@@ -193,23 +194,23 @@ public class BodyMyPage extends JPanel {
 		booklist.setVerticalAlignment(JLabel.BOTTOM);
 		list.add(booklist);
 
-		JLabel space = new JLabel();
+		JLabel space = new JLabel(); // 공백
 		space.setPreferredSize(new Dimension(1000,10));
 		list.add(space);
 
 		for (int i = 0; i < bookList.size(); i++) {
-			book[i] = new Book(body, bookList.get(i));
+			book[i] = new BookPanel(body, bookList.get(i));
 			list.add(book[i]);
 		}
 
 	}
 }
 
-class Book extends JPanel {
+class BookPanel extends JPanel {
 	Body body;
 
-	int book_key = 222222;
-	int member_key;
+	long book_key = 222222;
+	long member_key;
 	String item_name = "롯데호텔 서울";
 	String item_date = "2022-11-23";
 	String item_price = Tools.priceConvert(236800);
@@ -220,8 +221,9 @@ class Book extends JPanel {
 	JLabel price;
 	JLabel btn_cancel;
 
-	Book(Body body, entity.Book book) {
+	BookPanel(Body body, Book book) {
 		this.body = body;
+		book_key = book.getBookKey();
 		item_date = book.getItemDate();
 
 		setPreferredSize(new Dimension(1000,30));
@@ -265,7 +267,6 @@ class Book extends JPanel {
 		price.setHorizontalAlignment(JLabel.CENTER);
 		price.setBorder(new LineBorder(Colors.gray_b,2));
 
-		String btn[] = {"예", "아니오"};
 		btn_cancel = new JLabel("예약취소");
 		btn_cancel.setPreferredSize(new Dimension(100,30));
 		btn_cancel.setHorizontalAlignment(JLabel.CENTER);
@@ -275,7 +276,7 @@ class Book extends JPanel {
 		btn_cancel.setOpaque(true);
 		btn_cancel.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				if (JOptionPane.showOptionDialog(null, "해당 예약을 취소하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, btn, "아니오") == 0) {
+				if (JOptionPane.showOptionDialog(null, "해당 예약을 취소하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
 					BookApi.bookCancel(book.getBookKey());
 					body.showMyPage(member_key);
 					JOptionPane.showMessageDialog(null, "해당 예약을 취소했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
