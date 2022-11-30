@@ -119,6 +119,18 @@ public class BodyItem extends JPanel {
 		}
 
 		add(scroll);
+
+		if(reviewList.size() == 0) { // 리뷰가 없을경우
+			list.setBorder(new LineBorder(Colors.gray_b));
+
+			JLabel noReview = new JLabel("리뷰가 아직 없습니다.");
+			noReview.setPreferredSize(new Dimension(490,420));
+			noReview.setFont(Fonts.f8);
+			noReview.setForeground(Colors.gray);
+			noReview.setHorizontalAlignment(JLabel.CENTER);
+
+			list.add(noReview);
+		}
 	}
 
 	void addWriteReview() {
@@ -136,6 +148,12 @@ public class BodyItem extends JPanel {
 		text_review.setBorder(new LineBorder(Colors.gray_b));
 		text_review.setForeground(Colors.gray);
 		text_review.setLineWrap(true);
+		text_review.setText("리뷰를 작성해주세요.");
+		text_review.addFocusListener(new FocusAdapter() {
+			public void focusGained(FocusEvent e) {
+				if(text_review.getText().equals("리뷰를 작성해주세요.")) text_review.setText("");
+			}
+		});
 
 		btn_write = new JLabel("작성");
 		btn_write.setSize(100,35);

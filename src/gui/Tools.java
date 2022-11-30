@@ -37,6 +37,7 @@ class Fonts {
 	static Font f5 = new Font("나눔스퀘어 Bold", Font.PLAIN, 20);
 	static Font f6 = new Font("나눔스퀘어 Regular", Font.PLAIN, 16);
 	static Font f7 = new Font("여기어때 잘난체",Font.PLAIN,28);
+	static Font f8 = new Font("나눔스퀘어 Regular", Font.PLAIN, 32);
 
 }
 
