@@ -14,8 +14,6 @@ public class BodyItemList extends JPanel {
 	Body body;
 
 	int category;
-	int page;
-	int page_max = 7;
 
 	String str_category[] = {"전체", "숙박", "레저", "축제", "공연", "전시", "티켓", "식당", "뷰티", "렌트"};
 	JLabel btn_category[] = new JLabel[str_category.length];
@@ -25,11 +23,10 @@ public class BodyItemList extends JPanel {
 	List<ItemListDto> itemList;
 	JLabel btn_page[] = new JLabel[5];
 
-	BodyItemList(Body body, int category, int page) {
+	BodyItemList(Body body, int category) {
 		
 		this.body = body;
 		this.category = category;
-		this.page = page;
 
 		setDesign();
 
@@ -37,7 +34,6 @@ public class BodyItemList extends JPanel {
 
 		addItemList();
 
-		//addPageNav();
 	}
 
 	void setDesign() {
@@ -60,7 +56,7 @@ public class BodyItemList extends JPanel {
 			int index = i;
 			btn_category[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
-					body.showItemList(index, 1);
+					body.showItemList(index);
 				}
 			});
 			add(btn_category[i]);
@@ -104,68 +100,6 @@ public class BodyItemList extends JPanel {
 		}
 
 		add(scroll);
-	}
-
-	void addPageNav() {
-
-		JLabel left = new JLabel("<");
-		left.setPreferredSize(new Dimension(24,24));
-		left.setHorizontalAlignment(JLabel.CENTER);
-		left.setFont(Fonts.f3);
-		left.setForeground(Colors.gray);
-		left.setBackground(Color.white);
-		left.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if(page>1) body.showItemList(category, page-1);
-			}
-		});
-
-
-		JLabel right = new JLabel(">");
-		right.setPreferredSize(new Dimension(24,24));
-		right.setHorizontalAlignment(JLabel.CENTER);
-		right.setFont(Fonts.f3);
-		right.setForeground(Colors.gray);
-		right.setBackground(Color.white);
-		right.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if(page<page_max) body.showItemList(category, page+1);
-			}
-		});
-
-
-		add(left);
-
-		for (int i = 0; i < btn_page.length; i++) {
-			int page_new = (i+1)+((page / 5) * 5);
-			if (page % 5 == 0) page_new -= 5;
-
-			btn_page[i] = new JLabel(page_new+"");
-			btn_page[i].setPreferredSize(new Dimension(24,24));
-			btn_page[i].setHorizontalAlignment(JLabel.CENTER);
-			btn_page[i].setFont(Fonts.f3);
-			btn_page[i].setForeground(Colors.gray);
-			btn_page[i].setBackground(Color.white);
-			btn_page[i].setOpaque(true);
-
-			int index = page_new;
-			btn_page[i].addMouseListener(new MouseAdapter() {
-				public void mousePressed(MouseEvent e) {
-					body.showItemList(category, index);
-				}
-			});
-			if (page_new <= page_max) add(btn_page[i]);
-		}
-
-		add(right);
-
-		int page_new = page-1;
-		if (page>=5) page_new = page - ((page/5) * 5) - 1;
-		if (page % 5 == 0) page_new += 5;
-		btn_page[page_new].setForeground(Color.white);
-		btn_page[page_new].setBackground(Colors.blue);
-
-
 	}
 
 	class ItemPanel extends JPanel {
