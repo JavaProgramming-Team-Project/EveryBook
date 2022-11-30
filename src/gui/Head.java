@@ -63,7 +63,7 @@ public class Head extends JPanel {
 							mf.body.showMain();
 							break;
 						case 2: // 카테고리
-							mf.body.showItemList(0, 1);
+							mf.body.showItemList(0);
 							break;
 						case 3: // 마이페이지
 							mf.body.showMyPage(1);

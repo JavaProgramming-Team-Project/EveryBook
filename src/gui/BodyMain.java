@@ -34,7 +34,7 @@ public class BodyMain extends JPanel {
             btn_category[i].setPreferredSize(new Dimension(83,123));
             btn_category[i].addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
-                    body.showItemList(index, 1);
+                    body.showItemList(index);
                 }
             });
             add(btn_category[i]);
