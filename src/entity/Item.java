@@ -11,9 +11,9 @@ public class Item {
     private String itemPhone;
     private String itemImage;
     private double avgRating;
+    private String itemImage;
 
-    public Item(Long itemKey, String itemName, String itemBody, int itemPrice
-            , String itemAddress, String itemCategory, String itemPhone, String itemImage, double avgRating) {
+    public Item(Long itemKey, String itemName, String itemBody, int itemPrice, String itemAddress, String itemCategory, String itemPhone, String itemImage, double avgRating, String itemImage1) {
         this.itemKey = itemKey;
         this.itemName = itemName;
         this.itemBody = itemBody;
@@ -23,6 +23,7 @@ public class Item {
         this.itemPhone = itemPhone;
         this.itemImage = itemImage;
         this.avgRating = avgRating;
+        this.itemImage = itemImage1;
     }
 
     public Item(){}
@@ -62,37 +63,5 @@ public class Item {
     public double getAvgRating() {
         return avgRating;
 
-    }
-
-    public void setItemKey(Long itemKey) {
-        this.itemKey = itemKey;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public void setItemBody(String itemBody) {
-        this.itemBody = itemBody;
-    }
-
-    public void setItemPrice(int itemPrice) {
-        this.itemPrice = itemPrice;
-    }
-
-    public void setItemAddress(String itemAddress) {
-        this.itemAddress = itemAddress;
-    }
-
-    public void setItemCategory(String itemCategory) {
-        this.itemCategory = itemCategory;
-    }
-
-    public void setItemPhone(String itemPhone) {
-        this.itemPhone = itemPhone;
-    }
-
-    public void setItemImage(String itemImage) {
-        this.itemImage = itemImage;
     }
 }

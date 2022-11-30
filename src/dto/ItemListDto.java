@@ -7,14 +7,16 @@ public class ItemListDto {
     private String itemCategory;
     private int itemPrice;
     private double avgRating;
+    private String itemImage;
 
-    public ItemListDto(Long itemKey, String itemName, String itemAddress, String itemCategory, int itemPrice, double avgRating) {
+    public ItemListDto(Long itemKey, String itemName, String itemAddress, String itemCategory, int itemPrice, double avgRating, String itemImage) {
         this.itemKey = itemKey;
         this.itemName = itemName;
         this.itemAddress = itemAddress;
         this.itemCategory = itemCategory;
         this.itemPrice = itemPrice;
         this.avgRating = avgRating;
+        this.itemImage = itemImage;
     }
 
     public ItemListDto() {}
@@ -41,5 +43,9 @@ public class ItemListDto {
 
     public double getAvgRating() {
         return avgRating;
+    }
+
+    public String getItemImage() {
+        return itemImage;
     }
 }
