@@ -1,7 +1,9 @@
 package gui;
 
 import api.BookApi;
+import api.ItemApi;
 import entity.Book;
+import entity.Item;
 import login.LoginMember;
 
 import javax.swing.*;
@@ -209,6 +211,8 @@ public class BodyMyPage extends JPanel {
 class BookPanel extends JPanel {
 	Body body;
 
+	Item item;
+
 	long book_key = 222222;
 	long member_key;
 	String item_name = "롯데호텔 서울";
@@ -216,7 +220,7 @@ class BookPanel extends JPanel {
 	String item_price = Tools.priceConvert(236800);
 
 	JLabel key;
-	JLabel item;
+	JLabel item_Label;
 	JLabel date;
 	JLabel price;
 	JLabel btn_cancel;
@@ -224,7 +228,9 @@ class BookPanel extends JPanel {
 	BookPanel(Body body, Book book) {
 		this.body = body;
 		book_key = book.getBookKey();
-		item_date = book.getItemDate();
+		item_date = book.getBookDate();
+		item = ItemApi.findItemByKey(book.getItemKey());
+		item_price = String.valueOf(item.getItemPrice());
 
 		setPreferredSize(new Dimension(1000,30));
 		//setBorder(new LineBorder(Colors.gray_b));
@@ -240,14 +246,14 @@ class BookPanel extends JPanel {
 		key.setHorizontalAlignment(JLabel.CENTER);
 		key.setBorder(new LineBorder(Colors.gray_b,2));
 
-		item = new JLabel(item_name);
-		item.setPreferredSize(new Dimension(250,30));
-		item.setFont(Fonts.f6);
-		item.setForeground(Colors.gray);
-		item.setBackground(Colors.sky);
-		item.setOpaque(true);
-		item.setHorizontalAlignment(JLabel.CENTER);
-		item.setBorder(new LineBorder(Colors.gray_b,2));
+		item_Label = new JLabel(item_name);
+		item_Label.setPreferredSize(new Dimension(250,30));
+		item_Label.setFont(Fonts.f6);
+		item_Label.setForeground(Colors.gray);
+		item_Label.setBackground(Colors.sky);
+		item_Label.setOpaque(true);
+		item_Label.setHorizontalAlignment(JLabel.CENTER);
+		item_Label.setBorder(new LineBorder(Colors.gray_b,2));
 
 		date = new JLabel(item_date);
 		date.setPreferredSize(new Dimension(250,30));
@@ -285,7 +291,7 @@ class BookPanel extends JPanel {
 		});
 
 		add(key);
-		add(item);
+		add(item_Label);
 		add(date);
 		add(price);
 		add(btn_cancel);

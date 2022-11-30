@@ -81,7 +81,6 @@ public class Body extends JPanel {
 	}
 
 	public void showItem(long item_key) {
-		System.out.println(item_key);
 		previous_page = current_page;
 		current_page = new BodyItem(this, item_key);
 		removeAll();
