@@ -155,13 +155,12 @@ public class BodyItem extends JPanel {
 
 				if(text_review.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "내용을 입력해 주세요.", "EveryBook", JOptionPane.ERROR_MESSAGE);
-				} else if(isBooked) {
-
+				} else if(!isBooked) {
+					JOptionPane.showMessageDialog(null, "예약 내역이 없습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+				} else if (JOptionPane.showOptionDialog(null, "리뷰를 작성하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
 					Review review = new Review(0L, member_key, item_key, Integer.parseInt(combo_star.getSelectedItem().toString()), text_review.getText(), LocalDate.now().toString());
 					ReviewApi.write(review);
 					body.showItem(item_key);
-				} else {
-					JOptionPane.showMessageDialog(null, "예약 내역이 없습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -269,7 +268,6 @@ public class BodyItem extends JPanel {
 		});
 		BookPanel.add(btn_book);
 	}
-
 }
 
 class ReviewPanel extends JPanel {
