@@ -61,6 +61,7 @@ public class Item {
 
     public double getAvgRating() {
         return avgRating;
+
     }
 
     public void setItemKey(Long itemKey) {
