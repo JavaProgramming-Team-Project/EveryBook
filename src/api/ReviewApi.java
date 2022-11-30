@@ -126,7 +126,7 @@ public class ReviewApi {
             URL url = new URL(hostUrl);
             conn = (HttpURLConnection) url.openConnection();
 
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod("DELETE");
             conn.setConnectTimeout(3000);
             conn.setRequestProperty("Accept", "application/json; utf-8");
 
