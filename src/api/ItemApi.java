@@ -151,7 +151,7 @@ public class ItemApi {
      * 전체 item 리스트
      * @return 모든 item 리스트 반환
      */
-    public List<ItemListDto> itemList() {
+    public static List<ItemListDto> itemList() {
         List<ItemListDto> list;
 
         try {
