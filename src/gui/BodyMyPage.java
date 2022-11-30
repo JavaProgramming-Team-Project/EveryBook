@@ -257,6 +257,11 @@ class BookPanel extends JPanel {
 		item_Label.setOpaque(true);
 		item_Label.setHorizontalAlignment(JLabel.CENTER);
 		item_Label.setBorder(new LineBorder(Colors.gray_b,border_line_size));
+		item_Label.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				body.showItem(item.getItemKey());
+			}
+		});
 
 		date = new JLabel(item_date);
 		date.setPreferredSize(new Dimension(250,30));
@@ -315,11 +320,11 @@ class FormPanel extends JPanel {
 		setLayout(new FlowLayout(FlowLayout.CENTER, 1, 0));
 		setBackground(Color.white);
 
-		int border_line_size = 1;
+		int border_line_size = 2;
 
 		key = new JLabel("예약번호");
 		key.setPreferredSize(new Dimension(100, 30));
-		key.setFont(Fonts.f6);
+		key.setFont(Fonts.f5);
 		key.setForeground(Colors.gray);
 		key.setBackground(Colors.sky);
 		key.setOpaque(true);
@@ -328,7 +333,7 @@ class FormPanel extends JPanel {
 
 		item_Label = new JLabel("상품");
 		item_Label.setPreferredSize(new Dimension(250, 30));
-		item_Label.setFont(Fonts.f6);
+		item_Label.setFont(Fonts.f5);
 		item_Label.setForeground(Colors.gray);
 		item_Label.setBackground(Colors.sky);
 		item_Label.setOpaque(true);
@@ -337,7 +342,7 @@ class FormPanel extends JPanel {
 
 		date = new JLabel("예약일");
 		date.setPreferredSize(new Dimension(250, 30));
-		date.setFont(Fonts.f6);
+		date.setFont(Fonts.f5);
 		date.setForeground(Colors.gray);
 		date.setBackground(Colors.sky);
 		date.setOpaque(true);
@@ -346,7 +351,7 @@ class FormPanel extends JPanel {
 
 		price = new JLabel("가격");
 		price.setPreferredSize(new Dimension(100, 30));
-		price.setFont(Fonts.f6);
+		price.setFont(Fonts.f5);
 		price.setForeground(Colors.gray);
 		price.setBackground(Colors.sky);
 		price.setOpaque(true);
@@ -355,7 +360,7 @@ class FormPanel extends JPanel {
 
 		btn_cancel = new JLabel("취소");
 		btn_cancel.setPreferredSize(new Dimension(100, 30));
-		btn_cancel.setFont(Fonts.f6);
+		btn_cancel.setFont(Fonts.f5);
 		btn_cancel.setForeground(Colors.gray);
 		btn_cancel.setBackground(Colors.sky);
 		btn_cancel.setOpaque(true);
