@@ -16,6 +16,9 @@ public class Book {
         this.itemDate = itemDate;
     }
 
+    public Book(){
+    }
+
     public Long getBookKey() {
         return bookKey;
     }

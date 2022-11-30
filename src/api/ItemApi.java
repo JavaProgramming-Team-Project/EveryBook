@@ -113,7 +113,7 @@ public class ItemApi {
         Item item;
 
         try {
-            String hostUrl = HOST + "/item/id/"+itemKey;
+            String hostUrl = HOST + "/item/" + itemKey;
             HttpURLConnection conn = null;
 
             URL url = new URL(hostUrl);
