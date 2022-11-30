@@ -238,13 +238,13 @@ class BookPanel extends JPanel {
 		setLayout(new FlowLayout(FlowLayout.CENTER,1,0));
 		setBackground(Color.white);
 
-		int border_line_size = 1;
+		int border_line_size = 2;
 
 		key = new JLabel(book.getBookKey()+"");
 		key.setPreferredSize(new Dimension(100,30));
 		key.setFont(Fonts.f6);
 		key.setForeground(Colors.gray);
-		key.setBackground(Colors.sky);
+		key.setBackground(Color.white);
 		key.setOpaque(true);
 		key.setHorizontalAlignment(JLabel.CENTER);
 		key.setBorder(new LineBorder(Colors.gray_b,border_line_size));
@@ -253,7 +253,7 @@ class BookPanel extends JPanel {
 		item_Label.setPreferredSize(new Dimension(250,30));
 		item_Label.setFont(Fonts.f6);
 		item_Label.setForeground(Colors.gray);
-		item_Label.setBackground(Colors.sky);
+		item_Label.setBackground(Color.white);
 		item_Label.setOpaque(true);
 		item_Label.setHorizontalAlignment(JLabel.CENTER);
 		item_Label.setBorder(new LineBorder(Colors.gray_b,border_line_size));
@@ -262,7 +262,7 @@ class BookPanel extends JPanel {
 		date.setPreferredSize(new Dimension(250,30));
 		date.setFont(Fonts.f6);
 		date.setForeground(Colors.gray);
-		date.setBackground(Colors.sky);
+		date.setBackground(Color.white);
 		date.setOpaque(true);
 		date.setHorizontalAlignment(JLabel.CENTER);
 		date.setBorder(new LineBorder(Colors.gray_b,border_line_size));
@@ -271,7 +271,7 @@ class BookPanel extends JPanel {
 		price.setPreferredSize(new Dimension(100,30));
 		price.setFont(Fonts.f6);
 		price.setForeground(Colors.gray);
-		price.setBackground(Colors.sky);
+		price.setBackground(Color.white);
 		price.setOpaque(true);
 		price.setHorizontalAlignment(JLabel.CENTER);
 		price.setBorder(new LineBorder(Colors.gray_b,border_line_size));
