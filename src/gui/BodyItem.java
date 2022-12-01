@@ -88,9 +88,15 @@ public class BodyItem extends JPanel {
 		add(Image);
 
 		JLabel picture = null;
+
 		try {
-			picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 540, 405));
-		} catch (Exception e) { }
+			picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 160, 120));
+		} catch (Exception e) {
+			System.out.println(item_name + " : 이미지 로드 실패");
+			try {
+				picture = new JLabel(Tools.resizeImage(Tools.urlImage("https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do"), 160, 120));
+			} catch (Exception ee) { }
+		}
 
 		Image.add(picture);
 	}
@@ -338,9 +344,9 @@ class ReviewPanel extends JPanel {
 		if(review.getMemberKey().equals(LoginMember.getLoginMember().getMemberKey())) btn_delete.setVisible(true);
 		btn_delete.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				if (JOptionPane.showOptionDialog(null, "댓글을 삭제하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+				if (JOptionPane.showOptionDialog(null, "리뷰를 삭제하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
 					ReviewApi.deleteReview(review.getReviewKey());
-					JOptionPane.showMessageDialog(null, "댓글을 삭제했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "리뷰를 삭제했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
 					gui_body.showItem(item_key);
 				}
 			}
