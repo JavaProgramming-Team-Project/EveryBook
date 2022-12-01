@@ -344,9 +344,9 @@ class ReviewPanel extends JPanel {
 		if(review.getMemberKey().equals(LoginMember.getLoginMember().getMemberKey())) btn_delete.setVisible(true);
 		btn_delete.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				if (JOptionPane.showOptionDialog(null, "댓글을 삭제하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+				if (JOptionPane.showOptionDialog(null, "리뷰를 삭제하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
 					ReviewApi.deleteReview(review.getReviewKey());
-					JOptionPane.showMessageDialog(null, "댓글을 삭제했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "리뷰를 삭제했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
 					gui_body.showItem(item_key);
 				}
 			}
