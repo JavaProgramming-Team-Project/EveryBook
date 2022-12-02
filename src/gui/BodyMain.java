@@ -81,8 +81,8 @@ class AdPanel extends JPanel {
     JLabel picture;
     JLabel name;
     AdPanel(ItemListDto item) {
-        setPreferredSize(new Dimension(200, 200));
-        //setBorder(new LineBorder(Colors.gray_b));
+        setPreferredSize(new Dimension(200, 180));
+        setBorder(new LineBorder(Colors.gray_b));
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
         setBackground(Color.white);
 
@@ -90,18 +90,18 @@ class AdPanel extends JPanel {
         item_name = item.getItemName();
 
         try {
-            picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 160, 120));
+            picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 180, 135));
         } catch (Exception e) {
             System.out.println(item_name + " : 이미지 로드 실패");
             try {
-                picture = new JLabel(Tools.resizeImage(Tools.urlImage("https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do"), 160, 120));
+                picture = new JLabel(Tools.resizeImage(Tools.urlImage(Tools.defaultImage), 160, 120));
             } catch (Exception ee) { }
         }
 
         name = new JLabel(item_name);
         name.setPreferredSize(new Dimension(200,20));
         name.setFont(Fonts.f6);
-        name.setForeground(Colors.gray);
+        //name.setForeground(Colors.gray);
         name.setHorizontalAlignment(JLabel.CENTER);
 
         add(picture);

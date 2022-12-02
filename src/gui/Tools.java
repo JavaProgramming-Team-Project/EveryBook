@@ -10,6 +10,7 @@ import java.net.*;
 import java.text.DecimalFormat;
 
 class Tools {
+	static String defaultImage = "https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do";
 	static String btnYesOrNo[] = {"예", "아니오"};
 
 	static ImageIcon resizeImage(ImageIcon img, int width, int height) {
