@@ -90,7 +90,7 @@ public class BodyItem extends JPanel {
 		JLabel picture = null;
 
 		try {
-			picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 160, 120));
+			picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 540, 405));
 		} catch (Exception e) {
 			System.out.println(item_name + " : 이미지 로드 실패");
 			try {
