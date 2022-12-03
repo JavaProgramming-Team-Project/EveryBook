@@ -49,7 +49,7 @@ public class BodySearch extends JPanel {
         text_search = new JTextField();
         text_search.setSize(360, 50);
         text_search.setLocation(10, 10);
-        text_search.setFont(Fonts.f6);
+        text_search.setFont(Fonts.f5);
         text_search.setBorder(new LineBorder(Colors.gray_b));
         text_search.setForeground(Colors.gray);
 
@@ -92,7 +92,7 @@ public class BodySearch extends JPanel {
 
             JScrollPane scroll = new JScrollPane(list);
             scroll.setPreferredSize(new Dimension(1120, 545)); // 1080 + 40
-            scroll.getVerticalScrollBar().setUnitIncrement(5); // 스크롤 속도
+            scroll.getVerticalScrollBar().setUnitIncrement(10); // 스크롤 속도
             scroll.setBorder(new LineBorder(Color.gray));
 
             for (int i = 0; i < itemList.size(); i++) {

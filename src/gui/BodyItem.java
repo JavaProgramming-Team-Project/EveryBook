@@ -121,7 +121,7 @@ public class BodyItem extends JPanel {
 		JScrollPane scroll = new JScrollPane(list);
 		scroll.setSize(530,420); // 1080 + 40
 		scroll.setLocation(580,10);
-		scroll.getVerticalScrollBar().setUnitIncrement(5); // 스크롤 속도
+		scroll.getVerticalScrollBar().setUnitIncrement(10); // 스크롤 속도
 		scroll.setBorder(null);
 
 		for (int i = 0; i < reviewList.size(); i++) {

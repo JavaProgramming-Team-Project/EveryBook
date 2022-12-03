@@ -123,14 +123,14 @@ public class BodySignUp extends JPanel {
 		btn_cancel.setHorizontalAlignment(JLabel.CENTER);
 		btn_cancel.setFont(Fonts.f2);
 		btn_cancel.setForeground(Color.white);
-		btn_cancel.setBackground(new Color(0x58CCFF));
+		btn_cancel.setBackground(Colors.blue);
 		btn_cancel.setOpaque(true);
 
 		btn_signup.setPreferredSize(new Dimension(145,50));
 		btn_signup.setHorizontalAlignment(JLabel.CENTER);
 		btn_signup.setFont(Fonts.f2);
 		btn_signup.setForeground(Color.white);
-		btn_signup.setBackground(new Color(0x58CCFF));
+		btn_signup.setBackground(Colors.blue);
 		btn_signup.setOpaque(true);
 
 		add(label1);

@@ -17,12 +17,14 @@ public class BodyMyPage extends JPanel {
 	Body body;
 
 	long member_key = LoginMember.getLoginMember().getMemberKey();
+	List<entity.Book> bookList = new ArrayList<>();
 	BookPanel bookPanel[];
+	JPanel IconPanel;
+	JPanel ChargePanel;
 
 	BodyMyPage(Body body) {
 		this.body = body;
 		System.out.println(LoginMember.getLoginMember().getMemberName());
-		List<entity.Book> bookList = new ArrayList<>();
 		bookList = BookApi.bookList(LoginMember.getLoginMember().getMemberKey());
 		bookPanel = new BookPanel[bookList.size()];
 
@@ -30,9 +32,11 @@ public class BodyMyPage extends JPanel {
 
 		addProfile();
 
-		addIcon(bookList);
+		addIcon();
 
-		addBookList(bookList);
+		addChargePanel();
+
+		addBookList();
 	}
 
 	void setDesign() {
@@ -64,7 +68,7 @@ public class BodyMyPage extends JPanel {
 
 		JLabel profile_name = new JLabel(member_name + "님 환영합니다.");
 		profile_name.setPreferredSize(new Dimension(500,40));
-		profile_name.setFont(Fonts.f2);
+		profile_name.setFont(Fonts.f9);
 		profile_name.setForeground(Colors.gray);
 		profile_name.setHorizontalAlignment(JLabel.CENTER);
 		profile_name.setVerticalTextPosition(JLabel.BOTTOM);
@@ -76,7 +80,7 @@ public class BodyMyPage extends JPanel {
 
 		JLabel profile_etc = new JLabel(member_id + " / " + member_name + " / " + member_age + "세 / " + member_phone);
 		profile_etc.setPreferredSize(new Dimension(500,20));
-		profile_etc.setFont(Fonts.f2);
+		profile_etc.setFont(Fonts.f3);
 		profile_etc.setForeground(Colors.gray);
 		profile_etc.setHorizontalAlignment(JLabel.CENTER);
 		profile_etc.setVerticalTextPosition(JLabel.BOTTOM);
@@ -86,27 +90,26 @@ public class BodyMyPage extends JPanel {
 
 	}
 
-	void addIcon(List<entity.Book> bookList) {
+	void addIcon() {
 
-		JPanel Icon = new JPanel();
-		Icon.setPreferredSize(new Dimension(520,300));
-		Icon.setBorder(new LineBorder(Colors.gray_b));
-		Icon.setLayout(null);
-		//Icon.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
-		Icon.setBackground(Color.white);
-		add(Icon);
+		IconPanel = new JPanel();
+		IconPanel.setPreferredSize(new Dimension(520,300));
+		IconPanel.setBorder(new LineBorder(Colors.gray_b));
+		IconPanel.setLayout(null);
+		IconPanel.setBackground(Color.white);
+		add(IconPanel);
 
 		ImageIcon img_book = Tools.resizeImage(new ImageIcon("src/img/book.png"), 90,90);
 		JLabel icon_book = new JLabel(img_book);
 		icon_book.setSize(90,90);
-		icon_book.setLocation(170-40,70);
-		Icon.add(icon_book);
+		icon_book.setLocation(130,70);
+		IconPanel.add(icon_book);
 
 		ImageIcon img_point = Tools.resizeImage(new ImageIcon("src/img/point.png"), 90,90);
 		JLabel icon_point = new JLabel(img_point);
 		icon_point.setSize(90,90);
-		icon_point.setLocation(260+40,70);
-		Icon.add(icon_point);
+		icon_point.setLocation(300,70);
+		IconPanel.add(icon_point);
 
 		JLabel book = new JLabel(bookList.size()+"개");
 		book.setSize(90,20);
@@ -114,7 +117,7 @@ public class BodyMyPage extends JPanel {
 		book.setFont(Fonts.f2);
 		book.setForeground(Colors.gray);
 		book.setHorizontalAlignment(JLabel.CENTER);
-		Icon.add(book);
+		IconPanel.add(book);
 
 		JLabel point = new JLabel(Tools.pointConvert(100000));
 		point.setSize(110,20);
@@ -122,21 +125,92 @@ public class BodyMyPage extends JPanel {
 		point.setFont(Fonts.f2);
 		point.setForeground(Colors.gray);
 		point.setHorizontalAlignment(JLabel.CENTER);
-		Icon.add(point);
+		IconPanel.add(point);
 
-		JLabel btnCharge = new JLabel("충전");
-		btnCharge.setBounds(300,195,90,40);
+		JLabel btnChargePanel = new JLabel("충전");
+		btnChargePanel.setBounds(300,195,90,40);
+		btnChargePanel.setFont(Fonts.f2);
+		btnChargePanel.setForeground(Color.white);
+		btnChargePanel.setBackground(Colors.blue);
+		btnChargePanel.setOpaque(true);
+		btnChargePanel.setHorizontalAlignment(JLabel.CENTER);
+		btnChargePanel.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				IconPanel.setVisible(false);
+				ChargePanel.setVisible(true);
+			}
+		});
+
+		IconPanel.add(btnChargePanel);
+
+	}
+
+	void addChargePanel() {
+		ChargePanel = new JPanel(new FlowLayout(FlowLayout.CENTER,10,10));
+		ChargePanel.setPreferredSize(new Dimension(520,300));
+		ChargePanel.setBorder(new LineBorder(Colors.gray_b));
+		ChargePanel.setBackground(Color.white);
+		ChargePanel.setVisible(false);
+
+		JLabel label = new JLabel("포인트 충전");
+		label.setPreferredSize(new Dimension(500,100));
+		label.setHorizontalAlignment(JLabel.CENTER);
+		label.setFont(Fonts.f1);
+		label.setForeground(Colors.gray);
+		ChargePanel.add(label);
+
+		JLabel pointLabel = new JLabel("포인트");
+		pointLabel.setPreferredSize(new Dimension(300,20));
+		//pointLabel.setHorizontalAlignment(JLabel.CENTER);
+		pointLabel.setFont(Fonts.f2);
+		pointLabel.setForeground(Colors.gray);
+		ChargePanel.add(pointLabel);
+		
+		JTextField text_point = new JTextField();
+		text_point.setPreferredSize(new Dimension(300,32));
+		text_point.setFont(Fonts.f5);
+		text_point.setBorder(new LineBorder(Colors.gray_b));
+		text_point.setForeground(Colors.gray);
+		ChargePanel.add(text_point);
+
+		JLabel space1 = new JLabel();
+		space1.setPreferredSize(new Dimension(500,0));
+		ChargePanel.add(space1);
+
+		JLabel btnCancel = new JLabel("취소");
+		btnCancel.setPreferredSize(new Dimension(145,50));
+		btnCancel.setHorizontalAlignment(JLabel.CENTER);
+		btnCancel.setFont(Fonts.f2);
+		btnCancel.setForeground(Color.white);
+		btnCancel.setBackground(Colors.blue);
+		btnCancel.setOpaque(true);
+		btnCancel.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				ChargePanel.setVisible(false);
+				IconPanel.setVisible(true);
+			}
+		});
+		ChargePanel.add(btnCancel);
+		
+		JLabel btnCharge = new JLabel("충전하기");
+		btnCharge.setPreferredSize(new Dimension(145,50));
+		btnCharge.setHorizontalAlignment(JLabel.CENTER);
 		btnCharge.setFont(Fonts.f2);
 		btnCharge.setForeground(Color.white);
 		btnCharge.setBackground(Colors.blue);
 		btnCharge.setOpaque(true);
-		btnCharge.setHorizontalAlignment(JLabel.CENTER);
+		btnCharge.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				//포인트 충전 API
+			}
+		});
+		ChargePanel.add(btnCharge);
 
-		Icon.add(btnCharge);
+		add(ChargePanel);
 
 	}
 
-	void addBookList(List<entity.Book> bookList) {
+	void addBookList() {
 		JPanel BookPanel = new JPanel();
 		BookPanel.setPreferredSize(new Dimension(1050,295));
 		BookPanel.setBorder(new LineBorder(Colors.gray_b));
@@ -151,13 +225,13 @@ public class BodyMyPage extends JPanel {
 		BookPanel.add(new FormPanel());
 
 		JPanel list = new JPanel();
-		list.setPreferredSize(new Dimension(1080,260));
+		list.setPreferredSize(new Dimension(1080,270));
 		list.setLayout(new FlowLayout(FlowLayout.CENTER,0,1));
 		list.setBackground(Color.white);
 
 		JScrollPane scroll = new JScrollPane(list);
 		scroll.setPreferredSize(new Dimension(1080,list.getPreferredSize().height));
-		scroll.getVerticalScrollBar().setUnitIncrement(5); // 스크롤 속도
+		scroll.getVerticalScrollBar().setUnitIncrement(10); // 스크롤 속도
 		scroll.setBorder(null);
 
 		JPanel coverPanel = new JPanel();
@@ -308,7 +382,7 @@ class FormPanel extends JPanel {
 		item_Label.setHorizontalAlignment(JLabel.CENTER);
 		item_Label.setBorder(new LineBorder(Colors.gray_b, border_line_size));
 
-		date = new JLabel("예약일");
+		date = new JLabel("예약일시");
 		date.setPreferredSize(new Dimension(300, 30));
 		date.setFont(Fonts.f5);
 		date.setForeground(Color.white);
@@ -326,7 +400,7 @@ class FormPanel extends JPanel {
 		price.setHorizontalAlignment(JLabel.CENTER);
 		price.setBorder(new LineBorder(Colors.gray_b, border_line_size));
 
-		btn_cancel = new JLabel("취소");
+		btn_cancel = new JLabel();
 		btn_cancel.setPreferredSize(new Dimension(100, 30));
 		btn_cancel.setFont(Fonts.f5);
 		btn_cancel.setForeground(Color.white);

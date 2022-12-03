@@ -85,7 +85,7 @@ public class BodyItemList extends JPanel {
 
 		JScrollPane scroll = new JScrollPane(list);
 		scroll.setPreferredSize(new Dimension(1120, 728)); // 1080 + 40
-		scroll.getVerticalScrollBar().setUnitIncrement(5); // 스크롤 속도
+		scroll.getVerticalScrollBar().setUnitIncrement(10); // 스크롤 속도
 		scroll.setBorder(null);
 
 		for (int i = 0; i < itemList.size(); i++) {
