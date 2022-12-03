@@ -154,10 +154,10 @@ public class BodyItem extends JPanel {
 		text_review.setBorder(new LineBorder(Colors.gray_b));
 		text_review.setForeground(Colors.gray);
 		text_review.setLineWrap(true);
-		text_review.setText("리뷰를 작성해주세요.");
+		text_review.setText("리뷰를 작성해 주세요.");
 		text_review.addFocusListener(new FocusAdapter() {
 			public void focusGained(FocusEvent e) {
-				if(text_review.getText().equals("리뷰를 작성해주세요.")) text_review.setText("");
+				if(text_review.getText().equals("리뷰를 작성해 주세요.")) text_review.setText("");
 			}
 		});
 
@@ -253,6 +253,7 @@ public class BodyItem extends JPanel {
 		BookPanel.setLayout(null);
 		BookPanel.setBackground(Color.white);
 		add(BookPanel);
+
 
 		combo_date = new JComboBox();
 		combo_date.setSize(150,25);
