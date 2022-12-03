@@ -6,6 +6,8 @@ import dto.ItemListDto;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -20,9 +22,11 @@ public class BodySearch extends JPanel {
 
     JScrollPane scroll;
     ItemPanel itemPanel[];
+    String searchWord;
 
     BodySearch(Body body, String searchWord) {
         this.body = body;
+        this.searchWord = searchWord;
 
         setDesign();
 
@@ -52,6 +56,11 @@ public class BodySearch extends JPanel {
         text_search.setFont(Fonts.f5);
         text_search.setBorder(new LineBorder(Colors.gray_b));
         text_search.setForeground(Colors.gray);
+        text_search.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                body.showSearch(text_search.getText());
+            }
+        });
 
         btn_search = new JLabel("검색");
         btn_search.setSize(100, 50);
@@ -93,7 +102,7 @@ public class BodySearch extends JPanel {
             JScrollPane scroll = new JScrollPane(list);
             scroll.setPreferredSize(new Dimension(1120, 545)); // 1080 + 40
             scroll.getVerticalScrollBar().setUnitIncrement(10); // 스크롤 속도
-            scroll.setBorder(new LineBorder(Color.gray));
+            scroll.setBorder(null);
 
             for (int i = 0; i < itemList.size(); i++) {
                 ItemListDto tmp = itemList.get(i);
