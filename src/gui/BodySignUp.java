@@ -43,7 +43,7 @@ public class BodySignUp extends JPanel {
 				}
 				else{
 					Member member = new Member(0L,text_id.getText(),text_pw.getText(), text_name.getText(),
-							text_phone.getText(), Integer.parseInt(text_age.getText()));
+							text_phone.getText(), Integer.parseInt(text_age.getText()), 5000);
 					System.out.println("test");
 					MemberApi.signUp(member);
 					JOptionPane.showMessageDialog(null, "회원가입이 완료되었습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);

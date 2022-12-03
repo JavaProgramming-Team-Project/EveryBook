@@ -7,14 +7,17 @@ public class Member {
     private String memberName;
     private String memberPhone;
     private int memberAge;
+    private int memberPoint;
 
-    public Member(Long memberKey, String memberId, String memberPassword, String memberName, String memberPhone, int memberAge) {
+    public Member(Long memberKey, String memberId, String memberPassword, String memberName, String memberPhone
+            , int memberAge, int memberPoint) {
         this.memberKey = memberKey;
         this.memberId = memberId;
         this.memberPassword = memberPassword;
         this.memberName = memberName;
         this.memberPhone = memberPhone;
         this.memberAge = memberAge;
+        this.memberPoint = memberPoint;
     }
 
     public Member(){}
