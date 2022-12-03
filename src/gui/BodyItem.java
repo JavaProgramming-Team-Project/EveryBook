@@ -135,7 +135,7 @@ public class BodyItem extends JPanel {
 
 		if(reviewList.size() == 0) { // 리뷰가 없을경우
 			list.setBorder(new LineBorder(Colors.gray_b));
-
+			scroll.setSize(490,420);
 			JLabel noReview = new JLabel("리뷰가 아직 없습니다.");
 			noReview.setPreferredSize(new Dimension(490,420));
 			noReview.setFont(Fonts.f8);

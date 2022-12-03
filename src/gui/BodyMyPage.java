@@ -21,6 +21,7 @@ public class BodyMyPage extends JPanel {
 	BookPanel bookPanel[];
 	JPanel IconPanel;
 	JPanel ChargePanel;
+	int member_point;
 
 	BodyMyPage(Body body) {
 		this.body = body;
@@ -51,6 +52,7 @@ public class BodyMyPage extends JPanel {
 		String member_name = LoginMember.getLoginMember().getMemberName();
 		String member_phone = LoginMember.getLoginMember().getMemberPhone();
 		String member_age = String.valueOf(LoginMember.getLoginMember().getMemberAge());
+		member_point = 1000000; // 멤버 포인트 API
 
 		JPanel Profile = new JPanel();
 		Profile.setPreferredSize(new Dimension(520,300));
@@ -119,9 +121,9 @@ public class BodyMyPage extends JPanel {
 		book.setHorizontalAlignment(JLabel.CENTER);
 		IconPanel.add(book);
 
-		JLabel point = new JLabel(Tools.pointConvert(100000));
-		point.setSize(110,20);
-		point.setLocation(290, 170);
+		JLabel point = new JLabel(Tools.pointConvert(member_point));
+		point.setSize(130,20);
+		point.setLocation(280, 170);
 		point.setFont(Fonts.f2);
 		point.setForeground(Colors.gray);
 		point.setHorizontalAlignment(JLabel.CENTER);
@@ -201,6 +203,7 @@ public class BodyMyPage extends JPanel {
 		btnCharge.setOpaque(true);
 		btnCharge.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				body.showMyPage();
 				//포인트 충전 API
 			}
 		});
