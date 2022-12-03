@@ -115,10 +115,14 @@ class ItemPanel extends JPanel {
 	int item_star = 3;
 	String item_picture;
 	String item_name;
+	String item_address;
+
 	String item_price;
 
 	JLabel picture;
 	JLabel name;
+	JLabel address;
+	JLabel icon;
 	JLabel star;
 	JLabel price;
 
@@ -126,6 +130,7 @@ class ItemPanel extends JPanel {
 
 		item_picture = itemListDto.getItemImage();
 		item_name = itemListDto.getItemName();
+		item_address = itemListDto.getItemAddress();
 		item_price = Tools.priceConvert(itemListDto.getItemPrice());
 		item_star = (int) itemListDto.getAvgRating();
 
@@ -145,12 +150,21 @@ class ItemPanel extends JPanel {
 		picture.setSize(160, 120);
 		picture.setLocation(10,10);
 
-		name = new JLabel("<html>" + item_name);
-		name.setSize(200, 45);
+		name = new JLabel(item_name);
+		name.setSize(210, 25);
 		name.setLocation(180,10);
 		name.setFont(Fonts.f5);
 		name.setForeground(Colors.gray);
 		name.setVerticalAlignment(JLabel.TOP);
+
+		icon = new JLabel(Tools.resizeImage(new ImageIcon("src/img/address.png"), 16,16));
+		icon.setBounds(180,37,16,16);
+
+		address = new JLabel(item_address);
+		address.setSize(190, 20);
+		address.setLocation(200,35);
+		address.setFont(Fonts.f3);
+		address.setForeground(Colors.gray);
 
 		ImageIcon img_star = Tools.resizeImage(new ImageIcon("src/img/star_" + item_star + ".png"), 125,20);
 		star = new JLabel(img_star);
@@ -166,6 +180,8 @@ class ItemPanel extends JPanel {
 
 		add(picture);
 		add(name);
+		add(address);
+		add(icon);
 		add(star);
 		add(price);
 

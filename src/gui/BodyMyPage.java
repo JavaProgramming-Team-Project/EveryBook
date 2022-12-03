@@ -257,22 +257,22 @@ class BookPanel extends JPanel {
 		setLayout(new FlowLayout(FlowLayout.CENTER,1,0));
 		setBackground(Color.white);
 
-		int border_line_size = 1;
+		int border_line_size = 0;
 
 		key = new JLabel(book.getBookKey()+"");
 		key.setPreferredSize(new Dimension(100,30));
 		key.setFont(Fonts.f6);
 		key.setForeground(Colors.gray);
-		key.setBackground(Color.white);
+		key.setBackground(Colors.sky);
 		key.setOpaque(true);
 		key.setHorizontalAlignment(JLabel.CENTER);
 		key.setBorder(new LineBorder(Colors.gray_b,border_line_size));
 
 		item_label = new JLabel(item_name);
-		item_label.setPreferredSize(new Dimension(250,30));
+		item_label.setPreferredSize(new Dimension(240,30));
 		item_label.setFont(Fonts.f6);
 		item_label.setForeground(Colors.gray);
-		item_label.setBackground(Color.white);
+		item_label.setBackground(Colors.sky);
 		item_label.setOpaque(true);
 		item_label.setHorizontalAlignment(JLabel.CENTER);
 		item_label.setBorder(new LineBorder(Colors.gray_b,border_line_size));
@@ -283,10 +283,10 @@ class BookPanel extends JPanel {
 		});
 
 		date = new JLabel(item_date);
-		date.setPreferredSize(new Dimension(250,30));
+		date.setPreferredSize(new Dimension(300,30));
 		date.setFont(Fonts.f6);
 		date.setForeground(Colors.gray);
-		date.setBackground(Color.white);
+		date.setBackground(Colors.sky);
 		date.setOpaque(true);
 		date.setHorizontalAlignment(JLabel.CENTER);
 		date.setBorder(new LineBorder(Colors.gray_b,border_line_size));
@@ -295,7 +295,7 @@ class BookPanel extends JPanel {
 		price.setPreferredSize(new Dimension(100,30));
 		price.setFont(Fonts.f6);
 		price.setForeground(Colors.gray);
-		price.setBackground(Color.white);
+		price.setBackground(Colors.sky);
 		price.setOpaque(true);
 		price.setHorizontalAlignment(JLabel.CENTER);
 		price.setBorder(new LineBorder(Colors.gray_b,border_line_size));
@@ -339,40 +339,40 @@ class FormPanel extends JPanel {
 		setLayout(new FlowLayout(FlowLayout.CENTER, 1, 0));
 		setBackground(Color.white);
 
-		int border_line_size = 2;
+		int border_line_size = 0;
 
 		key = new JLabel("예약번호");
 		key.setPreferredSize(new Dimension(100, 30));
 		key.setFont(Fonts.f5);
-		key.setForeground(Colors.gray);
-		key.setBackground(Colors.sky);
+		key.setForeground(Color.white);
+		key.setBackground(Colors.blue);
 		key.setOpaque(true);
 		key.setHorizontalAlignment(JLabel.CENTER);
 		key.setBorder(new LineBorder(Colors.gray_b, border_line_size));
 
 		item_Label = new JLabel("상품");
-		item_Label.setPreferredSize(new Dimension(250, 30));
+		item_Label.setPreferredSize(new Dimension(240, 30));
 		item_Label.setFont(Fonts.f5);
-		item_Label.setForeground(Colors.gray);
-		item_Label.setBackground(Colors.sky);
+		item_Label.setForeground(Color.white);
+		item_Label.setBackground(Colors.blue);
 		item_Label.setOpaque(true);
 		item_Label.setHorizontalAlignment(JLabel.CENTER);
 		item_Label.setBorder(new LineBorder(Colors.gray_b, border_line_size));
 
 		date = new JLabel("예약일");
-		date.setPreferredSize(new Dimension(250, 30));
+		date.setPreferredSize(new Dimension(300, 30));
 		date.setFont(Fonts.f5);
-		date.setForeground(Colors.gray);
-		date.setBackground(Colors.sky);
+		date.setForeground(Color.white);
+		date.setBackground(Colors.blue);
 		date.setOpaque(true);
 		date.setHorizontalAlignment(JLabel.CENTER);
 		date.setBorder(new LineBorder(Colors.gray_b, border_line_size));
 
-		price = new JLabel("가격");
+		price = new JLabel("결제금액");
 		price.setPreferredSize(new Dimension(100, 30));
 		price.setFont(Fonts.f5);
-		price.setForeground(Colors.gray);
-		price.setBackground(Colors.sky);
+		price.setForeground(Color.white);
+		price.setBackground(Colors.blue);
 		price.setOpaque(true);
 		price.setHorizontalAlignment(JLabel.CENTER);
 		price.setBorder(new LineBorder(Colors.gray_b, border_line_size));
@@ -380,8 +380,8 @@ class FormPanel extends JPanel {
 		btn_cancel = new JLabel("취소");
 		btn_cancel.setPreferredSize(new Dimension(100, 30));
 		btn_cancel.setFont(Fonts.f5);
-		btn_cancel.setForeground(Colors.gray);
-		btn_cancel.setBackground(Colors.sky);
+		btn_cancel.setForeground(Color.white);
+		btn_cancel.setBackground(Colors.blue);
 		btn_cancel.setOpaque(true);
 		btn_cancel.setHorizontalAlignment(JLabel.CENTER);
 		btn_cancel.setBorder(new LineBorder(Colors.gray_b, border_line_size));
