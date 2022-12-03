@@ -55,81 +55,32 @@ public class BodyMyPage extends JPanel {
 		Profile.setBackground(Color.white);
 		add(Profile);
 
-		ImageIcon img_profile = Tools.resizeImage(new ImageIcon("src/img/member.png"), 32,32);
-		JLabel icon = new JLabel(img_profile);
+		JLabel space1 = new JLabel();
+		space1.setPreferredSize(new Dimension(500,50));
+		Profile.add(space1);
+
+		JLabel icon = new JLabel(Tools.resizeImage(new ImageIcon("src/img/member.png"), 90,90));
 		Profile.add(icon);
 
-		JLabel profile = new JLabel("회원정보");
-		profile.setPreferredSize(new Dimension(440,34));
-		profile.setFont(Fonts.f7);
-		profile.setForeground(Colors.gray);
-		profile.setVerticalAlignment(JLabel.BOTTOM);
-		Profile.add(profile);
-
-		JLabel space = new JLabel();
-		space.setPreferredSize(new Dimension(480,20));
-		Profile.add(space);
-
-		int form_width = 120;
-		int profile_width = 360;
-		int profile_height = 25;
-
-		JLabel form_id = new JLabel("아이디");
-		form_id.setPreferredSize(new Dimension(form_width,profile_height));
-		form_id.setFont(Fonts.f2);
-		form_id.setForeground(Colors.gray);
-		form_id.setHorizontalAlignment(JLabel.RIGHT);
-
-		JLabel form_name = new JLabel("이름");
-		form_name.setPreferredSize(new Dimension(form_width,profile_height));
-		form_name.setFont(Fonts.f2);
-		form_name.setForeground(Colors.gray);
-		form_name.setHorizontalAlignment(JLabel.RIGHT);
-
-		JLabel form_phone = new JLabel("전화번호");
-		form_phone.setPreferredSize(new Dimension(form_width,profile_height));
-		form_phone.setFont(Fonts.f2);
-		form_phone.setForeground(Colors.gray);
-		form_phone.setHorizontalAlignment(JLabel.RIGHT);
-
-		JLabel form_age = new JLabel("나이");
-		form_age.setPreferredSize(new Dimension(form_width,profile_height));
-		form_age.setFont(Fonts.f2);
-		form_age.setForeground(Colors.gray);
-		form_age.setHorizontalAlignment(JLabel.RIGHT);
-
-		JLabel profile_id = new JLabel(member_id);
-		profile_id.setPreferredSize(new Dimension(profile_width,profile_height));
-		profile_id.setFont(Fonts.f2);
-		profile_id.setForeground(Colors.gray);
-
-		JLabel profile_name = new JLabel(member_name);
-		profile_name.setPreferredSize(new Dimension(profile_width,profile_height));
+		JLabel profile_name = new JLabel(member_name + "님 환영합니다.");
+		profile_name.setPreferredSize(new Dimension(500,40));
 		profile_name.setFont(Fonts.f2);
 		profile_name.setForeground(Colors.gray);
-
-		JLabel profile_phone = new JLabel(member_phone);
-		profile_phone.setPreferredSize(new Dimension(profile_width,profile_height));
-		profile_phone.setFont(Fonts.f2);
-		profile_phone.setForeground(Colors.gray);
-
-		JLabel profile_age = new JLabel(member_age);
-		profile_age.setPreferredSize(new Dimension(profile_width,profile_height));
-		profile_age.setFont(Fonts.f2);
-		profile_age.setForeground(Colors.gray);
-
-
-		Profile.add(form_id);
-		Profile.add(profile_id);
-
-		Profile.add(form_name);
+		profile_name.setHorizontalAlignment(JLabel.CENTER);
+		profile_name.setVerticalTextPosition(JLabel.BOTTOM);
 		Profile.add(profile_name);
 
-		Profile.add(form_phone);
-		Profile.add(profile_phone);
+		JLabel space2 = new JLabel();
+		space2.setPreferredSize(new Dimension(500,30));
+		Profile.add(space2);
 
-		Profile.add(form_age);
-		Profile.add(profile_age);
+		JLabel profile_etc = new JLabel(member_id + " / " + member_name + " / " + member_age + "세 / " + member_phone);
+		profile_etc.setPreferredSize(new Dimension(500,20));
+		profile_etc.setFont(Fonts.f2);
+		profile_etc.setForeground(Colors.gray);
+		profile_etc.setHorizontalAlignment(JLabel.CENTER);
+		profile_etc.setVerticalTextPosition(JLabel.BOTTOM);
+		Profile.add(profile_etc);
 
 
 
@@ -157,22 +108,31 @@ public class BodyMyPage extends JPanel {
 		icon_point.setLocation(260+40,70);
 		Icon.add(icon_point);
 
-		JLabel book = new JLabel("<html><center>예약<br>"+bookList.size()+"개");
-		book.setSize(90,90);
-		book.setLocation(170-40, 150);
+		JLabel book = new JLabel(bookList.size()+"개");
+		book.setSize(90,20);
+		book.setLocation(130, 170);
 		book.setFont(Fonts.f2);
 		book.setForeground(Colors.gray);
 		book.setHorizontalAlignment(JLabel.CENTER);
 		Icon.add(book);
 
-		JLabel point = new JLabel("<html><center>포인트<br>10,000P");
-		point.setSize(90,90);
-		point.setLocation(260+40, 150);
+		JLabel point = new JLabel(Tools.pointConvert(100000));
+		point.setSize(110,20);
+		point.setLocation(290, 170);
 		point.setFont(Fonts.f2);
 		point.setForeground(Colors.gray);
 		point.setHorizontalAlignment(JLabel.CENTER);
 		Icon.add(point);
 
+		JLabel btnCharge = new JLabel("충전");
+		btnCharge.setBounds(300,195,90,40);
+		btnCharge.setFont(Fonts.f2);
+		btnCharge.setForeground(Color.white);
+		btnCharge.setBackground(Colors.blue);
+		btnCharge.setOpaque(true);
+		btnCharge.setHorizontalAlignment(JLabel.CENTER);
+
+		Icon.add(btnCharge);
 
 	}
 
@@ -180,20 +140,9 @@ public class BodyMyPage extends JPanel {
 		JPanel BookPanel = new JPanel();
 		BookPanel.setPreferredSize(new Dimension(1050,295));
 		BookPanel.setBorder(new LineBorder(Colors.gray_b));
-		BookPanel.setLayout(new FlowLayout(FlowLayout.CENTER,10,1));
+		BookPanel.setLayout(new FlowLayout(FlowLayout.CENTER,10,0));
 		BookPanel.setBackground(Color.white);
 		add(BookPanel);
-
-		ImageIcon img_book = Tools.resizeImage(new ImageIcon("src/img/book.png"), 32,32);
-		JLabel icon = new JLabel(img_book);
-		BookPanel.add(icon);
-
-		JLabel booklist_label = new JLabel("예약내역");
-		booklist_label.setPreferredSize(new Dimension(960,34));
-		booklist_label.setFont(Fonts.f7);
-		booklist_label.setForeground(Colors.gray);
-		booklist_label.setVerticalAlignment(JLabel.BOTTOM);
-		BookPanel.add(booklist_label);
 
 		JLabel space = new JLabel(); // 공백
 		space.setPreferredSize(new Dimension(1000,10));
@@ -202,17 +151,17 @@ public class BodyMyPage extends JPanel {
 		BookPanel.add(new FormPanel());
 
 		JPanel list = new JPanel();
-		list.setPreferredSize(new Dimension(1080,223));
+		list.setPreferredSize(new Dimension(1080,260));
 		list.setLayout(new FlowLayout(FlowLayout.CENTER,0,1));
 		list.setBackground(Color.white);
 
 		JScrollPane scroll = new JScrollPane(list);
-		scroll.setPreferredSize(new Dimension(1080,223));
+		scroll.setPreferredSize(new Dimension(1080,list.getPreferredSize().height));
 		scroll.getVerticalScrollBar().setUnitIncrement(5); // 스크롤 속도
 		scroll.setBorder(null);
 
 		JPanel coverPanel = new JPanel();
-		coverPanel.setPreferredSize(new Dimension(1040,200));
+		coverPanel.setPreferredSize(new Dimension(1040,list.getPreferredSize().height-23));
 		coverPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
 
 		coverPanel.add(scroll);
@@ -222,7 +171,7 @@ public class BodyMyPage extends JPanel {
 			Book book = bookList.get(bookList.size()-i-1);
 			bookPanel[i] = new BookPanel(body, book);
 			list.add(bookPanel[i]);
-			if(i>=7) list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height+32));
+			if(i>=8) list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height+31));
 		}
 	}
 }

@@ -168,15 +168,30 @@ public class BodyItem extends JPanel {
 			}
 		});
 
+		JLabel starImage = new JLabel(Tools.resizeImage(new ImageIcon("src/img/star_3.png"), 100,18));
+		starImage.setBounds(380,10,100,18);
+		JLabel btnStar[] = new JLabel[5];
+		for (int i = 0; i < 5; i++) {
+			int index = i+1;
+			btnStar[i] = new JLabel();
+			btnStar[i].setBounds(starImage.getX()+(i*20),10,20,20);
+			btnStar[i].addMouseListener(new MouseAdapter() {
+				public void mousePressed(MouseEvent e) {
+					review_star = index;
+					starImage.setIcon(Tools.resizeImage(new ImageIcon("src/img/star_" + index + ".png"), 100,18));
+				}
+			});
+			Write.add(btnStar[i]);
+		}
+
 		btn_write = new JLabel("작성");
-		btn_write.setSize(100,35);
-		btn_write.setLocation(380,40);
+		btn_write.setSize(100,45);
+		btn_write.setLocation(380,35);
 		btn_write.setHorizontalAlignment(JLabel.CENTER);
 		btn_write.setFont(Fonts.f5);
 		btn_write.setForeground(Color.white);
 		btn_write.setBackground(Colors.blue);
 		btn_write.setOpaque(true);
-
 
 		btn_write.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -197,26 +212,9 @@ public class BodyItem extends JPanel {
 			}
 		});
 
-		JLabel starImage = new JLabel(Tools.resizeImage(new ImageIcon("src/img/star_3.png"), 100,18));
-		starImage.setBounds(380,10,100,18);
-
 		Write.add(text_review);
 		Write.add(starImage);
 		Write.add(btn_write);
-
-		JLabel btnStar[] = new JLabel[5];
-		for (int i = 0; i < 5; i++) {
-			int index = i+1;
-			btnStar[i] = new JLabel();
-			btnStar[i].setBounds(starImage.getX()+(i*20),10,20,20);
-			btnStar[i].addMouseListener(new MouseAdapter() {
-				public void mousePressed(MouseEvent e) {
-					review_star = index;
-					starImage.setIcon(Tools.resizeImage(new ImageIcon("src/img/star_" + index + ".png"), 100,18));
-				}
-			});
-			Write.add(btnStar[i]);
-		}
 
 		add(Write);
 	}
@@ -264,6 +262,7 @@ public class BodyItem extends JPanel {
 	void addBook() {
 		boolean category1 = item.getItemCategory().equals("숙박") || item.getItemCategory().equals("렌트");
 		boolean category2 = item.getItemCategory().equals("레저") || item.getItemCategory().equals("식당");
+		boolean category0 = !category1 && !category2;
 
 		JPanel BookPanel = new JPanel();
 		BookPanel.setSize(490,90);
@@ -274,7 +273,7 @@ public class BodyItem extends JPanel {
 		add(BookPanel);
 
 		datePicker = new JDatePicker(new UtilDateModel(), dateFormat);
-		datePicker.setBounds(50,20,190,20);
+		datePicker.setBounds(70,20,190,20);
 		datePicker.getModel().setDate(LocalDate.now().getYear(),LocalDate.now().getMonthValue()-1,LocalDate.now().getDayOfMonth());
 		datePicker.getModel().setSelected(true);
 		datePicker.getButton().setVisible(false);
@@ -290,13 +289,6 @@ public class BodyItem extends JPanel {
 		datePicker.getModel().addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				if (category1) {
-					if (LocalDate.parse(dateConvert.format(optionPicker.getModel().getValue())).isBefore(LocalDate.parse(dateConvert.format(datePicker.getModel().getValue())))) {
-						datePicker.getModel().setDate(LocalDate.now().getYear(), LocalDate.now().getMonthValue() - 1, LocalDate.now().getDayOfMonth());
-						datePicker.getModel().setSelected(true);
-						optionPicker.getModel().setDate(LocalDate.now().getYear(), LocalDate.now().getMonthValue() - 1, LocalDate.now().getDayOfMonth() + 1);
-						optionPicker.getModel().setSelected(true);
-						JOptionPane.showMessageDialog(null, "해당 날짜에 예약할 수 없습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
-					} else {
 						Calendar startDate = Calendar.getInstance();
 						Calendar endDate = Calendar.getInstance();
 						Date date1;
@@ -311,14 +303,15 @@ public class BodyItem extends JPanel {
 						startDate.setTime(date1);
 						endDate.setTime(date2);
 						long day = -((startDate.getTimeInMillis() - endDate.getTimeInMillis()) / 1000 / (24 * 60 * 60));
-						if (item.getItemPrice() * (int) day == 0) item_price = item.getItemPrice();
+						if (item.getItemPrice() * (int) day <= 0) item_price = item.getItemPrice();
 						else item_price = item.getItemPrice() * (int) day;
 						price.setText(Tools.priceConvert(item_price));
 					}
-				}
 			}
 		});
 		BookPanel.add(datePicker);
+
+		if(category0) datePicker.setLocation(datePicker.getX(),datePicker.getY()+15);
 
 		JLabel icon1 = new JLabel(Tools.resizeImage(new ImageIcon("src/img/book.png"), 22,22));
 		icon1.setBounds(datePicker.getX()-30, datePicker.getY(), 22, 22);
@@ -342,31 +335,23 @@ public class BodyItem extends JPanel {
 			optionPicker.getModel().addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
 					if (category1) {
-						if (LocalDate.parse(dateConvert.format(optionPicker.getModel().getValue())).isBefore(LocalDate.parse(dateConvert.format(datePicker.getModel().getValue())))) {
-							datePicker.getModel().setDate(LocalDate.now().getYear(), LocalDate.now().getMonthValue() - 1, LocalDate.now().getDayOfMonth());
-							datePicker.getModel().setSelected(true);
-							optionPicker.getModel().setDate(LocalDate.now().getYear(), LocalDate.now().getMonthValue() - 1, LocalDate.now().getDayOfMonth() + 1);
-							optionPicker.getModel().setSelected(true);
-							JOptionPane.showMessageDialog(null, "해당 날짜에 예약할 수 없습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
-						} else {
-							Calendar startDate = Calendar.getInstance();
-							Calendar endDate = Calendar.getInstance();
-							Date date1;
-							Date date2;
-							try {
-								date1 = new SimpleDateFormat("yyyy-MM-dd").parse(dateConvert.format(datePicker.getModel().getValue()));
-								date2 = new SimpleDateFormat("yyyy-MM-dd").parse(dateConvert.format(optionPicker.getModel().getValue()));
+						Calendar startDate = Calendar.getInstance();
+						Calendar endDate = Calendar.getInstance();
+						Date date1;
+						Date date2;
+						try {
+							date1 = new SimpleDateFormat("yyyy-MM-dd").parse(dateConvert.format(datePicker.getModel().getValue()));
+							date2 = new SimpleDateFormat("yyyy-MM-dd").parse(dateConvert.format(optionPicker.getModel().getValue()));
 
-							} catch (ParseException ex) {
-								throw new RuntimeException(ex);
-							}
-							startDate.setTime(date1);
-							endDate.setTime(date2);
-							long day = -((startDate.getTimeInMillis() - endDate.getTimeInMillis()) / 1000 / (24 * 60 * 60));
-							if (item.getItemPrice() * (int) day == 0) item_price = item.getItemPrice();
-							else item_price = item.getItemPrice() * (int) day;
-							price.setText(Tools.priceConvert(item_price));
+						} catch (ParseException ex) {
+							throw new RuntimeException(ex);
 						}
+						startDate.setTime(date1);
+						endDate.setTime(date2);
+						long day = -((startDate.getTimeInMillis() - endDate.getTimeInMillis()) / 1000 / (24 * 60 * 60));
+						if (item.getItemPrice() * (int) day <= 0) item_price = item.getItemPrice();
+						else item_price = item.getItemPrice() * (int) day;
+						price.setText(Tools.priceConvert(item_price));
 					}
 				}
 			});
@@ -387,26 +372,27 @@ public class BodyItem extends JPanel {
 			BookPanel.add(optionCombo);
 
 			JLabel icon2 = new JLabel(Tools.resizeImage(new ImageIcon("src/img/time.png"), 22,22));
-			icon2.setBounds(icon1.getX(), optionCombo.getY(), 22, 22);
+			icon2.setBounds(icon1.getX(), optionCombo.getY()+2, 22, 22);
 			BookPanel.add(icon2);
 		}
 
 		price = new JLabel(Tools.priceConvert(item_price));
-		price.setSize(150,20);
-		price.setLocation(250,15);
+		price.setSize(200,20);
+		price.setLocation(260,15);
 		price.setFont(Fonts.f4);
 		price.setForeground(Colors.red);
 		price.setHorizontalAlignment(JLabel.CENTER);
 		BookPanel.add(price);
 
 		btn_book = new JLabel("예약하기");
-		btn_book.setSize(150,40);
-		btn_book.setLocation(250,40);
+		btn_book.setSize(200,40);
+		btn_book.setLocation(260,40);
 		btn_book.setHorizontalAlignment(JLabel.CENTER);
-		btn_book.setFont(Fonts.f2);
+		btn_book.setFont(Fonts.f5);
 		btn_book.setForeground(Color.white);
 		btn_book.setBackground(Colors.red);
 		btn_book.setOpaque(true);
+		btn_book.setVerticalAlignment(JLabel.CENTER);
 		btn_book.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				String selectedDate = sdf.format(datePicker.getModel().getValue());
@@ -421,13 +407,13 @@ public class BodyItem extends JPanel {
 					datePicker.getModel().setSelected(true);
 					optionPicker.getModel().setDate(LocalDate.now().getYear(),LocalDate.now().getMonthValue()-1,LocalDate.now().getDayOfMonth()+1);
 					optionPicker.getModel().setSelected(true);
-					JOptionPane.showMessageDialog(null, "해당 날짜에 예약할 수 없습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "해당 일시에 예약할 수 없습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
 				} else if(LocalDate.parse(dateConvert.format(datePicker.getModel().getValue())).isBefore(LocalDate.now())) {
 					datePicker.getModel().setDate(LocalDate.now().getYear(),LocalDate.now().getMonthValue()-1,LocalDate.now().getDayOfMonth());
 					datePicker.getModel().setSelected(true);
-					JOptionPane.showMessageDialog(null, "해당 날짜에 예약할 수 없습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "해당 일시에 예약할 수 없습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
 
-				} else if (JOptionPane.showOptionDialog(null, selectedDate + "\r\n해당 날짜에 상품을 예약하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+				} else if (JOptionPane.showOptionDialog(null, selectedDate + "\r\n해당 일시에 상품을 예약하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
 					Book book = new Book(0L, LoginMember.getLoginMember().getMemberKey(), item_key,LocalDate.now().toString(),selectedDate);
 					BookApi.booking(book);
 					JOptionPane.showMessageDialog(null, "상품을 예약했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
@@ -470,7 +456,7 @@ class ReviewPanel extends JPanel {
 		star.setLocation(10,5);
 		add(star);
 
-		name = new JLabel(review_name + " " + review_date);
+		name = new JLabel("<html><b>" + review_name + "</b> " + review_date);
 		name.setSize(200, 20);
 		name.setLocation(10,25);
 		name.setFont(Fonts.f6);

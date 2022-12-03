@@ -89,7 +89,7 @@ public class BodyItemList extends JPanel {
 		scroll.setBorder(null);
 
 		for (int i = 0; i < itemList.size(); i++) {
-			ItemListDto item = itemList.get(i);
+			ItemListDto item = itemList.get(itemList.size()-i-1);
 
 			itemPanel[i] = new ItemPanel(item);
 			items.add(itemPanel[i]);
