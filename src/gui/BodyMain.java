@@ -100,8 +100,8 @@ class AdPanel extends JPanel {
 
         name = new JLabel(item_name);
         name.setPreferredSize(new Dimension(200,20));
-        name.setFont(Fonts.f6);
-        //name.setForeground(Colors.gray);
+        name.setFont(Fonts.f3);
+        name.setForeground(Colors.gray);
         name.setHorizontalAlignment(JLabel.CENTER);
 
         add(picture);
