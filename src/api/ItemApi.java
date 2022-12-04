@@ -1,5 +1,6 @@
 package api;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.ItemListDto;
@@ -16,8 +17,8 @@ import java.util.List;
 
 public class ItemApi {
 
-    private final static String HOST = Host.getHost();
     private static ObjectMapper mapper = new ObjectMapper();
+    private static final HttpRequestManager HTTP_REQUEST_MANAGER = new HttpRequestManager();
 
     /** ---------------------------------------------------------------------------------------------------
      * 카테고리 별 상품 리스트
@@ -26,38 +27,15 @@ public class ItemApi {
      */
     public static List<ItemListDto> itemListByCategory(String itemCategory) {
         List<ItemListDto> list;
+        String endPoint = "/item/category/"+ URLEncoder.encode(itemCategory, StandardCharsets.UTF_8);
+        String response = HTTP_REQUEST_MANAGER.getRequest(endPoint);
+
         try {
-            String hostUrl = HOST + "/item/category/"+ URLEncoder.encode(itemCategory, StandardCharsets.UTF_8);
-            HttpURLConnection conn = null;
-
-            URL url = new URL(hostUrl);
-            conn = (HttpURLConnection) url.openConnection();
-
-            conn.setRequestMethod("GET");
-            conn.setConnectTimeout(3000);
-            conn.setRequestProperty("Accept", "application/json; utf-8");
-
-            int responseCode = conn.getResponseCode();
-            if (responseCode == 400) {
-                System.out.println("400 : 명령 실행 오류");
-            } else if (responseCode == 500) {
-                System.out.println("500 : 서버 에러");
-            } else {
-                System.out.println(responseCode + " : 응답 코드");
-            }
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            list = mapper.readValue(br.readLine(), new TypeReference<>() {});
-            br.close();
-
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+            list = mapper.readValue(response, new TypeReference<>() {});
+        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+
         return list;
     }
 
@@ -68,39 +46,15 @@ public class ItemApi {
      */
     public static List<ItemListDto> findItemByName(String itemName) {
         List<ItemListDto> list;
+        String endPoint = "/item/name/"+URLEncoder.encode(itemName, StandardCharsets.UTF_8);
+        String response = HTTP_REQUEST_MANAGER.getRequest(endPoint);
 
         try {
-            String hostUrl = HOST + "/item/name/"+URLEncoder.encode(itemName, StandardCharsets.UTF_8);
-            HttpURLConnection conn = null;
-
-            URL url = new URL(hostUrl);
-            conn = (HttpURLConnection) url.openConnection();
-
-            conn.setRequestMethod("GET");
-            conn.setConnectTimeout(3000);
-            conn.setRequestProperty("Accept", "application/json; utf-8");
-
-            int responseCode = conn.getResponseCode();
-            if (responseCode == 400) {
-                System.out.println("400 : 명령 실행 오류");
-            } else if (responseCode == 500) {
-                System.out.println("500 : 서버 에러");
-            } else {
-                System.out.println(responseCode + " : 응답 코드");
-            }
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            list = mapper.readValue(br.readLine(), new TypeReference<>() {});
-            br.close();
-
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+            list = mapper.readValue(response, new TypeReference<>() {});
+        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+
         return list;
     }
 
@@ -111,39 +65,15 @@ public class ItemApi {
      */
     public static Item findItemByKey(Long itemKey) {
         Item item;
+        String endPoint = "/item/" + itemKey;
+        String response = HTTP_REQUEST_MANAGER.getRequest(endPoint);
 
         try {
-            String hostUrl = HOST + "/item/" + itemKey;
-            HttpURLConnection conn = null;
-
-            URL url = new URL(hostUrl);
-            conn = (HttpURLConnection) url.openConnection();
-
-            conn.setRequestMethod("GET");
-            conn.setConnectTimeout(3000);
-            conn.setRequestProperty("Accept", "application/json; utf-8");
-
-            int responseCode = conn.getResponseCode();
-            if (responseCode == 400) {
-                System.out.println("400 : 명령 실행 오류");
-            } else if (responseCode == 500) {
-                System.out.println("500 : 서버 에러");
-            } else {
-                System.out.println(responseCode + " : 응답 코드");
-            }
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            item = mapper.readValue(br.readLine(), new TypeReference<>() {});
-            br.close();
-
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+            item = mapper.readValue(response, new TypeReference<>() {});
+        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+
         return item;
     }
 
@@ -153,39 +83,15 @@ public class ItemApi {
      */
     public static List<ItemListDto> itemList() {
         List<ItemListDto> list;
+        String endPoint = "/item/list";
+        String response = HTTP_REQUEST_MANAGER.getRequest(endPoint);
 
         try {
-            String hostUrl = HOST + "/item/list";
-            HttpURLConnection conn = null;
-
-            URL url = new URL(hostUrl);
-            conn = (HttpURLConnection) url.openConnection();
-
-            conn.setRequestMethod("GET");
-            conn.setConnectTimeout(3000);
-            conn.setRequestProperty("Accept", "application/json; utf-8");
-
-            int responseCode = conn.getResponseCode();
-            if (responseCode == 400) {
-                System.out.println("400 : 명령 실행 오류");
-            } else if (responseCode == 500) {
-                System.out.println("500 : 서버 에러");
-            } else {
-                System.out.println(responseCode + " : 응답 코드");
-            }
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            list = mapper.readValue(br.readLine(), new TypeReference<>() {});
-            br.close();
-
-        } catch (ProtocolException e) {
-            throw new RuntimeException(e);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+            list = mapper.readValue(response, new TypeReference<>() {});
+        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+
         return list;
     }
 }
