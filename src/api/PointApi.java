@@ -23,12 +23,14 @@ public class PointApi {
         }
 
         HTTP_REQUEST_MANAGER.putRequest(endPoint, requestBody);
+
+        MemberApi.updateMemberInfo();
     }
 
     /** --------------------------------------------------------------------------------------------------
      * 포인트 사용
      */
-    public static void usePoint(PointDto pointDto) {
+    /*public static void usePoint(PointDto pointDto) {
         String endPoint = "/point/use";
         String requestBody;
 
@@ -39,5 +41,7 @@ public class PointApi {
         }
 
         HTTP_REQUEST_MANAGER.putRequest(endPoint, requestBody);
-    }
+
+        MemberApi.updateMemberInfo();
+    }*/
 }
