@@ -414,7 +414,7 @@ public class BodyItem extends JPanel {
 					JOptionPane.showMessageDialog(null, "해당 일시에 예약할 수 없습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
 
 				} else if (JOptionPane.showOptionDialog(null, selectedDate + "\r\n해당 일시에 상품을 예약하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
-					Book book = new Book(0L, LoginMember.getLoginMember().getMemberKey(), item_key,LocalDate.now().toString(),selectedDate);
+					Book book = new Book(0L, LoginMember.getLoginMember().getMemberKey(), item_key,LocalDate.now().toString(),selectedDate, item_price);
 					BookApi.booking(book);
 					JOptionPane.showMessageDialog(null, "상품을 예약했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
 					body.showMyPage();

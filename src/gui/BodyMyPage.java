@@ -277,7 +277,7 @@ class BookPanel extends JPanel {
 		book_key = book.getBookKey();
 		item_name = item.getItemName();
 		item_date = book.getItemDate();
-		item_price = item.getItemPrice();
+		item_price = book.getBookPrice();
 
 		setPreferredSize(new Dimension(850,30));
 		setLayout(new FlowLayout(FlowLayout.CENTER,1,0));
