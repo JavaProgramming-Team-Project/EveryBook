@@ -46,6 +46,10 @@ public class Member {
         return memberAge;
     }
 
+    public int getMemberPoint() {
+        return memberPoint;
+    }
+
     public void setMemberKey(Long memberKey) {
         this.memberKey = memberKey;
     }
