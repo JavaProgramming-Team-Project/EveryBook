@@ -339,7 +339,6 @@ class BookPanel extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				if (JOptionPane.showOptionDialog(null, item.getItemName() + "\r\n예약을 취소하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
 					BookApi.bookCancel(book.getBookKey());
-					PointApi.addPoint(new PointDto(member_key,item_price));
 					body.showMyPage();
 					JOptionPane.showMessageDialog(null, "예약을 취소했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
 				}
