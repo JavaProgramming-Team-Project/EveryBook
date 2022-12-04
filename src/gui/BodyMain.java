@@ -81,8 +81,8 @@ class AdPanel extends JPanel {
     JLabel picture;
     JLabel name;
     AdPanel(ItemListDto item) {
-        setPreferredSize(new Dimension(200, 200));
-        //setBorder(new LineBorder(Colors.gray_b));
+        setPreferredSize(new Dimension(200, 180));
+        setBorder(new LineBorder(Colors.gray_b));
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
         setBackground(Color.white);
 
@@ -91,11 +91,16 @@ class AdPanel extends JPanel {
 
         try {
             picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 180, 135));
-        } catch (Exception e) { }
+        } catch (Exception e) {
+            System.out.println(item_name + " : 이미지 로드 실패");
+            try {
+                picture = new JLabel(Tools.resizeImage(Tools.urlImage(Tools.defaultImage), 160, 120));
+            } catch (Exception ee) { }
+        }
 
         name = new JLabel(item_name);
         name.setPreferredSize(new Dimension(200,20));
-        name.setFont(Fonts.f6);
+        name.setFont(Fonts.f3);
         name.setForeground(Colors.gray);
         name.setHorizontalAlignment(JLabel.CENTER);
 

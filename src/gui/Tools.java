@@ -10,6 +10,7 @@ import java.net.*;
 import java.text.DecimalFormat;
 
 class Tools {
+	static String defaultImage = "https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do";
 	static String btnYesOrNo[] = {"예", "아니오"};
 
 	static ImageIcon resizeImage(ImageIcon img, int width, int height) {
@@ -26,6 +27,12 @@ class Tools {
 		return str_price;
 	}
 
+	static String pointConvert(int price) {
+		DecimalFormat df = new DecimalFormat("###,###");
+		String str_price = df.format(price) + "P";
+		return str_price;
+	}
+
 }
 
 class Fonts {
@@ -38,6 +45,8 @@ class Fonts {
 	static Font f6 = new Font("나눔스퀘어 Regular", Font.PLAIN, 16);
 	static Font f7 = new Font("여기어때 잘난체",Font.PLAIN,28);
 	static Font f8 = new Font("나눔스퀘어 Regular", Font.PLAIN, 32);
+	static Font f9 = new Font("G마켓 산스 TTF Medium", Font.PLAIN, 24);
+
 
 }
 

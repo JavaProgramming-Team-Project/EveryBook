@@ -85,11 +85,11 @@ public class BodyItemList extends JPanel {
 
 		JScrollPane scroll = new JScrollPane(list);
 		scroll.setPreferredSize(new Dimension(1120, 728)); // 1080 + 40
-		scroll.getVerticalScrollBar().setUnitIncrement(5); // 스크롤 속도
+		scroll.getVerticalScrollBar().setUnitIncrement(10); // 스크롤 속도
 		scroll.setBorder(null);
 
 		for (int i = 0; i < itemList.size(); i++) {
-			ItemListDto item = itemList.get(i);
+			ItemListDto item = itemList.get(itemList.size()-i-1);
 
 			itemPanel[i] = new ItemPanel(item);
 			items.add(itemPanel[i]);
@@ -115,10 +115,14 @@ class ItemPanel extends JPanel {
 	int item_star = 3;
 	String item_picture;
 	String item_name;
+	String item_address;
+
 	String item_price;
 
 	JLabel picture;
 	JLabel name;
+	JLabel address;
+	JLabel icon;
 	JLabel star;
 	JLabel price;
 
@@ -126,6 +130,7 @@ class ItemPanel extends JPanel {
 
 		item_picture = itemListDto.getItemImage();
 		item_name = itemListDto.getItemName();
+		item_address = itemListDto.getItemAddress();
 		item_price = Tools.priceConvert(itemListDto.getItemPrice());
 		item_star = (int) itemListDto.getAvgRating();
 
@@ -139,18 +144,27 @@ class ItemPanel extends JPanel {
 		} catch (Exception e) {
 			System.out.println(item_name + " : 이미지 로드 실패");
 			try {
-				picture = new JLabel(Tools.resizeImage(Tools.urlImage("https://www.hotelrating.or.kr/imageViewSlide/202111251802069d1c9424AbeefA4b65A98f5A038d1008bd470.do"), 160, 120));
+				picture = new JLabel(Tools.resizeImage(Tools.urlImage(Tools.defaultImage), 160, 120));
 			} catch (Exception ee) { }
 		}
 		picture.setSize(160, 120);
 		picture.setLocation(10,10);
 
-		name = new JLabel("<html>" + item_name);
-		name.setSize(200, 45);
+		name = new JLabel(item_name);
+		name.setSize(210, 25);
 		name.setLocation(180,10);
 		name.setFont(Fonts.f5);
 		name.setForeground(Colors.gray);
 		name.setVerticalAlignment(JLabel.TOP);
+
+		icon = new JLabel(Tools.resizeImage(new ImageIcon("src/img/address.png"), 16,16));
+		icon.setBounds(180,37,16,16);
+
+		address = new JLabel(item_address);
+		address.setSize(190, 20);
+		address.setLocation(200,35);
+		address.setFont(Fonts.f3);
+		address.setForeground(Colors.gray);
 
 		ImageIcon img_star = Tools.resizeImage(new ImageIcon("src/img/star_" + item_star + ".png"), 125,20);
 		star = new JLabel(img_star);
@@ -166,6 +180,8 @@ class ItemPanel extends JPanel {
 
 		add(picture);
 		add(name);
+		add(address);
+		add(icon);
 		add(star);
 		add(price);
 
