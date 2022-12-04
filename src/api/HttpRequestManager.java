@@ -82,6 +82,7 @@ public class HttpRequestManager {
             conn.setRequestProperty("Accept", "application/json; utf-8");
 
             if (requestMethod.equals("POST") || requestMethod.equals("PUT")) {
+                conn.setRequestProperty("Content-Type", "application/json; utf-8");
                 conn.setDoOutput(true); //POST
 
                 OutputStream os = conn.getOutputStream();
