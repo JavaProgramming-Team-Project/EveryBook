@@ -35,6 +35,8 @@ public class BookApi {
         }
 
         HTTP_REQUEST_MANAGER.postRequest(endPoint, requestBody);
+
+        MemberApi.updateMemberInfo();
     }
 
     /** ---------------------------------------------------------------------------------------------------
@@ -65,5 +67,7 @@ public class BookApi {
         String endPoint = "/book/"+ URLEncoder.encode(String.valueOf(bookKey), StandardCharsets.UTF_8);
 
         HTTP_REQUEST_MANAGER.deleteRequest(endPoint);
+
+        MemberApi.updateMemberInfo();
     }
 }
