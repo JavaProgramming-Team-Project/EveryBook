@@ -424,7 +424,6 @@ public class BodyItem extends JPanel {
 						JOptionPane.showMessageDialog(null, "포인트가 부족합니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
 					else{
 						BookApi.booking(book);
-						PointApi.usePoint(new PointDto(member_key,member_point));
 						JOptionPane.showMessageDialog(null, "상품을 예약했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
 						body.showMyPage();
 					}
