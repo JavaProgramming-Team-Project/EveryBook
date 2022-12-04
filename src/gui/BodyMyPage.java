@@ -2,6 +2,9 @@ package gui;
 
 import api.BookApi;
 import api.ItemApi;
+import api.PointApi;
+import dto.LoginDto;
+import dto.PointDto;
 import entity.Book;
 import entity.Item;
 import login.LoginMember;
@@ -15,13 +18,12 @@ import java.util.List;
 
 public class BodyMyPage extends JPanel {
 	Body body;
-
+	int member_point = LoginMember.getLoginMember().getMemberPoint();
 	long member_key = LoginMember.getLoginMember().getMemberKey();
 	List<entity.Book> bookList = new ArrayList<>();
 	BookPanel bookPanel[];
 	JPanel IconPanel;
 	JPanel ChargePanel;
-	int member_point;
 
 	BodyMyPage(Body body) {
 		this.body = body;
@@ -52,7 +54,8 @@ public class BodyMyPage extends JPanel {
 		String member_name = LoginMember.getLoginMember().getMemberName();
 		String member_phone = LoginMember.getLoginMember().getMemberPhone();
 		String member_age = String.valueOf(LoginMember.getLoginMember().getMemberAge());
-		member_point = 1000000; // 멤버 포인트 API
+		member_point = LoginMember.getLoginMember().getMemberPoint(); // 멤버 포인트 API
+		System.out.println("member_point = "+member_point);
 
 		JPanel Profile = new JPanel();
 		Profile.setPreferredSize(new Dimension(520,300));
@@ -203,8 +206,10 @@ public class BodyMyPage extends JPanel {
 		btnCharge.setOpaque(true);
 		btnCharge.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				// 포인트 충전 API
+				PointApi.addPoint(new PointDto(LoginMember.getLoginMember().getMemberKey(),
+						Integer.parseInt(text_point.getText())));
 				body.showMyPage();
-				//포인트 충전 API
 			}
 		});
 		ChargePanel.add(btnCharge);
