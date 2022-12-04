@@ -7,7 +7,17 @@ public class PointDto {
     public PointDto(Long memberKey, int point) {
         this.memberKey = memberKey;
         this.point = point;
+        System.out.println(point);
+        System.out.println(memberKey);
     }
 
     public PointDto() {}
+
+    public int getPoint() {
+        return point;
+    }
+
+    public Long getMemberKey() {
+        return memberKey;
+    }
 }
