@@ -3,7 +3,6 @@ package gui;
 import api.BookApi;
 import api.ItemApi;
 import api.PointApi;
-import dto.LoginDto;
 import dto.PointDto;
 import entity.Book;
 import entity.Item;
@@ -13,21 +12,19 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BodyMyPage extends JPanel {
 	Body body;
-	int member_point = LoginMember.getLoginMember().getMemberPoint();
-	long member_key = LoginMember.getLoginMember().getMemberKey();
-	List<entity.Book> bookList = new ArrayList<>();
-	BookPanel bookPanel[];
+	int member_point;
+	long member_key;
+	List<entity.Book> bookList;
+	BookPanel []bookPanel;
 	JPanel IconPanel;
 	JPanel ChargePanel;
 
 	BodyMyPage(Body body) {
 		this.body = body;
-		System.out.println(LoginMember.getLoginMember().getMemberName());
 		bookList = BookApi.bookList(LoginMember.getLoginMember().getMemberKey());
 		bookPanel = new BookPanel[bookList.size()];
 
@@ -55,7 +52,7 @@ public class BodyMyPage extends JPanel {
 		String member_phone = LoginMember.getLoginMember().getMemberPhone();
 		String member_age = String.valueOf(LoginMember.getLoginMember().getMemberAge());
 		member_point = LoginMember.getLoginMember().getMemberPoint(); // 멤버 포인트 API
-		System.out.println("member_point = "+member_point);
+		member_key = LoginMember.getLoginMember().getMemberKey();
 
 		JPanel Profile = new JPanel();
 		Profile.setPreferredSize(new Dimension(520,300));
@@ -251,7 +248,7 @@ public class BodyMyPage extends JPanel {
 
 		for (int i = 0; i < bookList.size(); i++) {
 			Book book = bookList.get(bookList.size()-i-1);
-			bookPanel[i] = new BookPanel(body, book);
+			bookPanel[i] = new BookPanel(body, book, member_key);
 			list.add(bookPanel[i]);
 			if(i>=8) list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height+31));
 		}
@@ -275,7 +272,7 @@ class BookPanel extends JPanel {
 	JLabel price;
 	JLabel btn_cancel;
 
-	BookPanel(Body body, Book book) {
+	BookPanel(Body body, Book book, long member_key) {
 		this.body = body;
 		item = ItemApi.findItemByKey(book.getItemKey());
 
@@ -342,6 +339,7 @@ class BookPanel extends JPanel {
 			public void mousePressed(MouseEvent e) {
 				if (JOptionPane.showOptionDialog(null, item.getItemName() + "\r\n예약을 취소하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
 					BookApi.bookCancel(book.getBookKey());
+					PointApi.addPoint(new PointDto(member_key,item_price));
 					body.showMyPage();
 					JOptionPane.showMessageDialog(null, "예약을 취소했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
 				}
