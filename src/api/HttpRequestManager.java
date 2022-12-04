@@ -41,13 +41,14 @@ public class HttpRequestManager {
     /** --------------------------------------------------------------------------------------------------------
      * PUT Request Method
      * @param endPoint End Point : String
+     * @param requestBody Request Body : String
      * @return response : String
      */
-    /*public String putRequest(String endPoint) {
+    public String putRequest(String endPoint, String requestBody) {
         String hostUrl = HOST + endPoint;
 
-        return getResponse(hostUrl, "PUT", );
-    }*/
+        return getResponse(hostUrl, "PUT", requestBody);
+    }
 
     /** --------------------------------------------------------------------------------------------------------
      * DELETE Request Method
@@ -80,7 +81,7 @@ public class HttpRequestManager {
             conn.setConnectTimeout(3000);
             conn.setRequestProperty("Accept", "application/json; utf-8");
 
-            if (requestMethod.equals("POST")) {
+            if (requestMethod.equals("POST") || requestMethod.equals("PUT")) {
                 conn.setDoOutput(true); //POST
 
                 OutputStream os = conn.getOutputStream();
