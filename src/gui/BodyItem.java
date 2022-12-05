@@ -61,7 +61,7 @@ public class BodyItem extends JPanel {
 		item = ItemApi.findItemByKey(item_key);
 		item_picture = item.getItemImage();
 		item_name = item.getItemName();
-		item_star = (int) item.getAvgRating();
+		item_star = Integer.parseInt(String.format("%.0f", item.getAvgRating()));
 		item_price = item.getItemPrice();
 		item_body = item.getItemBody();
 		item_address = item.getItemAddress();

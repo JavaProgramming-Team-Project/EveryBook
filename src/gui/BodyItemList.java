@@ -132,7 +132,7 @@ class ItemPanel extends JPanel {
 		item_name = itemListDto.getItemName();
 		item_address = itemListDto.getItemAddress();
 		item_price = Tools.priceConvert(itemListDto.getItemPrice());
-		item_star = (int) itemListDto.getAvgRating();
+		item_star = Integer.parseInt(String.format("%.0f", itemListDto.getAvgRating()));
 
 		setPreferredSize(new Dimension(400,140));
 		setBorder(new LineBorder(Colors.gray_b));
