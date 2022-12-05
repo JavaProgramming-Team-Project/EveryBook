@@ -38,10 +38,11 @@ public class BodySignUp extends JPanel {
 
 		btn_signup.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				if(text_id.getText().isBlank() || text_age.getText().isBlank() || text_name.getText().isBlank() ||
-				text_pw.getText().isBlank() || text_phone.getText().isBlank()){
-				}
-				else{
+				if(text_id.getText().isBlank() || text_age.getText().isBlank() || text_name.getText().isBlank() || text_pw.getText().isBlank() || text_phone.getText().isBlank()) {
+					JOptionPane.showMessageDialog(null, "회원가입 오류: 빈칸이 있습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+				} else if (!text_age.getText().matches("[0-9]+")) {
+					JOptionPane.showMessageDialog(null, "회원가입 오류: 나이에는 숫자만 입력 가능합니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+				} else {
 					Member member = new Member(0L,text_id.getText(),text_pw.getText(), text_name.getText(),
 							text_phone.getText(), Integer.parseInt(text_age.getText()), 5000);
 					System.out.println("test");
