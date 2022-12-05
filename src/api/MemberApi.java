@@ -45,8 +45,8 @@ public class MemberApi {
      */
     public static void login(LoginDto loginDto) {
 
-        String endPoint = "/user/" + loginDto.getMemberId() + "?" + "password=" + loginDto.getPassword();
-        String response = null;
+        String endPoint = "/user/login/" + loginDto.getMemberId() + "?" + "password=" + loginDto.getPassword();
+        String response;
         Member member = null;
 
         try {
@@ -56,6 +56,24 @@ public class MemberApi {
             throw new RuntimeException(e);
         } catch (IllegalArgumentException e) {
             JOptionPane.showMessageDialog(null, "존재하지 않는 회원입니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+            throw new IllegalArgumentException("존재하지 않는 회원입니다. ㅋ");
+        }
+
+        LoginMember.setLoginMember(member);
+    }
+
+    public static void updateMemberInfo() {
+        Long updateMemberKey = LoginMember.getLoginMember().getMemberKey();
+
+        String endPoint = "/user/" + updateMemberKey;
+        String response;
+        Member member;
+
+        try {
+            response = HTTP_REQUEST_MANAGER.getRequest(endPoint);
+            member = mapper.readValue(response, Member.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
 
         LoginMember.setLoginMember(member);

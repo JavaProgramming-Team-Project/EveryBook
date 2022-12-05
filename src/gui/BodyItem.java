@@ -2,7 +2,9 @@ package gui;
 
 import api.BookApi;
 import api.ItemApi;
+import api.PointApi;
 import api.ReviewApi;
+import dto.PointDto;
 import dto.ReviewListDto;
 import entity.Book;
 import entity.Item;
@@ -26,6 +28,7 @@ import java.util.List;
 public class BodyItem extends JPanel {
 	Body body;
 	long member_key = LoginMember.getLoginMember().getMemberKey();
+	int member_point = LoginMember.getLoginMember().getMemberPoint();
 	List<ReviewListDto> reviewList;
 	Item item;
 	long item_key;
@@ -417,9 +420,14 @@ public class BodyItem extends JPanel {
 
 				} else if (JOptionPane.showOptionDialog(null, selectedDate + "\r\n해당 일시에 상품을 예약하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
 					Book book = new Book(0L, LoginMember.getLoginMember().getMemberKey(), item_key,LocalDate.now().toString(),selectedDate, item_price);
-					BookApi.booking(book);
-					JOptionPane.showMessageDialog(null, "상품을 예약했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
-					body.showMyPage();
+					if(member_point < item_price)
+						JOptionPane.showMessageDialog(null, "포인트가 부족합니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+					else{
+						BookApi.booking(book);
+						JOptionPane.showMessageDialog(null, "상품을 예약했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
+						body.showMyPage();
+					}
+
 				}
 
 			}
