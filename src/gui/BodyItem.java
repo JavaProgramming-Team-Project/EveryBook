@@ -44,7 +44,7 @@ public class BodyItem extends JPanel {
 
 	JTextArea text_review; // 등록할 리뷰
 	JLabel btn_write; // 리뷰 등록
-	int review_star; // 리뷰 별점
+	int review_star = 3; // 리뷰 별점
 
 	JDatePicker datePicker;
 	JDatePicker optionPicker;
