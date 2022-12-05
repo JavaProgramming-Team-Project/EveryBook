@@ -33,11 +33,15 @@ public class MemberApi {
 
         try {
             requestBody = mapper.writeValueAsString(member);
+            HTTP_REQUEST_MANAGER.postRequest(endPoint, requestBody);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, "회원가입 오류: 중복된 아이디 입니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+            throw new IllegalArgumentException("회원가입 오류");
         }
 
-        HTTP_REQUEST_MANAGER.postRequest(endPoint, requestBody);
+
     }
 
     /** ---------------------------------------------------------------------------------------------------
