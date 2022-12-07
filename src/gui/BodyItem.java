@@ -263,7 +263,7 @@ public class BodyItem extends JPanel {
 
 	void addBook() {
 		boolean category1 = item.getItemCategory().equals("숙박") || item.getItemCategory().equals("렌트");
-		boolean category2 = item.getItemCategory().equals("레저") || item.getItemCategory().equals("식당");
+		boolean category2 = item.getItemCategory().equals("레저") || item.getItemCategory().equals("식당") || item.getItemCategory().equals("뷰티");
 		boolean category0 = !category1 && !category2;
 
 		JPanel BookPanel = new JPanel();
