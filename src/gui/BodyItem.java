@@ -275,7 +275,7 @@ public class BodyItem extends JPanel {
 		add(BookPanel);
 
 		datePicker = new JDatePicker(new UtilDateModel(), dateFormat);
-		datePicker.setBounds(70,20,190,20);
+		datePicker.setBounds(70,20,200,20);
 		datePicker.getModel().setDate(LocalDate.now().getYear(),LocalDate.now().getMonthValue()-1,LocalDate.now().getDayOfMonth());
 		datePicker.getModel().setSelected(true);
 		datePicker.getButton().setVisible(false);
