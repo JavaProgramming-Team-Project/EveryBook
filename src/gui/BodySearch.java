@@ -78,36 +78,36 @@ public class BodySearch extends JPanel {
             itemPanel = new ItemPanel[itemList.size()];
 
             JPanel items = new JPanel();
-            items.setPreferredSize(new Dimension(820, 750));
+            items.setSize(820, 460);
+            items.setLocation(130, 0);
             items.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
             items.setBackground(Color.white);
 
             JPanel list = new JPanel();
-            list.setPreferredSize(new Dimension(1080, 750));
-            list.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
+            list.setPreferredSize(new Dimension(1080, 460));
+            list.setLayout(null);
             list.setBackground(Color.white);
             list.add(items);
 
             JScrollPane scroll = new JScrollPane(list);
-            scroll.setPreferredSize(new Dimension(1120, 545)); // 1080 + 40
+            scroll.setPreferredSize(new Dimension(1120, 560)); // 1080 + 40
             scroll.getVerticalScrollBar().setUnitIncrement(10); // 스크롤 속도
             scroll.setBorder(null);
 
             for (int i = 0; i < itemList.size(); i++) {
-                ItemListDto tmp = itemList.get(i);
-                System.out.println(tmp.getItemName());
+                ItemListDto item = itemList.get(itemList.size() - i - 1);
 
-                itemPanel[i] = new ItemPanel(tmp);
+                itemPanel[i] = new ItemPanel(item);
                 items.add(itemPanel[i]);
                 itemPanel[i].addMouseListener(new MouseAdapter() {
-                    public void mousePressed(MouseEvent e) {
-                        body.showItem(tmp.getItemKey());
+                    public void mousePressed(MouseEvent e) {body.showItem(item.getItemKey());
                     }
                 });
-                if( i>=9 && i%2!=0 ) {
+
+                if( i >= 6 && i % 2 == 0 ) {
                     int height_extend = 150;
-                    items.setSize(items.getWidth(),items.getHeight() + height_extend);
-                    list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height + height_extend));
+                    items.setSize(items.getWidth(), items.getHeight() + height_extend);
+                    list.setPreferredSize(new Dimension(list.getPreferredSize().width, list.getPreferredSize().height + height_extend));
                 }
             }
 
