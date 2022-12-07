@@ -71,7 +71,7 @@ public class BodyMyPage extends JPanel {
 
 		JLabel profile_name = new JLabel(member_name + "님 환영합니다.");
 		profile_name.setPreferredSize(new Dimension(500,40));
-		profile_name.setFont(Fonts.f9);
+		profile_name.setFont(Fonts.f8);
 		profile_name.setForeground(Colors.gray);
 		profile_name.setHorizontalAlignment(JLabel.CENTER);
 		profile_name.setVerticalTextPosition(JLabel.BOTTOM);
@@ -282,7 +282,7 @@ public class BodyMyPage extends JPanel {
 		if(bookList.size() == 0) { // 리뷰가 없을경우
 			JLabel noReview = new JLabel("예약 내역이 없습니다.");
 			noReview.setPreferredSize(new Dimension(1080,250));
-			noReview.setFont(Fonts.f8);
+			noReview.setFont(Fonts.f7);
 			noReview.setForeground(Colors.gray);
 			noReview.setHorizontalAlignment(JLabel.CENTER);
 

@@ -6,10 +6,7 @@ import dto.ItemListDto;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.List;
 
 public class BodySearch extends JPanel {
@@ -48,10 +45,10 @@ public class BodySearch extends JPanel {
         text_search.setFont(Fonts.f5);
         text_search.setBorder(new LineBorder(Colors.gray_b));
         text_search.setForeground(Colors.gray);
-        text_search.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                body.showSearch(text_search.getText());
-            }
+        text_search.setText("검색어를 입력해 주세요");
+        text_search.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { body.showSearch(text_search.getText()); }});
+        text_search.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) { if(text_search.getText().equals("검색어를 입력해 주세요")) text_search.setText(""); }
         });
 
         btn_search.setPreferredSize(new Dimension(80,40));

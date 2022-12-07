@@ -141,7 +141,7 @@ public class BodyItem extends JPanel {
 			scroll.setSize(490,420);
 			JLabel noReview = new JLabel("리뷰가 아직 없습니다.");
 			noReview.setPreferredSize(new Dimension(490,420));
-			noReview.setFont(Fonts.f8);
+			noReview.setFont(Fonts.f7);
 			noReview.setForeground(Colors.gray);
 			noReview.setHorizontalAlignment(JLabel.CENTER);
 
