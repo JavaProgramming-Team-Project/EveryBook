@@ -31,11 +31,10 @@ public class BodyMain extends JPanel {
     void addIcon() {
         for (int i = 0; i < btn_category.length; i++) {
             int index = i+1;
-            ImageIcon img_src = Tools.resizeImage(new ImageIcon("src/img/icon_" + index + ".png"), 83,123);
-            btn_category[i] = new JLabel(img_src);
+            btn_category[i] = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/icon_" + index + ".png")), 83,123));
             btn_category[i].addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
-                    body.showItemList(index);
+                    body.showItemList(index,1);
                 }
             });
             add(btn_category[i]);
@@ -43,8 +42,7 @@ public class BodyMain extends JPanel {
     }
 
     void addBanner() {
-        ImageIcon img_src = Tools.resizeImage(new ImageIcon("src/img/banner.png"), 1296,300);
-        JLabel banner = new JLabel(img_src);
+        JLabel banner = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/banner.png")), 1296,300));
         add(banner);
     }
     void addAd() {
@@ -73,38 +71,37 @@ public class BodyMain extends JPanel {
         }
 
     }
-}
+    class AdPanel extends JPanel {
+        String item_picture;
+        String item_name;
+        JLabel picture;
+        JLabel name;
+        AdPanel(ItemListDto item) {
+            setPreferredSize(new Dimension(200, 180));
+            setBorder(new LineBorder(Colors.gray_b));
+            setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
+            setBackground(Color.white);
 
-class AdPanel extends JPanel {
-    String item_picture;
-    String item_name;
-    JLabel picture;
-    JLabel name;
-    AdPanel(ItemListDto item) {
-        setPreferredSize(new Dimension(200, 180));
-        setBorder(new LineBorder(Colors.gray_b));
-        setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
-        setBackground(Color.white);
+            item_picture = item.getItemImage();
+            item_name = item.getItemName();
 
-        item_picture = item.getItemImage();
-        item_name = item.getItemName();
-
-        try {
-            picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 180, 135));
-        } catch (Exception e) {
-            System.out.println(item_name + " : 이미지 로드 실패");
             try {
-                picture = new JLabel(Tools.resizeImage(Tools.urlImage(Tools.defaultImage), 160, 120));
-            } catch (Exception ee) { }
+                picture = new JLabel(Tools.resizeImage(Tools.urlImage(item_picture), 180, 135));
+            } catch (Exception e) {
+                System.out.println(item_name + " : 이미지 로드 실패");
+                try {
+                    picture = new JLabel(Tools.resizeImage(Tools.urlImage(Tools.defaultImage), 160, 120));
+                } catch (Exception ee) { }
+            }
+
+            name = new JLabel(item_name);
+            name.setPreferredSize(new Dimension(200,20));
+            name.setFont(Fonts.f3);
+            name.setForeground(Colors.gray);
+            name.setHorizontalAlignment(JLabel.CENTER);
+
+            add(picture);
+            add(name);
         }
-
-        name = new JLabel(item_name);
-        name.setPreferredSize(new Dimension(200,20));
-        name.setFont(Fonts.f3);
-        name.setForeground(Colors.gray);
-        name.setHorizontalAlignment(JLabel.CENTER);
-
-        add(picture);
-        add(name);
     }
 }

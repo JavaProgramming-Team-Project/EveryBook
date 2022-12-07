@@ -141,7 +141,7 @@ public class BodyItem extends JPanel {
 			scroll.setSize(490,420);
 			JLabel noReview = new JLabel("리뷰가 아직 없습니다.");
 			noReview.setPreferredSize(new Dimension(490,420));
-			noReview.setFont(Fonts.f8);
+			noReview.setFont(Fonts.f7);
 			noReview.setForeground(Colors.gray);
 			noReview.setHorizontalAlignment(JLabel.CENTER);
 
@@ -171,7 +171,7 @@ public class BodyItem extends JPanel {
 			}
 		});
 
-		JLabel starImage = new JLabel(Tools.resizeImage(new ImageIcon("src/img/star_3.png"), 100,18));
+		JLabel starImage = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/star_3.png")), 100,18));
 		starImage.setBounds(380,10,100,18);
 		JLabel btnStar[] = new JLabel[5];
 		for (int i = 0; i < 5; i++) {
@@ -181,7 +181,7 @@ public class BodyItem extends JPanel {
 			btnStar[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
 					review_star = index;
-					starImage.setIcon(Tools.resizeImage(new ImageIcon("src/img/star_" + index + ".png"), 100,18));
+					starImage.setIcon(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/star_" + index + ".png")), 100,18));
 				}
 			});
 			Write.add(btnStar[i]);
@@ -240,8 +240,7 @@ public class BodyItem extends JPanel {
 		name.setForeground(Colors.gray);
 		Body.add(name);
 
-		ImageIcon img_star = Tools.resizeImage(new ImageIcon("src/img/star_" + item_star + ".png"), 125,20);
-		JLabel star = new JLabel(img_star);
+		JLabel star = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/star_" + item_star + ".png")), 125,20));
 		star.setSize(125,20);
 		star.setLocation(425,10);
 		Body.add(star);
@@ -317,7 +316,7 @@ public class BodyItem extends JPanel {
 
 		if(category0) datePicker.setLocation(datePicker.getX(),datePicker.getY()+15);
 
-		JLabel icon1 = new JLabel(Tools.resizeImage(new ImageIcon("src/img/book.png"), 22,22));
+		JLabel icon1 = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/book.png")), 22,22));
 		icon1.setBounds(datePicker.getX()-30, datePicker.getY(), 22, 22);
 		BookPanel.add(icon1);
 
@@ -362,7 +361,7 @@ public class BodyItem extends JPanel {
 			});
 			BookPanel.add(optionPicker);
 
-			JLabel icon2 = new JLabel(Tools.resizeImage(new ImageIcon("src/img/book.png"), 22,22));
+			JLabel icon2 = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/book.png")), 22,22));
 			icon2.setBounds(icon1.getX(), optionPicker.getY(), 22, 22);
 			BookPanel.add(icon2);
 		}
@@ -376,7 +375,7 @@ public class BodyItem extends JPanel {
 			for (int i = 0; i <= 12; i++) optionCombo.addItem(String.format("%02d", (i+9)) + "시 00분");
 			BookPanel.add(optionCombo);
 
-			JLabel icon2 = new JLabel(Tools.resizeImage(new ImageIcon("src/img/time.png"), 22,22));
+			JLabel icon2 = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/time.png")), 22,22));
 			icon2.setBounds(icon1.getX(), optionCombo.getY()+2, 22, 22);
 			BookPanel.add(icon2);
 		}
@@ -434,73 +433,72 @@ public class BodyItem extends JPanel {
 		});
 		BookPanel.add(btn_book);
 	}
-}
+	class ReviewPanel extends JPanel {
 
-class ReviewPanel extends JPanel {
+		int review_star = 3;
+		String review_name = "박재정";
+		String review_date = "2022-12-24";
+		String review_body = "체크인 할 때 직원분들이 친절했어요. 방 청소도 잘되어있어서 깔끔해서 좋았어요. 다음에도 이 주변 오면 여기서 숙박하고 싶네요. 좋은 추억 많이 남기고 갑니다.";
 
-	int review_star = 3;
-	String review_name = "박재정";
-	String review_date = "2022-12-24";
-	String review_body = "체크인 할 때 직원분들이 친절했어요. 방 청소도 잘되어있어서 깔끔해서 좋았어요. 다음에도 이 주변 오면 여기서 숙박하고 싶네요. 좋은 추억 많이 남기고 갑니다.";
+		JLabel star;
+		JLabel name;
+		JLabel body;
+		JLabel btn_delete;
 
-	JLabel star;
-	JLabel name;
-	JLabel body;
-	JLabel btn_delete;
+		ReviewPanel(ReviewListDto review, Body gui_body, long item_key) {
 
-	ReviewPanel(ReviewListDto review, Body gui_body, long item_key) {
+			review_name = String.valueOf(review.getMemberName());
+			review_star = review.getReviewStar();
+			review_date = review.getReviewDate();
+			review_body = review.getReviewBody();
 
-		review_name = String.valueOf(review.getMemberName());
-		review_star = review.getReviewStar();
-		review_date = review.getReviewDate();
-		review_body = review.getReviewBody();
+			setPreferredSize(new Dimension(490,92));
+			setBorder(new LineBorder(Colors.gray_b));
+			setLayout(null);
+			setBackground(Color.white);
 
-		setPreferredSize(new Dimension(490,92));
-		setBorder(new LineBorder(Colors.gray_b));
-		setLayout(null);
-		setBackground(Color.white);
+			star = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/star_" + review_star + ".png")), 100,16));
+			star.setSize(100,16);
+			star.setLocation(10,5);
+			add(star);
 
-		ImageIcon img_star = Tools.resizeImage(new ImageIcon("src/img/star_" + review_star + ".png"), 100,16);
-		star = new JLabel(img_star);
-		star.setSize(100,16);
-		star.setLocation(10,5);
-		add(star);
+			name = new JLabel("<html><b>" + review_name + "</b> " + review_date);
+			name.setSize(200, 20);
+			name.setLocation(10,25);
+			name.setFont(Fonts.f6);
+			name.setForeground(Colors.gray);
+			add(name);
 
-		name = new JLabel("<html><b>" + review_name + "</b> " + review_date);
-		name.setSize(200, 20);
-		name.setLocation(10,25);
-		name.setFont(Fonts.f6);
-		name.setForeground(Colors.gray);
-		add(name);
-
-		btn_delete = new JLabel("삭제");
-		btn_delete.setSize(50, 20);
-		btn_delete.setLocation(430,10);
-		btn_delete.setFont(Fonts.f6);
-		btn_delete.setHorizontalAlignment(JLabel.CENTER);
-		btn_delete.setForeground(Color.white);
-		btn_delete.setBackground(Colors.blue);
-		btn_delete.setOpaque(true);
-		btn_delete.setVisible(false);
-		if(review.getMemberKey().equals(LoginMember.getLoginMember().getMemberKey())) btn_delete.setVisible(true);
-		btn_delete.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (JOptionPane.showOptionDialog(null, "리뷰를 삭제하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
-					ReviewApi.deleteReview(review.getReviewKey());
-					JOptionPane.showMessageDialog(null, "리뷰를 삭제했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
-					gui_body.showItem(item_key);
+			btn_delete = new JLabel("삭제");
+			btn_delete.setSize(50, 20);
+			btn_delete.setLocation(430,10);
+			btn_delete.setFont(Fonts.f6);
+			btn_delete.setHorizontalAlignment(JLabel.CENTER);
+			btn_delete.setForeground(Color.white);
+			btn_delete.setBackground(Colors.blue);
+			btn_delete.setOpaque(true);
+			btn_delete.setVisible(false);
+			if(review.getMemberKey().equals(LoginMember.getLoginMember().getMemberKey())) btn_delete.setVisible(true);
+			btn_delete.addMouseListener(new MouseAdapter() {
+				public void mousePressed(MouseEvent e) {
+					if (JOptionPane.showOptionDialog(null, "리뷰를 삭제하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+						ReviewApi.deleteReview(review.getReviewKey());
+						JOptionPane.showMessageDialog(null, "리뷰를 삭제했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
+						gui_body.showItem(item_key);
+					}
 				}
-			}
-		});
-		add(btn_delete);
+			});
+			add(btn_delete);
 
 
-		body = new JLabel("<html>" + review_body);
-		body.setSize(450, 38);
-		body.setLocation(10,45);
-		body.setFont(Fonts.f6);
-		body.setForeground(Colors.gray);
-		body.setVerticalAlignment(JLabel.TOP);
-		add(body);
+			body = new JLabel("<html>" + review_body);
+			body.setSize(450, 38);
+			body.setLocation(10,45);
+			body.setFont(Fonts.f6);
+			body.setForeground(Colors.gray);
+			body.setVerticalAlignment(JLabel.TOP);
+			add(body);
+		}
 	}
 }
+

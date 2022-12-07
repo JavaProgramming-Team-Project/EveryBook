@@ -6,10 +6,7 @@ import dto.ItemListDto;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.List;
 
 public class BodySearch extends JPanel {
@@ -17,8 +14,8 @@ public class BodySearch extends JPanel {
 
     List<ItemListDto> itemList;
 
-    JTextField text_search; // 검색창
-    JLabel btn_search; // 검색 버튼
+    JTextField text_search = new JTextField();
+    JLabel btn_search = new JLabel("검색");
 
     JScrollPane scroll;
     ItemPanel itemPanel[];
@@ -27,6 +24,7 @@ public class BodySearch extends JPanel {
     BodySearch(Body body, String searchWord) {
         this.body = body;
         this.searchWord = searchWord;
+        text_search.setText(searchWord);
 
         setDesign();
 
@@ -37,34 +35,23 @@ public class BodySearch extends JPanel {
 
     void setDesign() {
         setPreferredSize(new Dimension(1080, 650));
-        setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
         setBackground(Color.white);
     }
 
     void addSearch() {
-        JPanel SearchPanel = new JPanel();
-        SearchPanel.setPreferredSize(new Dimension(520, 100));
-        //SearchPanel.setSize(490,92);
-        //SearchPanel.setLocation(580,440);
-        //SearchPanel.setBorder(new LineBorder(Colors.gray_b));
-        SearchPanel.setLayout(null);
-        SearchPanel.setBackground(Color.white);
 
-        text_search = new JTextField();
-        text_search.setSize(360, 50);
-        text_search.setLocation(10, 10);
+        text_search.setPreferredSize(new Dimension(400,40));
         text_search.setFont(Fonts.f5);
         text_search.setBorder(new LineBorder(Colors.gray_b));
         text_search.setForeground(Colors.gray);
-        text_search.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                body.showSearch(text_search.getText());
-            }
+        text_search.setText("검색어를 입력해 주세요");
+        text_search.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { body.showSearch(text_search.getText()); }});
+        text_search.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) { if(text_search.getText().equals("검색어를 입력해 주세요")) text_search.setText(""); }
         });
 
-        btn_search = new JLabel("검색");
-        btn_search.setSize(100, 50);
-        btn_search.setLocation(380, 10);
+        btn_search.setPreferredSize(new Dimension(80,40));
         btn_search.setHorizontalAlignment(JLabel.CENTER);
         btn_search.setFont(Fonts.f5);
         btn_search.setForeground(Color.white);
@@ -78,9 +65,8 @@ public class BodySearch extends JPanel {
             }
         });
 
-        SearchPanel.add(text_search);
-        SearchPanel.add(btn_search);
-        add(SearchPanel);
+        add(text_search);
+        add(btn_search);
     }
 
     void addItemList(String searchWord) {
@@ -89,42 +75,43 @@ public class BodySearch extends JPanel {
             itemPanel = new ItemPanel[itemList.size()];
 
             JPanel items = new JPanel();
-            items.setPreferredSize(new Dimension(820, 750));
+            items.setSize(820, 460);
+            items.setLocation(130, 0);
             items.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
             items.setBackground(Color.white);
 
             JPanel list = new JPanel();
-            list.setPreferredSize(new Dimension(1080, 750));
-            list.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 0));
+            list.setPreferredSize(new Dimension(1080, 460));
+            list.setLayout(null);
             list.setBackground(Color.white);
             list.add(items);
 
             JScrollPane scroll = new JScrollPane(list);
-            scroll.setPreferredSize(new Dimension(1120, 545)); // 1080 + 40
+            scroll.setPreferredSize(new Dimension(1120, 560)); // 1080 + 40
             scroll.getVerticalScrollBar().setUnitIncrement(10); // 스크롤 속도
             scroll.setBorder(null);
 
             for (int i = 0; i < itemList.size(); i++) {
-                ItemListDto tmp = itemList.get(i);
-                System.out.println(tmp.getItemName());
+                ItemListDto item = itemList.get(itemList.size() - i - 1);
 
-                itemPanel[i] = new ItemPanel(tmp);
+                itemPanel[i] = new ItemPanel(item);
                 items.add(itemPanel[i]);
                 itemPanel[i].addMouseListener(new MouseAdapter() {
-                    public void mousePressed(MouseEvent e) {
-                        body.showItem(tmp.getItemKey());
+                    public void mousePressed(MouseEvent e) {body.showItem(item.getItemKey());
                     }
                 });
-                if( i>=9 && i%2!=0 ) {
+
+                if( i >= 6 && i % 2 == 0 ) {
                     int height_extend = 150;
-                    items.setSize(items.getWidth(),items.getHeight() + height_extend);
-                    list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height + height_extend));
+                    items.setSize(items.getWidth(), items.getHeight() + height_extend);
+                    list.setPreferredSize(new Dimension(list.getPreferredSize().width, list.getPreferredSize().height + height_extend));
                 }
             }
 
             add(scroll);
         }
     }
+
 
 
     class ItemPanel extends JPanel {
@@ -149,7 +136,7 @@ public class BodySearch extends JPanel {
             item_name = itemListDto.getItemName();
             item_address = itemListDto.getItemAddress();
             item_price = Tools.priceConvert(itemListDto.getItemPrice());
-            item_star = (int) itemListDto.getAvgRating();
+            item_star = Integer.parseInt(String.format("%.0f", itemListDto.getAvgRating()));
 
             setPreferredSize(new Dimension(400,140));
             setBorder(new LineBorder(Colors.gray_b));
@@ -174,7 +161,7 @@ public class BodySearch extends JPanel {
             name.setForeground(Colors.gray);
             name.setVerticalAlignment(JLabel.TOP);
 
-            icon = new JLabel(Tools.resizeImage(new ImageIcon("src/img/address.png"), 16,16));
+            icon = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/address.png")), 16,16));
             icon.setBounds(180,37,16,16);
 
             address = new JLabel(item_address);
@@ -183,8 +170,7 @@ public class BodySearch extends JPanel {
             address.setFont(Fonts.f3);
             address.setForeground(Colors.gray);
 
-            ImageIcon img_star = Tools.resizeImage(new ImageIcon("src/img/star_" + item_star + ".png"), 125,20);
-            star = new JLabel(img_star);
+            star = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/star_" + item_star + ".png")), 125,20));
             star.setSize(125,20);
             star.setLocation(265,80);
 

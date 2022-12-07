@@ -36,15 +36,11 @@ public class BodyLogin extends JPanel {
 		});
 
 		text_id.addFocusListener(new FocusAdapter() {
-			public void focusGained(FocusEvent e) {
-				if(text_id.getText().equals("아이디")) text_id.setText("");
-			}
+			public void focusGained(FocusEvent e) { if(text_id.getText().equals("아이디")) text_id.setText(""); }
 		});
 
 		text_pw.addFocusListener(new FocusAdapter() {
-			public void focusGained(FocusEvent e) {
-				if(text_pw.getText().equals("비밀번호")) text_pw.setText("");
-			}
+			public void focusGained(FocusEvent e) { if(text_pw.getText().equals("비밀번호")) text_pw.setText("");}
 		});
 
 		text_id.addActionListener(new ActionListener() {

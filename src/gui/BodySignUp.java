@@ -24,6 +24,7 @@ public class BodySignUp extends JPanel {
 	JTextField text_age = new JTextField(15);
 	JLabel btn_cancel = new JLabel("취소");
 	JLabel btn_signup = new JLabel("회원가입");
+	JLabel msg_error = new JLabel();
 
 	public BodySignUp(Body body) {
 		this.body = body;
@@ -39,9 +40,7 @@ public class BodySignUp extends JPanel {
 		btn_signup.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if(text_id.getText().isBlank() || text_age.getText().isBlank() || text_name.getText().isBlank() || text_pw.getText().isBlank() || text_phone.getText().isBlank()) {
-					JOptionPane.showMessageDialog(null, "회원가입 오류: 빈칸이 있습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
-				} else if (!text_age.getText().matches("[0-9]+")) {
-					JOptionPane.showMessageDialog(null, "회원가입 오류: 나이에는 숫자만 입력 가능합니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
+					msg_error.setText("빈칸을 입력해 주세요.");
 				} else {
 					Member member = new Member(0L,text_id.getText(),text_pw.getText(), text_name.getText(),
 							text_phone.getText(), Integer.parseInt(text_age.getText()), 5000);
@@ -54,6 +53,36 @@ public class BodySignUp extends JPanel {
 
 			}
 		});
+
+		text_id.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(!String.valueOf(e.getKeyChar()).matches("^[0-9a-zA-Z]*$")) {
+					e.consume();
+					msg_error.setText("아이디는 영문과 숫자만 입력 가능합니다.");
+				} else { msg_error.setText(""); }
+			}});
+		text_name.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(!String.valueOf(e.getKeyChar()).matches("^[가-힣]*$")) {
+					e.consume();
+					msg_error.setText("이름은 한글만 입력 가능합니다.");
+				} else { msg_error.setText(""); }
+			}});
+		text_phone.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(!String.valueOf(e.getKeyChar()).matches("^[-0-9]*$")) {
+					e.consume();
+					msg_error.setText("전화번호는 숫자와 하이픈만 입력 가능합니다.");
+				} else { msg_error.setText(""); }
+			}});
+		text_age.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(!String.valueOf(e.getKeyChar()).matches("^[0-9]*$")) {
+					e.consume();
+					msg_error.setText("나이는 숫자만 입력 가능합니다.");
+				} else { msg_error.setText(""); }
+			}});
+
 	}
 
 	void setDesign() {
@@ -134,6 +163,11 @@ public class BodySignUp extends JPanel {
 		btn_signup.setBackground(Colors.blue);
 		btn_signup.setOpaque(true);
 
+		msg_error.setPreferredSize(new Dimension(400,20));
+		msg_error.setHorizontalAlignment(JLabel.CENTER);
+		msg_error.setFont(Fonts.f3);
+		msg_error.setForeground(Colors.red);
+
 		add(label1);
 		add(label2);
 		add(text_id);
@@ -147,6 +181,7 @@ public class BodySignUp extends JPanel {
 		add(text_age);
 		add(btn_cancel);
 		add(btn_signup);
+		add(msg_error);
 	}
 
 }

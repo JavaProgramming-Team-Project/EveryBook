@@ -30,8 +30,7 @@ public class Head extends JPanel {
 		setLayout(null);
 		setBackground(new Color(0x58CCFF));
 
-		ImageIcon img_logo = Tools.resizeImage(new ImageIcon("src/img/logo.png"), 200,64);
-		logo = new JLabel(img_logo);
+		logo = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/logo.png")), 200,64));
 		logo.setSize(200,32);
 		logo.setLocation(100,20);
 		logo.setFont(Fonts.f1);
@@ -61,7 +60,7 @@ public class Head extends JPanel {
 							mf.body.showSearch(null);
 							break;
 						case 1: // 카테고리
-							mf.body.showItemList(1);
+							mf.body.showItemList(1,1);
 							break;
 						case 2: // 마이페이지
 							mf.body.showMyPage();

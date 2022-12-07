@@ -71,9 +71,9 @@ public class Body extends JPanel {
 		revalidate();
 		repaint();
 	}
-	public void showItemList(int category) {
+	public void showItemList(int category, int page) {
 		previous_page = current_page;
-		current_page = new BodyItemList(this, category);
+		current_page = new BodyItemList(this, category, page);
 		removeAll();
 		add(current_page);
 		revalidate();
