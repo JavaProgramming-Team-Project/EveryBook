@@ -26,7 +26,7 @@ public class BodyItemList extends JPanel {
 	List<ItemListDto> itemList;
 
 	BodyItemList(Body body, int category, int page) {
-		
+
 		this.body = body;
 		this.category = category;
 		this.page = page;
@@ -71,22 +71,22 @@ public class BodyItemList extends JPanel {
 	}
 
 	void addItemList() {
-		
+
 		if (category == 0) itemList = ItemApi.itemList();
 		else itemList = ItemApi.itemListByCategory(str_category[category]);
 
 		itemPanel = new ItemPanel[itemList.size()];
-		page_max = itemList.size() / 10 == 0 ? 1 : itemList.size() / 10;
+		page_max = itemList.size() % 10 > 0 ? itemList.size() / 10 + 1 : itemList.size() / 10;
+
 
 		JPanel items = new JPanel();
-		items.setSize(820,728);
+		items.setSize(820,460);
 		items.setLocation(130,0);
 		items.setLayout(new FlowLayout(FlowLayout.LEFT,10,10));
 		items.setBackground(Color.white);
 
 		JPanel list = new JPanel();
-		list.setPreferredSize(new Dimension(1080,605));
-		if(itemList.size()<9) list.setPreferredSize(new Dimension(1080,455));
+		list.setPreferredSize(new Dimension(1080,460));
 		list.setLayout(null);
 		list.setBackground(Color.white);
 		list.add(items);
@@ -99,10 +99,12 @@ public class BodyItemList extends JPanel {
 		int i_start = (page - 1) * 10;
 		int i_end = (page * 10);
 
-		if (itemList.size()<10) i_end = itemList.size();
+		if (page_max == page) i_end = i_start + itemList.size() % 10;
 
+		System.out.println(i_start);
+		System.out.println(i_end);
 		for (int i = i_start; i < i_end; i++) {
-			ItemListDto item = itemList.get(i);
+			ItemListDto item = itemList.get(itemList.size()-i-1);
 
 			itemPanel[i] = new ItemPanel(item);
 			items.add(itemPanel[i]);
@@ -111,6 +113,13 @@ public class BodyItemList extends JPanel {
 					body.showItem(item.getItemKey());
 				}
 			});
+
+			int index = i % 10;
+			if( index >= 6 && index % 2 == 0 ) {
+				int height_extend = 150;
+				items.setSize(items.getWidth(),items.getHeight() + height_extend);
+				list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height + height_extend));
+			}
 		}
 
 		add(scroll);
