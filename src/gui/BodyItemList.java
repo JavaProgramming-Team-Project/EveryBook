@@ -99,10 +99,9 @@ public class BodyItemList extends JPanel {
 		int i_start = (page - 1) * 10;
 		int i_end = (page * 10);
 
-		if (page_max == page) i_end = i_start + itemList.size() % 10;
+		if (itemList.size() == 10) i_end = 10;
+		else if (page_max == page) i_end = i_start + itemList.size() % 10;
 
-		System.out.println(i_start);
-		System.out.println(i_end);
 		for (int i = i_start; i < i_end; i++) {
 			ItemListDto item = itemList.get(itemList.size()-i-1);
 
@@ -123,6 +122,9 @@ public class BodyItemList extends JPanel {
 		}
 
 		add(scroll);
+		System.out.println(itemList.size());
+		System.out.println(page + " " + page_max);
+		System.out.println(i_start + " " + i_end);
 	}
 
 	void addPageNav() {

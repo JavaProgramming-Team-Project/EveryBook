@@ -79,17 +79,7 @@ public class BodyMyPage extends JPanel {
 		JLabel space2 = new JLabel();
 		space2.setPreferredSize(new Dimension(500,30));
 		Profile.add(space2);
-
-		JLabel profile_etc = new JLabel(member_id + " / " + member_name + " / " + member_age + "세 / " + member_phone);
-		profile_etc.setPreferredSize(new Dimension(500,20));
-		profile_etc.setFont(Fonts.f3);
-		profile_etc.setForeground(Colors.gray);
-		profile_etc.setHorizontalAlignment(JLabel.CENTER);
-		profile_etc.setVerticalTextPosition(JLabel.BOTTOM);
-		Profile.add(profile_etc);
-
-
-
+		
 	}
 
 	void addIcon() {
