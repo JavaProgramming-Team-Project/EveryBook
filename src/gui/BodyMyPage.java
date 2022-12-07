@@ -22,11 +22,19 @@ public class BodyMyPage extends JPanel {
 	BookPanel []bookPanel;
 	JPanel IconPanel;
 	JPanel ChargePanel;
+	String member_id, member_name, member_phone, member_age;
 
 	BodyMyPage(Body body) {
 		this.body = body;
 		bookList = BookApi.bookList(LoginMember.getLoginMember().getMemberKey());
 		bookPanel = new BookPanel[bookList.size()];
+
+		member_key = LoginMember.getLoginMember().getMemberKey();
+		member_id = LoginMember.getLoginMember().getMemberId();
+		member_name = LoginMember.getLoginMember().getMemberName();
+		member_phone = LoginMember.getLoginMember().getMemberPhone();
+		member_age = String.valueOf(LoginMember.getLoginMember().getMemberAge());
+		member_point = LoginMember.getLoginMember().getMemberPoint();
 
 		setDesign();
 
@@ -47,13 +55,6 @@ public class BodyMyPage extends JPanel {
 	}
 
 	void addProfile() {
-		String member_id = LoginMember.getLoginMember().getMemberId();
-		String member_name = LoginMember.getLoginMember().getMemberName();
-		String member_phone = LoginMember.getLoginMember().getMemberPhone();
-		String member_age = String.valueOf(LoginMember.getLoginMember().getMemberAge());
-		member_point = LoginMember.getLoginMember().getMemberPoint(); // 멤버 포인트 API
-		member_key = LoginMember.getLoginMember().getMemberKey();
-
 		JPanel Profile = new JPanel();
 		Profile.setPreferredSize(new Dimension(520,300));
 		Profile.setBorder(new LineBorder(Colors.gray_b));
@@ -91,37 +92,60 @@ public class BodyMyPage extends JPanel {
 		IconPanel.setBackground(Color.white);
 		add(IconPanel);
 
-		ImageIcon img_book = Tools.resizeImage(new ImageIcon("src/img/book.png"), 90,90);
-		JLabel icon_book = new JLabel(img_book);
-		icon_book.setSize(90,90);
-		icon_book.setLocation(130,70);
+		JLabel label_id = new JLabel("아이디　 " + member_id);
+		label_id.setBounds(70,50,250,20);
+		label_id.setFont(Fonts.f5);
+		label_id.setForeground(Colors.gray);
+
+		JLabel label_phone = new JLabel("전화번호 " + member_phone);
+		label_phone.setBounds(label_id.getX(),label_id.getY()+40,label_id.getWidth(),label_id.getHeight());
+		label_phone.setFont(Fonts.f5);
+		label_phone.setForeground(Colors.gray);
+
+		JLabel label_name = new JLabel("이름　 " + member_name);
+		label_name.setBounds(label_id.getX()+250,label_id.getY(),label_id.getWidth(),label_id.getHeight());
+		label_name.setFont(Fonts.f5);
+		label_name.setForeground(Colors.gray);
+
+
+		JLabel label_age = new JLabel("나이　 " + member_age + "세");
+		label_age.setBounds(label_name.getX(),label_phone.getY(),label_id.getWidth(),label_id.getHeight());
+		label_age.setFont(Fonts.f5);
+		label_age.setForeground(Colors.gray);
+
+
+		IconPanel.add(label_id);
+		IconPanel.add(label_name);
+		IconPanel.add(label_phone);
+		IconPanel.add(label_age);
+
+
+
+		JLabel icon_book = new JLabel(Tools.resizeImage(new ImageIcon("src/img/book.png"), 90,90));
+		icon_book.setBounds(130,140,90,90);
 		IconPanel.add(icon_book);
 
-		ImageIcon img_point = Tools.resizeImage(new ImageIcon("src/img/point.png"), 90,90);
-		JLabel icon_point = new JLabel(img_point);
-		icon_point.setSize(90,90);
-		icon_point.setLocation(300,70);
+		JLabel icon_point = new JLabel(Tools.resizeImage(new ImageIcon("src/img/point.png"), 90,90));
+		icon_point.setBounds(300,140,90,90);
 		IconPanel.add(icon_point);
 
-		JLabel book = new JLabel(bookList.size()+"개");
-		book.setSize(90,20);
-		book.setLocation(130, 170);
-		book.setFont(Fonts.f2);
+		JLabel book = new JLabel("<html><center>[ 예약 ]<br>" + bookList.size()+ "개");
+		book.setBounds(130,240,90,50);
+		book.setFont(Fonts.f5);
 		book.setForeground(Colors.gray);
 		book.setHorizontalAlignment(JLabel.CENTER);
 		IconPanel.add(book);
 
-		JLabel point = new JLabel(Tools.pointConvert(member_point));
-		point.setSize(130,20);
-		point.setLocation(280, 170);
-		point.setFont(Fonts.f2);
+		JLabel point = new JLabel("<html><center>[ 포인트 ]<br>" + Tools.pointConvert(member_point));
+		point.setBounds(280,240,130,50);
+		point.setFont(Fonts.f5);
 		point.setForeground(Colors.gray);
 		point.setHorizontalAlignment(JLabel.CENTER);
 		IconPanel.add(point);
 
 		JLabel btnChargePanel = new JLabel("충전");
-		btnChargePanel.setBounds(300,195,90,40);
-		btnChargePanel.setFont(Fonts.f2);
+		btnChargePanel.setBounds(390,242,60,22);
+		btnChargePanel.setFont(Fonts.f3);
 		btnChargePanel.setForeground(Color.white);
 		btnChargePanel.setBackground(Colors.blue);
 		btnChargePanel.setOpaque(true);
@@ -193,13 +217,27 @@ public class BodyMyPage extends JPanel {
 		btnCharge.setOpaque(true);
 		btnCharge.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				// 포인트 충전 API
 				PointApi.addPoint(new PointDto(LoginMember.getLoginMember().getMemberKey(),
-						Integer.parseInt(text_point.getText())));
-				body.showMyPage();
+						Integer.parseInt(text_point.getText())));body.showMyPage();
 			}
 		});
 		ChargePanel.add(btnCharge);
+
+		JLabel msg_error = new JLabel();
+		msg_error.setPreferredSize(new Dimension(400,20));
+		msg_error.setHorizontalAlignment(JLabel.CENTER);
+		msg_error.setFont(Fonts.f3);
+		msg_error.setForeground(Colors.red);
+		ChargePanel.add(msg_error);
+
+		text_point.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(text_point.getText().length() > 6) e.consume();
+				if(!String.valueOf(e.getKeyChar()).matches("^[0-9]*$")) {
+					e.consume();
+					msg_error.setText("포인트는 숫자만 입력 가능합니다.");
+				} else { msg_error.setText(""); }
+			}});
 
 		add(ChargePanel);
 
@@ -241,6 +279,16 @@ public class BodyMyPage extends JPanel {
 			bookPanel[i] = new BookPanel(body, book, member_key);
 			list.add(bookPanel[i]);
 			if(i>=8) list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height+31));
+		}
+
+		if(bookList.size() == 0) { // 리뷰가 없을경우
+			JLabel noReview = new JLabel("예약 내역이 없습니다.");
+			noReview.setPreferredSize(new Dimension(1080,250));
+			noReview.setFont(Fonts.f8);
+			noReview.setForeground(Colors.gray);
+			noReview.setHorizontalAlignment(JLabel.CENTER);
+
+			list.add(noReview);
 		}
 	}
 }
