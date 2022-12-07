@@ -35,7 +35,7 @@ public class BodyMain extends JPanel {
             btn_category[i] = new JLabel(img_src);
             btn_category[i].addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
-                    body.showItemList(index);
+                    body.showItemList(index,1);
                 }
             });
             add(btn_category[i]);

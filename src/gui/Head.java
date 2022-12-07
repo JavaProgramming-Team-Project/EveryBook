@@ -61,7 +61,7 @@ public class Head extends JPanel {
 							mf.body.showSearch(null);
 							break;
 						case 1: // 카테고리
-							mf.body.showItemList(1);
+							mf.body.showItemList(1,1);
 							break;
 						case 2: // 마이페이지
 							mf.body.showMyPage();

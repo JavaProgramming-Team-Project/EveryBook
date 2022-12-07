@@ -14,6 +14,9 @@ public class BodyItemList extends JPanel {
 	Body body;
 
 	int category;
+	int page;
+	int page_max = 7;
+	JLabel btn_page[] = new JLabel[5];
 
 	String str_category[] = {"전체", "숙박", "레저", "축제", "공연", "전시", "티켓", "식당", "뷰티", "렌트"};
 	JLabel btn_category[] = new JLabel[str_category.length];
@@ -22,16 +25,19 @@ public class BodyItemList extends JPanel {
 
 	List<ItemListDto> itemList;
 
-	BodyItemList(Body body, int category) {
+	BodyItemList(Body body, int category, int page) {
 		
 		this.body = body;
 		this.category = category;
+		this.page = page;
 
 		setDesign();
 
 		addCategory();
 
 		addItemList();
+
+		addPageNav();
 
 	}
 
@@ -55,7 +61,7 @@ public class BodyItemList extends JPanel {
 			int index = i;
 			btn_category[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
-					body.showItemList(index);
+					body.showItemList(index,1);
 				}
 			});
 			add(btn_category[i]);
@@ -70,6 +76,7 @@ public class BodyItemList extends JPanel {
 		else itemList = ItemApi.itemListByCategory(str_category[category]);
 
 		itemPanel = new ItemPanel[itemList.size()];
+		page_max = itemList.size() / 10 == 0 ? 1 : itemList.size() / 10;
 
 		JPanel items = new JPanel();
 		items.setSize(820,728);
@@ -78,18 +85,24 @@ public class BodyItemList extends JPanel {
 		items.setBackground(Color.white);
 
 		JPanel list = new JPanel();
-		list.setPreferredSize(new Dimension(1080,728));
+		list.setPreferredSize(new Dimension(1080,605));
+		if(itemList.size()<9) list.setPreferredSize(new Dimension(1080,455));
 		list.setLayout(null);
 		list.setBackground(Color.white);
 		list.add(items);
 
 		JScrollPane scroll = new JScrollPane(list);
-		scroll.setPreferredSize(new Dimension(1120, 728)); // 1080 + 40
+		scroll.setPreferredSize(new Dimension(1120, 560)); // 1080 + 40
 		scroll.getVerticalScrollBar().setUnitIncrement(10); // 스크롤 속도
 		scroll.setBorder(null);
 
-		for (int i = 0; i < itemList.size(); i++) {
-			ItemListDto item = itemList.get(itemList.size()-i-1);
+		int i_start = (page - 1) * 10;
+		int i_end = (page * 10);
+
+		if (itemList.size()<10) i_end = itemList.size();
+
+		for (int i = i_start; i < i_end; i++) {
+			ItemListDto item = itemList.get(i);
 
 			itemPanel[i] = new ItemPanel(item);
 			items.add(itemPanel[i]);
@@ -98,15 +111,71 @@ public class BodyItemList extends JPanel {
 					body.showItem(item.getItemKey());
 				}
 			});
-
-			if( i>=9 && i%2!=0 ) {
-				int height_extend = 150;
-				items.setSize(items.getWidth(),items.getHeight() + height_extend);
-				list.setPreferredSize(new Dimension(list.getPreferredSize().width,list.getPreferredSize().height + height_extend));
-			}
 		}
 
 		add(scroll);
+	}
+
+	void addPageNav() {
+
+		JLabel left = new JLabel("<");
+		left.setPreferredSize(new Dimension(24,24));
+		left.setHorizontalAlignment(JLabel.CENTER);
+		left.setFont(Fonts.f3);
+		left.setForeground(Colors.gray);
+		left.setBackground(Color.white);
+		left.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if(page>1) body.showItemList(category, page-1);
+			}
+		});
+
+
+		JLabel right = new JLabel(">");
+		right.setPreferredSize(new Dimension(24,24));
+		right.setHorizontalAlignment(JLabel.CENTER);
+		right.setFont(Fonts.f3);
+		right.setForeground(Colors.gray);
+		right.setBackground(Color.white);
+		right.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if(page<page_max) body.showItemList(category, page+1);
+			}
+		});
+
+
+		add(left);
+
+		for (int i = 0; i < btn_page.length; i++) {
+			int page_new = (i+1)+((page / 5) * 5);
+			if (page % 5 == 0) page_new -= 5;
+
+			btn_page[i] = new JLabel(page_new+"");
+			btn_page[i].setPreferredSize(new Dimension(24,24));
+			btn_page[i].setHorizontalAlignment(JLabel.CENTER);
+			btn_page[i].setFont(Fonts.f3);
+			btn_page[i].setForeground(Colors.gray);
+			btn_page[i].setBackground(Color.white);
+			btn_page[i].setOpaque(true);
+
+			int index = page_new;
+			btn_page[i].addMouseListener(new MouseAdapter() {
+				public void mousePressed(MouseEvent e) {
+					body.showItemList(category, index);
+				}
+			});
+			if (page_new <= page_max) add(btn_page[i]);
+		}
+
+		add(right);
+
+		int page_new = page-1;
+		if (page>=5) page_new = page - ((page/5) * 5) - 1;
+		if (page % 5 == 0) page_new += 5;
+		btn_page[page_new].setForeground(Color.white);
+		btn_page[page_new].setBackground(Colors.blue);
+
+
 	}
 }
 
