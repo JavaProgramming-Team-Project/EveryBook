@@ -31,8 +31,7 @@ public class BodyMain extends JPanel {
     void addIcon() {
         for (int i = 0; i < btn_category.length; i++) {
             int index = i+1;
-            ImageIcon img_src = Tools.resizeImage(new ImageIcon("src/img/icon_" + index + ".png"), 83,123);
-            btn_category[i] = new JLabel(img_src);
+            btn_category[i] = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/icon_" + index + ".png")), 83,123));
             btn_category[i].addMouseListener(new MouseAdapter() {
                 public void mousePressed(MouseEvent e) {
                     body.showItemList(index,1);
@@ -43,8 +42,7 @@ public class BodyMain extends JPanel {
     }
 
     void addBanner() {
-        ImageIcon img_src = Tools.resizeImage(new ImageIcon("src/img/banner.png"), 1296,300);
-        JLabel banner = new JLabel(img_src);
+        JLabel banner = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/banner.png")), 1296,300));
         add(banner);
     }
     void addAd() {

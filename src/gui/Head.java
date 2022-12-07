@@ -30,7 +30,7 @@ public class Head extends JPanel {
 		setLayout(null);
 		setBackground(new Color(0x58CCFF));
 
-		ImageIcon img_logo = Tools.resizeImage(new ImageIcon("src/img/logo.png"), 200,64);
+		ImageIcon img_logo = Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/logo.png")), 200,64);
 		logo = new JLabel(img_logo);
 		logo.setSize(200,32);
 		logo.setLocation(100,20);

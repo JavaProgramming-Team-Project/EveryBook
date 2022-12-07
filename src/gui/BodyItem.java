@@ -171,7 +171,7 @@ public class BodyItem extends JPanel {
 			}
 		});
 
-		JLabel starImage = new JLabel(Tools.resizeImage(new ImageIcon("src/img/star_3.png"), 100,18));
+		JLabel starImage = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/star_3.png")), 100,18));
 		starImage.setBounds(380,10,100,18);
 		JLabel btnStar[] = new JLabel[5];
 		for (int i = 0; i < 5; i++) {
@@ -181,7 +181,7 @@ public class BodyItem extends JPanel {
 			btnStar[i].addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
 					review_star = index;
-					starImage.setIcon(Tools.resizeImage(new ImageIcon("src/img/star_" + index + ".png"), 100,18));
+					starImage.setIcon(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/star_" + index + ".png")), 100,18));
 				}
 			});
 			Write.add(btnStar[i]);
@@ -240,7 +240,7 @@ public class BodyItem extends JPanel {
 		name.setForeground(Colors.gray);
 		Body.add(name);
 
-		ImageIcon img_star = Tools.resizeImage(new ImageIcon("src/img/star_" + item_star + ".png"), 125,20);
+		ImageIcon img_star = Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/star_" + item_star + ".png")), 125,20);
 		JLabel star = new JLabel(img_star);
 		star.setSize(125,20);
 		star.setLocation(425,10);
@@ -317,7 +317,7 @@ public class BodyItem extends JPanel {
 
 		if(category0) datePicker.setLocation(datePicker.getX(),datePicker.getY()+15);
 
-		JLabel icon1 = new JLabel(Tools.resizeImage(new ImageIcon("src/img/book.png"), 22,22));
+		JLabel icon1 = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/book.png")), 22,22));
 		icon1.setBounds(datePicker.getX()-30, datePicker.getY(), 22, 22);
 		BookPanel.add(icon1);
 
@@ -362,7 +362,7 @@ public class BodyItem extends JPanel {
 			});
 			BookPanel.add(optionPicker);
 
-			JLabel icon2 = new JLabel(Tools.resizeImage(new ImageIcon("src/img/book.png"), 22,22));
+			JLabel icon2 = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/book.png")), 22,22));
 			icon2.setBounds(icon1.getX(), optionPicker.getY(), 22, 22);
 			BookPanel.add(icon2);
 		}
@@ -376,7 +376,7 @@ public class BodyItem extends JPanel {
 			for (int i = 0; i <= 12; i++) optionCombo.addItem(String.format("%02d", (i+9)) + "시 00분");
 			BookPanel.add(optionCombo);
 
-			JLabel icon2 = new JLabel(Tools.resizeImage(new ImageIcon("src/img/time.png"), 22,22));
+			JLabel icon2 = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/time.png")), 22,22));
 			icon2.setBounds(icon1.getX(), optionCombo.getY()+2, 22, 22);
 			BookPanel.add(icon2);
 		}
@@ -458,7 +458,7 @@ public class BodyItem extends JPanel {
 			setLayout(null);
 			setBackground(Color.white);
 
-			ImageIcon img_star = Tools.resizeImage(new ImageIcon("src/img/star_" + review_star + ".png"), 100,16);
+			ImageIcon img_star = Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/star_" + review_star + ".png")), 100,16);
 			star = new JLabel(img_star);
 			star.setSize(100,16);
 			star.setLocation(10,5);
