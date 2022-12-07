@@ -236,7 +236,7 @@ public class BodyItemList extends JPanel {
 			name.setForeground(Colors.gray);
 			name.setVerticalAlignment(JLabel.TOP);
 
-			icon = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/address.png")), 16,16));
+			icon = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/address.png")), 16,16));
 			icon.setBounds(180,37,16,16);
 
 			address = new JLabel(item_address);
@@ -245,8 +245,7 @@ public class BodyItemList extends JPanel {
 			address.setFont(Fonts.f3);
 			address.setForeground(Colors.gray);
 
-			ImageIcon img_star = Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/star_" + item_star + ".png")), 125,20);
-			star = new JLabel(img_star);
+			star = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/star_" + item_star + ".png")), 125,20));
 			star.setSize(125,20);
 			star.setLocation(265,80);
 

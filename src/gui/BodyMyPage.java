@@ -66,7 +66,7 @@ public class BodyMyPage extends JPanel {
 		space1.setPreferredSize(new Dimension(500,50));
 		Profile.add(space1);
 
-		JLabel icon = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/member.png")), 90,90));
+		JLabel icon = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/member.png")), 90,90));
 		Profile.add(icon);
 
 		JLabel profile_name = new JLabel(member_name + "님 환영합니다.");
@@ -119,11 +119,11 @@ public class BodyMyPage extends JPanel {
 
 
 
-		JLabel icon_book = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/book.png")), 90,90));
+		JLabel icon_book = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/book.png")), 90,90));
 		icon_book.setBounds(130,140,90,90);
 		IconPanel.add(icon_book);
 
-		JLabel icon_point = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("./img/point.png")), 90,90));
+		JLabel icon_point = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/point.png")), 90,90));
 		icon_point.setBounds(300,140,90,90);
 		IconPanel.add(icon_point);
 
