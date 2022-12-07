@@ -17,8 +17,8 @@ public class BodySearch extends JPanel {
 
     List<ItemListDto> itemList;
 
-    JTextField text_search; // 검색창
-    JLabel btn_search; // 검색 버튼
+    JTextField text_search = new JTextField();
+    JLabel btn_search = new JLabel("검색");
 
     JScrollPane scroll;
     ItemPanel itemPanel[];
@@ -27,6 +27,7 @@ public class BodySearch extends JPanel {
     BodySearch(Body body, String searchWord) {
         this.body = body;
         this.searchWord = searchWord;
+        text_search.setText(searchWord);
 
         setDesign();
 
@@ -37,22 +38,13 @@ public class BodySearch extends JPanel {
 
     void setDesign() {
         setPreferredSize(new Dimension(1080, 650));
-        setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
         setBackground(Color.white);
     }
 
     void addSearch() {
-        JPanel SearchPanel = new JPanel();
-        SearchPanel.setPreferredSize(new Dimension(520, 100));
-        //SearchPanel.setSize(490,92);
-        //SearchPanel.setLocation(580,440);
-        //SearchPanel.setBorder(new LineBorder(Colors.gray_b));
-        SearchPanel.setLayout(null);
-        SearchPanel.setBackground(Color.white);
 
-        text_search = new JTextField();
-        text_search.setSize(360, 50);
-        text_search.setLocation(10, 10);
+        text_search.setPreferredSize(new Dimension(400,40));
         text_search.setFont(Fonts.f5);
         text_search.setBorder(new LineBorder(Colors.gray_b));
         text_search.setForeground(Colors.gray);
@@ -62,9 +54,7 @@ public class BodySearch extends JPanel {
             }
         });
 
-        btn_search = new JLabel("검색");
-        btn_search.setSize(100, 50);
-        btn_search.setLocation(380, 10);
+        btn_search.setPreferredSize(new Dimension(80,40));
         btn_search.setHorizontalAlignment(JLabel.CENTER);
         btn_search.setFont(Fonts.f5);
         btn_search.setForeground(Color.white);
@@ -78,9 +68,8 @@ public class BodySearch extends JPanel {
             }
         });
 
-        SearchPanel.add(text_search);
-        SearchPanel.add(btn_search);
-        add(SearchPanel);
+        add(text_search);
+        add(btn_search);
     }
 
     void addItemList(String searchWord) {
@@ -127,6 +116,7 @@ public class BodySearch extends JPanel {
     }
 
 
+
     class ItemPanel extends JPanel {
 
         int item_star = 3;
@@ -149,7 +139,7 @@ public class BodySearch extends JPanel {
             item_name = itemListDto.getItemName();
             item_address = itemListDto.getItemAddress();
             item_price = Tools.priceConvert(itemListDto.getItemPrice());
-            item_star = (int) itemListDto.getAvgRating();
+            item_star = Integer.parseInt(String.format("%.0f", itemListDto.getAvgRating()));
 
             setPreferredSize(new Dimension(400,140));
             setBorder(new LineBorder(Colors.gray_b));

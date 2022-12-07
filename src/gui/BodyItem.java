@@ -434,73 +434,73 @@ public class BodyItem extends JPanel {
 		});
 		BookPanel.add(btn_book);
 	}
-}
+	class ReviewPanel extends JPanel {
 
-class ReviewPanel extends JPanel {
+		int review_star = 3;
+		String review_name = "박재정";
+		String review_date = "2022-12-24";
+		String review_body = "체크인 할 때 직원분들이 친절했어요. 방 청소도 잘되어있어서 깔끔해서 좋았어요. 다음에도 이 주변 오면 여기서 숙박하고 싶네요. 좋은 추억 많이 남기고 갑니다.";
 
-	int review_star = 3;
-	String review_name = "박재정";
-	String review_date = "2022-12-24";
-	String review_body = "체크인 할 때 직원분들이 친절했어요. 방 청소도 잘되어있어서 깔끔해서 좋았어요. 다음에도 이 주변 오면 여기서 숙박하고 싶네요. 좋은 추억 많이 남기고 갑니다.";
+		JLabel star;
+		JLabel name;
+		JLabel body;
+		JLabel btn_delete;
 
-	JLabel star;
-	JLabel name;
-	JLabel body;
-	JLabel btn_delete;
+		ReviewPanel(ReviewListDto review, Body gui_body, long item_key) {
 
-	ReviewPanel(ReviewListDto review, Body gui_body, long item_key) {
+			review_name = String.valueOf(review.getMemberName());
+			review_star = review.getReviewStar();
+			review_date = review.getReviewDate();
+			review_body = review.getReviewBody();
 
-		review_name = String.valueOf(review.getMemberName());
-		review_star = review.getReviewStar();
-		review_date = review.getReviewDate();
-		review_body = review.getReviewBody();
+			setPreferredSize(new Dimension(490,92));
+			setBorder(new LineBorder(Colors.gray_b));
+			setLayout(null);
+			setBackground(Color.white);
 
-		setPreferredSize(new Dimension(490,92));
-		setBorder(new LineBorder(Colors.gray_b));
-		setLayout(null);
-		setBackground(Color.white);
+			ImageIcon img_star = Tools.resizeImage(new ImageIcon("src/img/star_" + review_star + ".png"), 100,16);
+			star = new JLabel(img_star);
+			star.setSize(100,16);
+			star.setLocation(10,5);
+			add(star);
 
-		ImageIcon img_star = Tools.resizeImage(new ImageIcon("src/img/star_" + review_star + ".png"), 100,16);
-		star = new JLabel(img_star);
-		star.setSize(100,16);
-		star.setLocation(10,5);
-		add(star);
+			name = new JLabel("<html><b>" + review_name + "</b> " + review_date);
+			name.setSize(200, 20);
+			name.setLocation(10,25);
+			name.setFont(Fonts.f6);
+			name.setForeground(Colors.gray);
+			add(name);
 
-		name = new JLabel("<html><b>" + review_name + "</b> " + review_date);
-		name.setSize(200, 20);
-		name.setLocation(10,25);
-		name.setFont(Fonts.f6);
-		name.setForeground(Colors.gray);
-		add(name);
-
-		btn_delete = new JLabel("삭제");
-		btn_delete.setSize(50, 20);
-		btn_delete.setLocation(430,10);
-		btn_delete.setFont(Fonts.f6);
-		btn_delete.setHorizontalAlignment(JLabel.CENTER);
-		btn_delete.setForeground(Color.white);
-		btn_delete.setBackground(Colors.blue);
-		btn_delete.setOpaque(true);
-		btn_delete.setVisible(false);
-		if(review.getMemberKey().equals(LoginMember.getLoginMember().getMemberKey())) btn_delete.setVisible(true);
-		btn_delete.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (JOptionPane.showOptionDialog(null, "리뷰를 삭제하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
-					ReviewApi.deleteReview(review.getReviewKey());
-					JOptionPane.showMessageDialog(null, "리뷰를 삭제했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
-					gui_body.showItem(item_key);
+			btn_delete = new JLabel("삭제");
+			btn_delete.setSize(50, 20);
+			btn_delete.setLocation(430,10);
+			btn_delete.setFont(Fonts.f6);
+			btn_delete.setHorizontalAlignment(JLabel.CENTER);
+			btn_delete.setForeground(Color.white);
+			btn_delete.setBackground(Colors.blue);
+			btn_delete.setOpaque(true);
+			btn_delete.setVisible(false);
+			if(review.getMemberKey().equals(LoginMember.getLoginMember().getMemberKey())) btn_delete.setVisible(true);
+			btn_delete.addMouseListener(new MouseAdapter() {
+				public void mousePressed(MouseEvent e) {
+					if (JOptionPane.showOptionDialog(null, "리뷰를 삭제하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+						ReviewApi.deleteReview(review.getReviewKey());
+						JOptionPane.showMessageDialog(null, "리뷰를 삭제했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
+						gui_body.showItem(item_key);
+					}
 				}
-			}
-		});
-		add(btn_delete);
+			});
+			add(btn_delete);
 
 
-		body = new JLabel("<html>" + review_body);
-		body.setSize(450, 38);
-		body.setLocation(10,45);
-		body.setFont(Fonts.f6);
-		body.setForeground(Colors.gray);
-		body.setVerticalAlignment(JLabel.TOP);
-		add(body);
+			body = new JLabel("<html>" + review_body);
+			body.setSize(450, 38);
+			body.setLocation(10,45);
+			body.setFont(Fonts.f6);
+			body.setForeground(Colors.gray);
+			body.setVerticalAlignment(JLabel.TOP);
+			add(body);
+		}
 	}
 }
+

@@ -93,7 +93,7 @@ public class BodyMyPage extends JPanel {
 		add(IconPanel);
 
 		JLabel label_id = new JLabel("아이디　 " + member_id);
-		label_id.setBounds(70,50,250,20);
+		label_id.setBounds(70,40,250,20);
 		label_id.setFont(Fonts.f5);
 		label_id.setForeground(Colors.gray);
 
@@ -107,12 +107,10 @@ public class BodyMyPage extends JPanel {
 		label_name.setFont(Fonts.f5);
 		label_name.setForeground(Colors.gray);
 
-
 		JLabel label_age = new JLabel("나이　 " + member_age + "세");
 		label_age.setBounds(label_name.getX(),label_phone.getY(),label_id.getWidth(),label_id.getHeight());
 		label_age.setFont(Fonts.f5);
 		label_age.setForeground(Colors.gray);
-
 
 		IconPanel.add(label_id);
 		IconPanel.add(label_name);
@@ -291,173 +289,172 @@ public class BodyMyPage extends JPanel {
 			list.add(noReview);
 		}
 	}
-}
+	class BookPanel extends JPanel {
+		Body body;
 
-class BookPanel extends JPanel {
-	Body body;
+		Item item;
 
-	Item item;
+		long book_key;
 
-	long book_key;
+		String item_name ;
+		String item_date;
+		int item_price ;
 
-	String item_name ;
-	String item_date;
-	int item_price ;
+		JLabel key;
+		JLabel item_label;
+		JLabel date;
+		JLabel price;
+		JLabel btn_cancel;
 
-	JLabel key;
-	JLabel item_label;
-	JLabel date;
-	JLabel price;
-	JLabel btn_cancel;
+		BookPanel(Body body, Book book, long member_key) {
+			this.body = body;
+			item = ItemApi.findItemByKey(book.getItemKey());
 
-	BookPanel(Body body, Book book, long member_key) {
-		this.body = body;
-		item = ItemApi.findItemByKey(book.getItemKey());
+			book_key = book.getBookKey();
+			item_name = item.getItemName();
+			item_date = book.getItemDate();
+			item_price = book.getBookPrice();
 
-		book_key = book.getBookKey();
-		item_name = item.getItemName();
-		item_date = book.getItemDate();
-		item_price = book.getBookPrice();
+			setPreferredSize(new Dimension(850,30));
+			setLayout(new FlowLayout(FlowLayout.CENTER,1,0));
+			setBackground(Color.white);
 
-		setPreferredSize(new Dimension(850,30));
-		setLayout(new FlowLayout(FlowLayout.CENTER,1,0));
-		setBackground(Color.white);
+			int border_line_size = 0;
 
-		int border_line_size = 0;
+			key = new JLabel(book.getBookKey()+"");
+			key.setPreferredSize(new Dimension(100,30));
+			key.setFont(Fonts.f6);
+			key.setForeground(Colors.gray);
+			key.setBackground(Colors.sky);
+			key.setOpaque(true);
+			key.setHorizontalAlignment(JLabel.CENTER);
+			key.setBorder(new LineBorder(Colors.gray_b,border_line_size));
 
-		key = new JLabel(book.getBookKey()+"");
-		key.setPreferredSize(new Dimension(100,30));
-		key.setFont(Fonts.f6);
-		key.setForeground(Colors.gray);
-		key.setBackground(Colors.sky);
-		key.setOpaque(true);
-		key.setHorizontalAlignment(JLabel.CENTER);
-		key.setBorder(new LineBorder(Colors.gray_b,border_line_size));
-
-		item_label = new JLabel(item_name);
-		item_label.setPreferredSize(new Dimension(240,30));
-		item_label.setFont(Fonts.f6);
-		item_label.setForeground(Colors.gray);
-		item_label.setBackground(Colors.sky);
-		item_label.setOpaque(true);
-		item_label.setHorizontalAlignment(JLabel.CENTER);
-		item_label.setBorder(new LineBorder(Colors.gray_b,border_line_size));
-		item_label.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				body.showItem(book.getItemKey());
-			}
-		});
-
-		date = new JLabel(item_date);
-		date.setPreferredSize(new Dimension(300,30));
-		date.setFont(Fonts.f6);
-		date.setForeground(Colors.gray);
-		date.setBackground(Colors.sky);
-		date.setOpaque(true);
-		date.setHorizontalAlignment(JLabel.CENTER);
-		date.setBorder(new LineBorder(Colors.gray_b,border_line_size));
-
-		price = new JLabel(Tools.priceConvert(item_price));
-		price.setPreferredSize(new Dimension(100,30));
-		price.setFont(Fonts.f6);
-		price.setForeground(Colors.gray);
-		price.setBackground(Colors.sky);
-		price.setOpaque(true);
-		price.setHorizontalAlignment(JLabel.CENTER);
-		price.setBorder(new LineBorder(Colors.gray_b,border_line_size));
-
-		btn_cancel = new JLabel("예약취소");
-		btn_cancel.setPreferredSize(new Dimension(100,30));
-		btn_cancel.setHorizontalAlignment(JLabel.CENTER);
-		btn_cancel.setFont(Fonts.f3);
-		btn_cancel.setForeground(Color.white);
-		btn_cancel.setBackground(Colors.red);
-		btn_cancel.setOpaque(true);
-		btn_cancel.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (JOptionPane.showOptionDialog(null, item.getItemName() + "\r\n예약을 취소하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
-					BookApi.bookCancel(book.getBookKey());
-					body.showMyPage();
-					JOptionPane.showMessageDialog(null, "예약을 취소했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
+			item_label = new JLabel(item_name);
+			item_label.setPreferredSize(new Dimension(240,30));
+			item_label.setFont(Fonts.f6);
+			item_label.setForeground(Colors.gray);
+			item_label.setBackground(Colors.sky);
+			item_label.setOpaque(true);
+			item_label.setHorizontalAlignment(JLabel.CENTER);
+			item_label.setBorder(new LineBorder(Colors.gray_b,border_line_size));
+			item_label.addMouseListener(new MouseAdapter() {
+				public void mousePressed(MouseEvent e) {
+					body.showItem(book.getItemKey());
 				}
-			}
-		});
+			});
 
-		add(key);
-		add(item_label);
-		add(date);
-		add(price);
-		add(btn_cancel);
+			date = new JLabel(item_date);
+			date.setPreferredSize(new Dimension(300,30));
+			date.setFont(Fonts.f6);
+			date.setForeground(Colors.gray);
+			date.setBackground(Colors.sky);
+			date.setOpaque(true);
+			date.setHorizontalAlignment(JLabel.CENTER);
+			date.setBorder(new LineBorder(Colors.gray_b,border_line_size));
+
+			price = new JLabel(Tools.priceConvert(item_price));
+			price.setPreferredSize(new Dimension(100,30));
+			price.setFont(Fonts.f6);
+			price.setForeground(Colors.gray);
+			price.setBackground(Colors.sky);
+			price.setOpaque(true);
+			price.setHorizontalAlignment(JLabel.CENTER);
+			price.setBorder(new LineBorder(Colors.gray_b,border_line_size));
+
+			btn_cancel = new JLabel("예약취소");
+			btn_cancel.setPreferredSize(new Dimension(100,30));
+			btn_cancel.setHorizontalAlignment(JLabel.CENTER);
+			btn_cancel.setFont(Fonts.f3);
+			btn_cancel.setForeground(Color.white);
+			btn_cancel.setBackground(Colors.red);
+			btn_cancel.setOpaque(true);
+			btn_cancel.addMouseListener(new MouseAdapter() {
+				public void mousePressed(MouseEvent e) {
+					if (JOptionPane.showOptionDialog(null, item.getItemName() + "\r\n예약을 취소하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+						BookApi.bookCancel(book.getBookKey());
+						body.showMyPage();
+						JOptionPane.showMessageDialog(null, "예약을 취소했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+			});
+
+			add(key);
+			add(item_label);
+			add(date);
+			add(price);
+			add(btn_cancel);
 
 
+		}
 	}
-}
-class FormPanel extends JPanel {
-	JLabel key;
-	JLabel item_Label;
-	JLabel date;
-	JLabel price;
-	JLabel btn_cancel;
+	class FormPanel extends JPanel {
+		JLabel key;
+		JLabel item_Label;
+		JLabel date;
+		JLabel price;
+		JLabel btn_cancel;
 
-	FormPanel() {
+		FormPanel() {
 
-		setPreferredSize(new Dimension(1000, 30));
-		setLayout(new FlowLayout(FlowLayout.CENTER, 1, 0));
-		setBackground(Color.white);
+			setPreferredSize(new Dimension(1000, 30));
+			setLayout(new FlowLayout(FlowLayout.CENTER, 1, 0));
+			setBackground(Color.white);
 
-		int border_line_size = 0;
+			int border_line_size = 0;
 
-		key = new JLabel("예약번호");
-		key.setPreferredSize(new Dimension(100, 30));
-		key.setFont(Fonts.f5);
-		key.setForeground(Color.white);
-		key.setBackground(Colors.blue);
-		key.setOpaque(true);
-		key.setHorizontalAlignment(JLabel.CENTER);
-		key.setBorder(new LineBorder(Colors.gray_b, border_line_size));
+			key = new JLabel("예약번호");
+			key.setPreferredSize(new Dimension(100, 30));
+			key.setFont(Fonts.f5);
+			key.setForeground(Color.white);
+			key.setBackground(Colors.blue);
+			key.setOpaque(true);
+			key.setHorizontalAlignment(JLabel.CENTER);
+			key.setBorder(new LineBorder(Colors.gray_b, border_line_size));
 
-		item_Label = new JLabel("상품");
-		item_Label.setPreferredSize(new Dimension(240, 30));
-		item_Label.setFont(Fonts.f5);
-		item_Label.setForeground(Color.white);
-		item_Label.setBackground(Colors.blue);
-		item_Label.setOpaque(true);
-		item_Label.setHorizontalAlignment(JLabel.CENTER);
-		item_Label.setBorder(new LineBorder(Colors.gray_b, border_line_size));
+			item_Label = new JLabel("상품");
+			item_Label.setPreferredSize(new Dimension(240, 30));
+			item_Label.setFont(Fonts.f5);
+			item_Label.setForeground(Color.white);
+			item_Label.setBackground(Colors.blue);
+			item_Label.setOpaque(true);
+			item_Label.setHorizontalAlignment(JLabel.CENTER);
+			item_Label.setBorder(new LineBorder(Colors.gray_b, border_line_size));
 
-		date = new JLabel("예약일시");
-		date.setPreferredSize(new Dimension(300, 30));
-		date.setFont(Fonts.f5);
-		date.setForeground(Color.white);
-		date.setBackground(Colors.blue);
-		date.setOpaque(true);
-		date.setHorizontalAlignment(JLabel.CENTER);
-		date.setBorder(new LineBorder(Colors.gray_b, border_line_size));
+			date = new JLabel("예약일시");
+			date.setPreferredSize(new Dimension(300, 30));
+			date.setFont(Fonts.f5);
+			date.setForeground(Color.white);
+			date.setBackground(Colors.blue);
+			date.setOpaque(true);
+			date.setHorizontalAlignment(JLabel.CENTER);
+			date.setBorder(new LineBorder(Colors.gray_b, border_line_size));
 
-		price = new JLabel("결제금액");
-		price.setPreferredSize(new Dimension(100, 30));
-		price.setFont(Fonts.f5);
-		price.setForeground(Color.white);
-		price.setBackground(Colors.blue);
-		price.setOpaque(true);
-		price.setHorizontalAlignment(JLabel.CENTER);
-		price.setBorder(new LineBorder(Colors.gray_b, border_line_size));
+			price = new JLabel("결제금액");
+			price.setPreferredSize(new Dimension(100, 30));
+			price.setFont(Fonts.f5);
+			price.setForeground(Color.white);
+			price.setBackground(Colors.blue);
+			price.setOpaque(true);
+			price.setHorizontalAlignment(JLabel.CENTER);
+			price.setBorder(new LineBorder(Colors.gray_b, border_line_size));
 
-		btn_cancel = new JLabel();
-		btn_cancel.setPreferredSize(new Dimension(100, 30));
-		btn_cancel.setFont(Fonts.f5);
-		btn_cancel.setForeground(Color.white);
-		btn_cancel.setBackground(Colors.blue);
-		btn_cancel.setOpaque(true);
-		btn_cancel.setHorizontalAlignment(JLabel.CENTER);
-		btn_cancel.setBorder(new LineBorder(Colors.gray_b, border_line_size));
+			btn_cancel = new JLabel();
+			btn_cancel.setPreferredSize(new Dimension(100, 30));
+			btn_cancel.setFont(Fonts.f5);
+			btn_cancel.setForeground(Color.white);
+			btn_cancel.setBackground(Colors.blue);
+			btn_cancel.setOpaque(true);
+			btn_cancel.setHorizontalAlignment(JLabel.CENTER);
+			btn_cancel.setBorder(new LineBorder(Colors.gray_b, border_line_size));
 
-		add(key);
-		add(item_Label);
-		add(date);
-		add(price);
-		add(btn_cancel);
+			add(key);
+			add(item_Label);
+			add(date);
+			add(price);
+			add(btn_cancel);
 
 
+		}
 	}
 }
