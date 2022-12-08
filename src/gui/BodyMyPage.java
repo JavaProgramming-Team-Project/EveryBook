@@ -228,6 +228,13 @@ public class BodyMyPage extends JPanel {
 		msg_error.setForeground(Colors.red);
 		ChargePanel.add(msg_error);
 
+		text_point.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PointApi.addPoint(new PointDto(LoginMember.getLoginMember().getMemberKey(),
+						Integer.parseInt(text_point.getText())));body.showMyPage();
+			}
+		});
+
 		text_point.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				if(text_point.getText().length() > 6) e.consume();
@@ -236,6 +243,7 @@ public class BodyMyPage extends JPanel {
 					msg_error.setText("포인트는 숫자만 입력 가능합니다.");
 				} else { msg_error.setText(""); }
 			}});
+
 
 		add(ChargePanel);
 
@@ -371,7 +379,7 @@ public class BodyMyPage extends JPanel {
 			btn_cancel.setOpaque(true);
 			btn_cancel.addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
-					if (JOptionPane.showOptionDialog(null, item.getItemName() + "\r\n예약을 취소하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+					if (JOptionPane.showOptionDialog(null, item.getItemName() + "\r\n예약을 취소하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "예") == 0) {
 						BookApi.bookCancel(book.getBookKey());
 						body.showMyPage();
 						JOptionPane.showMessageDialog(null, "예약을 취소했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);

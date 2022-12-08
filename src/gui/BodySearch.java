@@ -24,7 +24,6 @@ public class BodySearch extends JPanel {
     BodySearch(Body body, String searchWord) {
         this.body = body;
         this.searchWord = searchWord;
-        text_search.setText(searchWord);
 
         setDesign();
 
@@ -45,7 +44,8 @@ public class BodySearch extends JPanel {
         text_search.setFont(Fonts.f5);
         text_search.setBorder(new LineBorder(Colors.gray_b));
         text_search.setForeground(Colors.gray);
-        text_search.setText("검색어를 입력해 주세요");
+        if(searchWord.equals("")) text_search.setText("검색어를 입력해 주세요");
+        else text_search.setText(searchWord);
         text_search.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { body.showSearch(text_search.getText()); }});
         text_search.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent e) { if(text_search.getText().equals("검색어를 입력해 주세요")) text_search.setText(""); }
