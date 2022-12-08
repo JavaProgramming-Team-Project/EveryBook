@@ -41,7 +41,7 @@ public class Head extends JPanel {
 	void addMenu() {
 		menu = new JPanel();
 		menu.setLayout(new FlowLayout(FlowLayout.RIGHT,10,10));
-		menu.setSize(400,32);
+		menu.setSize(400,34);
 		menu.setLocation(780,20);
 		menu.setOpaque(false);
 		menu.setVisible(false);
