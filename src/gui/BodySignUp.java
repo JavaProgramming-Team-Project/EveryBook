@@ -123,28 +123,28 @@ public class BodySignUp extends JPanel {
 		label6.setForeground(Colors.gray);
 
 		text_id.setPreferredSize(new Dimension(400,32));
-		text_id.setFont(Fonts.f2);
+		text_id.setFont(Fonts.f9);
 		text_id.setBorder(new LineBorder(Colors.gray_b));
 		text_id.setForeground(Colors.gray);
 
 		text_pw.setPreferredSize(new Dimension(400,32));
-		text_pw.setFont(Fonts.f2);
+		text_pw.setFont(Fonts.f9);
 		text_pw.setBorder(new LineBorder(Colors.gray_b));
 		text_pw.setForeground(Colors.gray);
 		text_pw.setEchoChar('●');
 
 		text_name.setPreferredSize(new Dimension(400,32));
-		text_name.setFont(Fonts.f2);
+		text_name.setFont(Fonts.f9);
 		text_name.setBorder(new LineBorder(Colors.gray_b));
 		text_name.setForeground(Colors.gray);
 
 		text_phone.setPreferredSize(new Dimension(400,32));
-		text_phone.setFont(Fonts.f2);
+		text_phone.setFont(Fonts.f9);
 		text_phone.setBorder(new LineBorder(Colors.gray_b));
 		text_phone.setForeground(Colors.gray);
 
 		text_age.setPreferredSize(new Dimension(400,32));
-		text_age.setFont(Fonts.f2);
+		text_age.setFont(Fonts.f9);
 		text_age.setBorder(new LineBorder(Colors.gray_b));
 		text_age.setForeground(Colors.gray);
 

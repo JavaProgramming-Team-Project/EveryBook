@@ -31,7 +31,7 @@ public class Head extends JPanel {
 		setBackground(new Color(0x58CCFF));
 
 		logo = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/logo.png")), 200,64));
-		logo.setSize(200,32);
+		logo.setSize(200,35);
 		logo.setLocation(100,20);
 		logo.setFont(Fonts.f1);
 		logo.setForeground(Color.white);

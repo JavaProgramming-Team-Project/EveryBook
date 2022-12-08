@@ -492,7 +492,7 @@ public class BodyItem extends JPanel {
 
 
 			body = new JLabel("<html>" + review_body);
-			body.setSize(450, 38);
+			body.setSize(450, 40);
 			body.setLocation(10,45);
 			body.setFont(Fonts.f6);
 			body.setForeground(Colors.gray);

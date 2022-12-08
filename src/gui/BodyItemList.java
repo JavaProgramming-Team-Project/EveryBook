@@ -242,7 +242,7 @@ public class BodyItemList extends JPanel {
 			address = new JLabel(item_address);
 			address.setSize(190, 20);
 			address.setLocation(200,35);
-			address.setFont(Fonts.f3);
+			address.setFont(Fonts.f6);
 			address.setForeground(Colors.gray);
 
 			star = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/star_" + item_star + ".png")), 125,20));

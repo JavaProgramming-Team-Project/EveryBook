@@ -70,12 +70,12 @@ public class BodyLogin extends JPanel {
 		label1.setForeground(Colors.gray);
 
 		text_id.setPreferredSize(new Dimension(400,32));
-		text_id.setFont(Fonts.f2);
+		text_id.setFont(Fonts.f9);
 		text_id.setBorder(new LineBorder(Colors.gray_b));
 		text_id.setForeground(Colors.gray);
 
 		text_pw.setPreferredSize(new Dimension(400,32));
-		text_pw.setFont(Fonts.f2);
+		text_pw.setFont(Fonts.f9);
 		text_pw.setBorder(new LineBorder(Colors.gray_b));
 		text_pw.setForeground(Colors.gray);
 		text_pw.setEchoChar('●');

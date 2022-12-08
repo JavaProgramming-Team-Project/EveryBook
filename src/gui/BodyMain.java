@@ -95,7 +95,7 @@ public class BodyMain extends JPanel {
             }
 
             name = new JLabel(item_name);
-            name.setPreferredSize(new Dimension(200,20));
+            name.setPreferredSize(new Dimension(190,20));
             name.setFont(Fonts.f3);
             name.setForeground(Colors.gray);
             name.setHorizontalAlignment(JLabel.CENTER);

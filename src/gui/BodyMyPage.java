@@ -182,7 +182,7 @@ public class BodyMyPage extends JPanel {
 		
 		JTextField text_point = new JTextField();
 		text_point.setPreferredSize(new Dimension(300,32));
-		text_point.setFont(Fonts.f5);
+		text_point.setFont(Fonts.f9);
 		text_point.setBorder(new LineBorder(Colors.gray_b));
 		text_point.setForeground(Colors.gray);
 		ChargePanel.add(text_point);

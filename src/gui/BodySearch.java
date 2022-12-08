@@ -41,7 +41,7 @@ public class BodySearch extends JPanel {
     void addSearch() {
 
         text_search.setPreferredSize(new Dimension(400,40));
-        text_search.setFont(Fonts.f2);
+        text_search.setFont(Fonts.f9);
         text_search.setBorder(new LineBorder(Colors.gray_b));
         text_search.setForeground(Colors.gray);
 
