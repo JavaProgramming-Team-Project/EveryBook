@@ -92,24 +92,24 @@ public class BodyMyPage extends JPanel {
 		IconPanel.setBackground(Color.white);
 		add(IconPanel);
 
-		JLabel label_id = new JLabel("아이디　 " + member_id);
-		label_id.setBounds(70,40,250,20);
-		label_id.setFont(Fonts.f5);
+		JLabel label_id = new JLabel("<html><b>아이디</b>　 " + member_id);
+		label_id.setBounds(70,40,250,25);
+		label_id.setFont(Fonts.f9);
 		label_id.setForeground(Colors.gray);
 
-		JLabel label_phone = new JLabel("전화번호 " + member_phone);
+		JLabel label_phone = new JLabel("<html><b>전화번호</b> " + member_phone);
 		label_phone.setBounds(label_id.getX(),label_id.getY()+40,label_id.getWidth(),label_id.getHeight());
-		label_phone.setFont(Fonts.f5);
+		label_phone.setFont(Fonts.f9);
 		label_phone.setForeground(Colors.gray);
 
-		JLabel label_name = new JLabel("이름　 " + member_name);
+		JLabel label_name = new JLabel("<html><b>이름</b> " + member_name);
 		label_name.setBounds(label_id.getX()+250,label_id.getY(),label_id.getWidth(),label_id.getHeight());
-		label_name.setFont(Fonts.f5);
+		label_name.setFont(Fonts.f9);
 		label_name.setForeground(Colors.gray);
 
-		JLabel label_age = new JLabel("나이　 " + member_age + "세");
+		JLabel label_age = new JLabel("<html><b>나이</b> " + member_age + "세");
 		label_age.setBounds(label_name.getX(),label_phone.getY(),label_id.getWidth(),label_id.getHeight());
-		label_age.setFont(Fonts.f5);
+		label_age.setFont(Fonts.f9);
 		label_age.setForeground(Colors.gray);
 
 		IconPanel.add(label_id);
@@ -127,14 +127,14 @@ public class BodyMyPage extends JPanel {
 		icon_point.setBounds(300,140,90,90);
 		IconPanel.add(icon_point);
 
-		JLabel book = new JLabel("<html><center>[ 예약 ]<br>" + bookList.size()+ "개");
+		JLabel book = new JLabel("<html><center>예약<br>" + bookList.size()+ "개");
 		book.setBounds(130,240,90,50);
 		book.setFont(Fonts.f5);
 		book.setForeground(Colors.gray);
 		book.setHorizontalAlignment(JLabel.CENTER);
 		IconPanel.add(book);
 
-		JLabel point = new JLabel("<html><center>[ 포인트 ]<br>" + Tools.pointConvert(member_point));
+		JLabel point = new JLabel("<html><center>포인트<br>" + Tools.pointConvert(member_point));
 		point.setBounds(280,240,130,50);
 		point.setFont(Fonts.f5);
 		point.setForeground(Colors.gray);
