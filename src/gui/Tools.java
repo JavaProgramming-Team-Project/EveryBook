@@ -37,15 +37,16 @@ class Tools {
 
 class Fonts {
 
-	static Font f1 = new Font("G마켓 산스 TTF Medium", Font.PLAIN, 32);
-	static Font f2 = new Font("G마켓 산스 TTF Medium", Font.PLAIN, 20);
-	static Font f3 = new Font("G마켓 산스 TTF Medium", Font.PLAIN, 16);
-	static Font f4 = new Font("G마켓 산스 TTF Bold", Font.PLAIN, 20);
-	static Font f5 = new Font("나눔스퀘어 Bold", Font.PLAIN, 20);
-	static Font f6 = new Font("나눔스퀘어 Regular", Font.PLAIN, 16);
-	static Font f7 = new Font("나눔스퀘어 Regular", Font.PLAIN, 32);
-	static Font f8 = new Font("G마켓 산스 TTF Medium", Font.PLAIN, 24);
-	static Font f9 = new Font("나눔스퀘어 Regular", Font.PLAIN, 20);
+	static Font f1 = new Font("맑은 고딕", Font.PLAIN, 32);
+	static Font f2 = new Font("맑은 고딕", Font.PLAIN, 20);
+	static Font f3 = new Font("맑은 고딕", Font.PLAIN, 16);
+	static Font f4 = new Font("맑은 고딕", Font.BOLD, 20);
+	static Font f5 = new Font("맑은 고딕", Font.BOLD, 20);
+	static Font f6 = new Font("맑은 고딕", Font.PLAIN, 16);
+	static Font f7 = new Font("맑은 고딕", Font.PLAIN, 32);
+	static Font f8 = new Font("맑은 고딕", Font.PLAIN, 24);
+	static Font f9 = new Font("맑은 고딕", Font.PLAIN, 20);
+	static Font f10 = new Font("맑은 고딕", Font.BOLD, 18);
 
 
 }

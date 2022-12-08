@@ -275,12 +275,12 @@ public class BodyItem extends JPanel {
 		add(BookPanel);
 
 		datePicker = new JDatePicker(new UtilDateModel(), dateFormat);
-		datePicker.setBounds(70,20,200,20);
+		datePicker.setBounds(70,20,200,22);
 		datePicker.getModel().setDate(LocalDate.now().getYear(),LocalDate.now().getMonthValue()-1,LocalDate.now().getDayOfMonth());
 		datePicker.getModel().setSelected(true);
 		datePicker.getButton().setVisible(false);
 		datePicker.getFormattedTextField().setBorder(null);
-		datePicker.getFormattedTextField().setFont(Fonts.f5);
+		datePicker.getFormattedTextField().setFont(Fonts.f10);
 		datePicker.getFormattedTextField().setForeground(Colors.gray);
 		datePicker.getFormattedTextField().setBackground(Color.white);
 		datePicker.getFormattedTextField().addMouseListener(new MouseAdapter() {
@@ -317,7 +317,7 @@ public class BodyItem extends JPanel {
 		if(category0) datePicker.setLocation(datePicker.getX(),datePicker.getY()+15);
 
 		JLabel icon1 = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/book.png")), 22,22));
-		icon1.setBounds(datePicker.getX()-30, datePicker.getY(), 22, 22);
+		icon1.setBounds(datePicker.getX()-30, datePicker.getY()+2, 22, 22);
 		BookPanel.add(icon1);
 
 		if(category1) {
@@ -327,7 +327,7 @@ public class BodyItem extends JPanel {
 			optionPicker.getModel().setSelected(true);
 			optionPicker.getButton().setVisible(false);
 			optionPicker.getFormattedTextField().setBorder(null);
-			optionPicker.getFormattedTextField().setFont(Fonts.f5);
+			optionPicker.getFormattedTextField().setFont(Fonts.f10);
 			optionPicker.getFormattedTextField().setForeground(Colors.gray);
 			optionPicker.getFormattedTextField().setBackground(Color.white);
 			optionPicker.getFormattedTextField().addMouseListener(new MouseAdapter() {
@@ -362,7 +362,7 @@ public class BodyItem extends JPanel {
 			BookPanel.add(optionPicker);
 
 			JLabel icon2 = new JLabel(Tools.resizeImage(new ImageIcon(getClass().getClassLoader().getResource("img/book.png")), 22,22));
-			icon2.setBounds(icon1.getX(), optionPicker.getY(), 22, 22);
+			icon2.setBounds(icon1.getX(), optionPicker.getY()+2, 22, 22);
 			BookPanel.add(icon2);
 		}
 
@@ -370,7 +370,7 @@ public class BodyItem extends JPanel {
 			optionCombo = new JComboBox();
 			optionCombo.setBounds(datePicker.getX(),datePicker.getY()+30,datePicker.getWidth()-30,datePicker.getHeight()+5);
 			optionCombo.setBorder(null);
-			optionCombo.setFont(Fonts.f5);
+			optionCombo.setFont(Fonts.f10);
 			optionCombo.setForeground(Colors.gray);
 			for (int i = 0; i <= 12; i++) optionCombo.addItem(String.format("%02d", (i+9)) + "시 00분");
 			BookPanel.add(optionCombo);
