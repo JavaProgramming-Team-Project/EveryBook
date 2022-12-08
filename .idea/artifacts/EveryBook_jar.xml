@@ -4,8 +4,8 @@
     <root id="archive" name="EveryBook.jar">
       <element id="module-output" name="EveryBook" />
       <element id="extracted-dir" path="$PROJECT_DIR$/src/library/jackson-databind-2.13.3.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/src/library/jdatepicker-2.0.3.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/src/library/jackson-core-2.13.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/library/jdatepicker-2.0.3.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/src/library/jackson-annotations-2.13.4.jar" path-in-jar="/" />
     </root>
   </artifact>

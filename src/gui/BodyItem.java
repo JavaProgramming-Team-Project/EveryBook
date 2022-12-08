@@ -207,7 +207,7 @@ public class BodyItem extends JPanel {
 					JOptionPane.showMessageDialog(null, "내용을 입력해 주세요.", "EveryBook", JOptionPane.ERROR_MESSAGE);
 				} else if(!isBooked) {
 					JOptionPane.showMessageDialog(null, "예약 내역이 없습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
-				} else if (JOptionPane.showOptionDialog(null, "리뷰를 작성하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+				} else if (JOptionPane.showOptionDialog(null, "리뷰를 작성하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "예") == 0) {
 					Review review = new Review(0L, member_key, item_key, review_star, text_review.getText(), LocalDate.now().toString());
 					ReviewApi.write(review);
 					body.showItem(item_key);
@@ -263,7 +263,7 @@ public class BodyItem extends JPanel {
 
 	void addBook() {
 		boolean category1 = item.getItemCategory().equals("숙박") || item.getItemCategory().equals("렌트");
-		boolean category2 = item.getItemCategory().equals("레저") || item.getItemCategory().equals("식당");
+		boolean category2 = item.getItemCategory().equals("레저") || item.getItemCategory().equals("식당") || item.getItemCategory().equals("뷰티");
 		boolean category0 = !category1 && !category2;
 
 		JPanel BookPanel = new JPanel();
@@ -275,7 +275,7 @@ public class BodyItem extends JPanel {
 		add(BookPanel);
 
 		datePicker = new JDatePicker(new UtilDateModel(), dateFormat);
-		datePicker.setBounds(70,20,190,20);
+		datePicker.setBounds(70,20,200,20);
 		datePicker.getModel().setDate(LocalDate.now().getYear(),LocalDate.now().getMonthValue()-1,LocalDate.now().getDayOfMonth());
 		datePicker.getModel().setSelected(true);
 		datePicker.getButton().setVisible(false);
@@ -417,7 +417,7 @@ public class BodyItem extends JPanel {
 					datePicker.getModel().setSelected(true);
 					JOptionPane.showMessageDialog(null, "해당 일시에 예약할 수 없습니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
 
-				} else if (JOptionPane.showOptionDialog(null, selectedDate + "\r\n해당 일시에 상품을 예약하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+				} else if (JOptionPane.showOptionDialog(null, selectedDate + "\r\n해당 일시에 상품을 예약하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "예") == 0) {
 					Book book = new Book(0L, LoginMember.getLoginMember().getMemberKey(), item_key,LocalDate.now().toString(),selectedDate, item_price);
 					if(member_point < item_price)
 						JOptionPane.showMessageDialog(null, "포인트가 부족합니다.", "EveryBook", JOptionPane.ERROR_MESSAGE);
@@ -481,7 +481,7 @@ public class BodyItem extends JPanel {
 			if(review.getMemberKey().equals(LoginMember.getLoginMember().getMemberKey())) btn_delete.setVisible(true);
 			btn_delete.addMouseListener(new MouseAdapter() {
 				public void mousePressed(MouseEvent e) {
-					if (JOptionPane.showOptionDialog(null, "리뷰를 삭제하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "아니오") == 0) {
+					if (JOptionPane.showOptionDialog(null, "리뷰를 삭제하겠습니까?", "EveryBook",JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, Tools.btnYesOrNo, "예") == 0) {
 						ReviewApi.deleteReview(review.getReviewKey());
 						JOptionPane.showMessageDialog(null, "리뷰를 삭제했습니다.", "EveryBook", JOptionPane.INFORMATION_MESSAGE);
 						gui_body.showItem(item_key);
